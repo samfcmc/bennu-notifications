@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "title": {
+        "pt-PT": "NotificationsCore",
+        "en-GB": "NotificationsCore"
+      },
+      "description": {
+        "pt-PT": "NotificationsCore",
+        "en-GB": "NotificationsCore"
+      },
+      "accessExpression": "logged",
+      "path": "notifications-core",
+      "functionalities": [
+        {
+          "title": {
+            "pt-PT": "NotificationsCore",
+            "en-GB": "NotificationsCore"
+          },
+          "description": {
+            "pt-PT": "NotificationsCore",
+            "en-GB": "NotificationsCore"
+          },
+          "accessExpression": "logged",
+          "path": "#"
+        }
+      ]
+    }
+  ]
+}
