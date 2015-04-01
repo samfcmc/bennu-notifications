@@ -1,1 +1,29 @@
 package org.fenixedu.notificationscore.domain;
+
+enum org.fenixedu.notificationscore.domain.ProtocolType as ProtocolType;
+
+class Notification {
+	JsonElement payload;
+}
+
+class Protocol {
+	ProtocolType type;
+}
+
+relation UserHasNotifications {
+	Notification playsRole notification {
+		multiplicity *;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole user {
+		multiplicity 1..1;
+	}
+}
+
+relation NotificationsHaveProtocol {
+	Notification playsRole notification {
+		multiplicity *;
+	}
+	Protocol playsRole protocol {
+		multiplicity 1..1;
+	}
+}
