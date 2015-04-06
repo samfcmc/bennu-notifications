@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "title": {
+        "pt-PT": "NotificationsTest",
+        "en-GB": "NotificationsTest"
+      },
+      "description": {
+        "pt-PT": "NotificationsTest",
+        "en-GB": "NotificationsTest"
+      },
+      "accessExpression": "logged",
+      "path": "notifications-test",
+      "functionalities": [
+        {
+          "title": {
+            "pt-PT": "NotificationsTest",
+            "en-GB": "NotificationsTest"
+          },
+          "description": {
+            "pt-PT": "NotificationsTest",
+            "en-GB": "NotificationsTest"
+          },
+          "accessExpression": "logged",
+          "path": "#"
+        }
+      ]
+    }
+  ]
+}

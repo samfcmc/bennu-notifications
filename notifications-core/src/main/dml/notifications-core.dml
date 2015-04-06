@@ -4,26 +4,33 @@ enum org.fenixedu.notificationscore.domain.ProtocolType as ProtocolType;
 
 class Notification {
 	JsonElement payload;
+	DateTime timestamp;
 }
 
-class Protocol {
-	ProtocolType type;
+relation UserHasLastNotification {
+	Notification playsRole lastNotification {
+		multiplicity 0..1;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole userOfLastNotification {
+		multiplicity 1..1;
+	}
 }
 
-relation UserHasNotifications {
+relation NotificationBelongsToUser {
 	Notification playsRole notification {
-		multiplicity *;
+		multiplicity 1..1;
 	}
 	.org.fenixedu.bennu.core.domain.User playsRole user {
 		multiplicity 1..1;
 	}
 }
 
-relation NotificationsHaveProtocol {
-	Notification playsRole notification {
-		multiplicity *;
-	}
-	Protocol playsRole protocol {
+relation NotificationHasPreviousNotification {
+	Notification playsRole notification{
 		multiplicity 1..1;
+	}
+	
+	Notification playsRole previous {
+		multiplicity 0..1;
 	}
 }
