@@ -5,9 +5,9 @@
 
 	<parent>
 		<groupId>org.fenixedu</groupId>
-		<artifactId>bennu-notifications</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath></relativePath>
+		<artifactId>fenix-framework-project</artifactId>
+		<version>2.2.0</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>notifications-test</artifactId>
