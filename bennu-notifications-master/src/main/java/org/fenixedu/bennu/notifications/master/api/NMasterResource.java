@@ -1,4 +1,4 @@
-package org.fenixedu.notificationscore.api;
+package org.fenixedu.bennu.notifications.master.api;
 
 import javax.management.Notification;
 import javax.ws.rs.POST;

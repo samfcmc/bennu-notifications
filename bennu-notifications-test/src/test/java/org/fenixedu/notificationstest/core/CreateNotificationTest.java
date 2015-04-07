@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.NMaster;
-import org.fenixedu.notificationscore.domain.Notification;
-import org.fenixedu.notificationstest.AbstractTest;
+import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.bennu.notifications.test.AbstractTest;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class CreateNotificationTest extends AbstractTest {
     public void createFirst() {
         JsonObject payload = createPayload();
         User user = generateUser();
-        Notification notification = NMaster.createNotification(user, payload);
+        DispatchedNotification notification = NMaster.createNotification(user, payload);
 
         assertEquals("Notification's user should be the same", user, notification.getUser());
         assertEquals("Payload's key1 should have value value1", VALUE_1, payload.get(KEY_1).getAsString());
@@ -58,9 +58,9 @@ public class CreateNotificationTest extends AbstractTest {
     public void testOrder() {
         JsonObject payload = createPayload();
         User user = generateUser();
-        Notification notificationT0 = new Notification(user, payload);
-        Notification notificationT1 = new Notification(user, payload);
-        Notification notificationT2 = new Notification(user, payload);
+        DispatchedNotification notificationT0 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT1 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT2 = new DispatchedNotification(user, payload);
 
         assertEquals("The last notification should be T2", notificationT2, user.getLastNotification());
         assertEquals("The previous of T2 should be T1", notificationT1, user.getLastNotification().getPrevious());
@@ -72,11 +72,12 @@ public class CreateNotificationTest extends AbstractTest {
         JsonObject payload = createPayload();
         User user = generateUser();
 
-        Notification notificationT0 = new Notification(user, payload);
-        Notification notificationT1 = new Notification(user, payload);
-        Notification notificationT3 = new Notification(user, payload, DateTime.now().plusMinutes(MINUTES));
-        Notification notificationT2 = new Notification(user, payload, notificationT3.getTimestamp().minusMinutes(MINUTES / 2));
-        Notification lastNotification = user.getLastNotification();
+        DispatchedNotification notificationT0 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT1 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT3 = new DispatchedNotification(user, payload, DateTime.now().plusMinutes(MINUTES));
+        DispatchedNotification notificationT2 =
+                new DispatchedNotification(user, payload, notificationT3.getTimestamp().minusMinutes(MINUTES / 2));
+        DispatchedNotification lastNotification = user.getLastNotification();
 
         assertEquals("Last notification should be T3", notificationT3, lastNotification);
         assertEquals("Previous of T3 should be T2", notificationT2, lastNotification.getPrevious());
@@ -89,11 +90,12 @@ public class CreateNotificationTest extends AbstractTest {
         JsonObject payload = createPayload();
         User user = generateUser();
 
-        Notification notificationT1 = new Notification(user, payload);
-        Notification notificationT2 = new Notification(user, payload);
-        Notification notificationT3 = new Notification(user, payload);
-        Notification notificationT0 = new Notification(user, payload, notificationT1.getTimestamp().minusMinutes(MINUTES));
-        Notification lastNotification = user.getLastNotification();
+        DispatchedNotification notificationT1 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT2 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT3 = new DispatchedNotification(user, payload);
+        DispatchedNotification notificationT0 =
+                new DispatchedNotification(user, payload, notificationT1.getTimestamp().minusMinutes(MINUTES));
+        DispatchedNotification lastNotification = user.getLastNotification();
 
         assertEquals("Last notification should be T3", notificationT3, lastNotification);
         assertEquals("Previous of T3 should be T2", notificationT2, lastNotification.getPrevious());

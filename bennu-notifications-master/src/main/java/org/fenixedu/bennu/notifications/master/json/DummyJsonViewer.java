@@ -1,9 +1,9 @@
-package org.fenixedu.notificationscore.json;
+package org.fenixedu.bennu.notifications.master.json;
 
 import org.fenixedu.bennu.core.annotation.DefaultJsonAdapter;
 import org.fenixedu.bennu.core.json.JsonBuilder;
 import org.fenixedu.bennu.core.json.JsonViewer;
-import org.fenixedu.notificationscore.api.DummyResource.DummyView;
+import org.fenixedu.bennu.notifications.master.api.DummyResource.DummyView;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

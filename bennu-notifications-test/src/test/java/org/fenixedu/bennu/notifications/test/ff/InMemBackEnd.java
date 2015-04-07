@@ -1,4 +1,4 @@
-package org.fenixedu.notificationstest.ff;
+package org.fenixedu.bennu.notifications.test.ff;
 
 import pt.ist.fenixframework.DomainObject;
 import pt.ist.fenixframework.FenixFramework;

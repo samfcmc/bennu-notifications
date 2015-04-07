@@ -1,4 +1,4 @@
-package org.fenixedu.notificationstest.master;
+package org.fenixedu.bennu.notifications.test.master;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNull;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.NMaster;
-import org.fenixedu.notificationscore.domain.Notification;
-import org.fenixedu.notificationscore.exception.UserDoesNotExistException;
-import org.fenixedu.notificationstest.AbstractTest;
+import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.bennu.notifications.master.exception.UserDoesNotExistException;
+import org.fenixedu.bennu.notifications.test.AbstractTest;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
@@ -24,7 +24,7 @@ public class MasterCreateNotificationTest extends AbstractTest {
     public void successCreateOne() {
         User user = generateUser();
         JsonObject payload = getPayload();
-        Notification notification = NMaster.createNotification(user, payload);
+        DispatchedNotification notification = NMaster.createNotification(user, payload);
 
         assertNotNull("Created notification should not be null", notification);
         assertEquals("The last notification should be the created one", notification, user.getLastNotification());
@@ -35,12 +35,12 @@ public class MasterCreateNotificationTest extends AbstractTest {
     public void successCreateMultiple() {
         User user = generateUser();
         JsonObject payload = getPayload();
-        Notification notificationT0 = NMaster.createNotification(user, payload);
-        Notification notificationT1 = NMaster.createNotification(user, payload);
-        Notification notificationT2 = NMaster.createNotification(user, payload);
-        Notification notificationT3 = NMaster.createNotification(user, payload);
-        Notification lastNotification = user.getLastNotification();
-        Notification previous = lastNotification.getPrevious();
+        DispatchedNotification notificationT0 = NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT1 = NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT2 = NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT3 = NMaster.createNotification(user, payload);
+        DispatchedNotification lastNotification = user.getLastNotification();
+        DispatchedNotification previous = lastNotification.getPrevious();
 
         assertEquals("Last notification should be T3", notificationT3, lastNotification);
         assertEquals("Previous of T3 should be T2", notificationT2, previous);

@@ -1,10 +1,10 @@
-package org.fenixedu.notificationstest;
+package org.fenixedu.bennu.notifications.test;
 
 import java.util.Locale;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.domain.UserProfile;
-import org.fenixedu.notificationstest.ff.FenixFrameworkRunner;
+import org.fenixedu.bennu.notifications.test.ff.FenixFrameworkRunner;
 import org.junit.runner.RunWith;
 
 @RunWith(FenixFrameworkRunner.class)
@@ -13,7 +13,6 @@ public abstract class AbstractTest {
     private static long lastUserId = 0;
     private static final String USERNAME = "user";
     private static final String INEXISTANT_USERNAME = "ghostUser";
-    private static long lastInexistantUsernameId = 0;
 
     /**
      * Creates the user.

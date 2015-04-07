@@ -1,4 +1,4 @@
-package org.fenixedu.notificationstest.ff;
+package org.fenixedu.bennu.notifications.test.ff;
 
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;

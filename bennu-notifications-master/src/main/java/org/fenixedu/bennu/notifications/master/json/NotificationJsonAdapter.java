@@ -1,4 +1,4 @@
-package org.fenixedu.notificationscore.json;
+package org.fenixedu.bennu.notifications.master.json;
 
 import org.fenixedu.bennu.core.annotation.DefaultJsonAdapter;
 import org.fenixedu.bennu.core.json.JsonAdapter;
