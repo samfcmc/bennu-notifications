@@ -25,8 +25,8 @@
     -->
     <modules>
         <module>notifications-core</module>
-        <module>notifications-webapp</module>
         <module>notifications-test</module>
+        <module>notifications-webapp</module>
     </modules>
 
     <repositories>
