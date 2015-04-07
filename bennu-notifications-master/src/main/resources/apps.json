@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "title": {
+        "pt-PT": "NotificationsMaster",
+        "en-GB": "NotificationsMaster"
+      },
+      "description": {
+        "pt-PT": "NotificationsMaster",
+        "en-GB": "NotificationsMaster"
+      },
+      "accessExpression": "logged",
+      "path": "notifications-master",
+      "functionalities": [
+        {
+          "title": {
+            "pt-PT": "NotificationsMaster",
+            "en-GB": "NotificationsMaster"
+          },
+          "description": {
+            "pt-PT": "NotificationsMaster",
+            "en-GB": "NotificationsMaster"
+          },
+          "accessExpression": "logged",
+          "path": "#"
+        }
+      ]
+    }
+  ]
+}

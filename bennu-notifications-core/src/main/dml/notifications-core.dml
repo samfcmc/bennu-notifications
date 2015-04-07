@@ -1,0 +1,34 @@
+package org.fenixedu.notificationscore.domain;
+
+class Notification {
+	JsonElement payload;
+	DateTime timestamp;
+}
+
+relation UserHasLastNotification {
+	Notification playsRole lastNotification {
+		multiplicity 0..1;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole {
+		multiplicity 1..1;
+	}
+}
+
+relation NotificationBelongsToUser {
+	Notification playsRole notification {
+		multiplicity 1..1;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole user {
+		multiplicity 1..1;
+	}
+}
+
+relation NotificationHasPreviousNotification {
+	Notification playsRole {
+		multiplicity 1..1;
+	}
+	
+	Notification playsRole previous {
+		multiplicity 0..1;
+	}
+}

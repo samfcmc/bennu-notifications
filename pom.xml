@@ -13,20 +13,11 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <!--
-
-    <scm>
-        <connection>scm:git:git@github.com:ist-dsi/gears.git</connection>
-        <developerConnection>scm:git:git@github.com:ist-dsi/gears.git</developerConnection>
-        <url>http://ist-dsi.github.io/gears</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    -->
     <modules>
-        <module>notifications-core</module>
-        <module>notifications-test</module>
-        <module>notifications-webapp</module>
+        <module>bennu-notifications-core</module>
+        <module>bennu-notifications-master</module>
+        <module>bennu-notifications-test</module>
+        <module>bennu-notifications-webapp</module>
     </modules>
 
     <repositories>
