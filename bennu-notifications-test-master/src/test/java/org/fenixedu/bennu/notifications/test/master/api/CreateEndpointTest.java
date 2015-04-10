@@ -15,11 +15,6 @@ import com.google.gson.JsonObject;
 
 public class CreateEndpointTest extends AbstractAPITest {
 
-    private static final String KEY_1 = "key1";
-    private static final String KEY_2 = "key2";
-    private static final String VALUE_1 = "value1";
-    private static final String VALUE_2 = "value2";
-
     private static final String ID = "id";
     private static final String USERNAME = "username";
     private static final String PAYLOAD = "payload";
@@ -52,13 +47,6 @@ public class CreateEndpointTest extends AbstractAPITest {
         requestJson.addProperty(USERNAME, username);
         requestJson.add(PAYLOAD, getNotificationPayload());
         invokeCreateNotificationEndpoint(requestJson);
-    }
-
-    private JsonObject getNotificationPayload() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(KEY_1, VALUE_1);
-        jsonObject.addProperty(KEY_2, VALUE_2);
-        return jsonObject;
     }
 
 }

@@ -32,12 +32,19 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @RunWith(FenixFrameworkRunner.class)
 public abstract class AbstractAPITest extends JerseyTest {
 
     private static boolean done = false;
+    private static final String NOTIFICATIONS_ENDPOINT = "bennu-notifications";
+
+    protected static final String KEY_1 = "key1";
+    protected static final String KEY_2 = "key2";
+    protected static final String VALUE_1 = "value1";
+    protected static final String VALUE_2 = "value2";
 
     @Override
     protected void configureClient(ClientConfig config) {
@@ -83,6 +90,10 @@ public abstract class AbstractAPITest extends JerseyTest {
         return new Gson().fromJson(jsonString, JsonObject.class);
     }
 
+    protected JsonArray getJsonArray(String jsonArrayString) {
+        return new Gson().fromJson(jsonArrayString, JsonArray.class);
+    }
+
     protected void assertJsonHasKey(JsonObject jsonObject, String key) {
         Assert.assertTrue("Json object should have key " + key, jsonObject.has(key));
     }
@@ -94,9 +105,20 @@ public abstract class AbstractAPITest extends JerseyTest {
 
     protected JsonObject invokeCreateNotificationEndpoint(JsonObject requestJson) {
         String response =
-                target("bennu-notifications").request().post(Entity.entity(requestJson.toString(), MediaType.APPLICATION_JSON),
+                target(NOTIFICATIONS_ENDPOINT).request().post(Entity.entity(requestJson.toString(), MediaType.APPLICATION_JSON),
                         String.class);
         return getJson(response);
     }
 
+    protected JsonArray invokeGetLastNotificationsEndpoint(String lastId) {
+        String response = target(NOTIFICATIONS_ENDPOINT).queryParam("last", lastId).request().get(String.class);
+        return getJsonArray(response);
+    }
+
+    protected JsonObject getNotificationPayload() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty(KEY_1, VALUE_1);
+        jsonObject.addProperty(KEY_2, VALUE_2);
+        return jsonObject;
+    }
 }

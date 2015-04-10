@@ -1,5 +1,8 @@
 package org.fenixedu.bennu.notifications.master.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.fenixedu.bennu.core.domain.User;
 import org.joda.time.DateTime;
 
@@ -52,6 +55,17 @@ public class DispatchedNotification extends DispatchedNotification_Base {
 
     public boolean hasPrevious() {
         return getPrevious() != null;
+    }
+
+    public Set<DispatchedNotification> getLast() {
+        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
+        DispatchedNotification notification = this;
+        while (notification.hasPrevious()) {
+            notifications.add(notification.getPrevious());
+            notification = notification.getPrevious();
+        }
+
+        return notifications;
     }
 
 }
