@@ -1,9 +1,10 @@
 package org.fenixedu.bennu.notifications.master.api;
 
-import javax.management.Notification;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+
+import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 
 import com.google.gson.JsonObject;
 
@@ -18,6 +19,6 @@ public class NMasterResource extends AbstractNotificationsResource {
 
     @POST
     public Response createNotification(JsonObject payload) {
-        return ok(view(create(payload, Notification.class)));
+        return ok(view(create(payload, DispatchedNotification.class)));
     }
 }

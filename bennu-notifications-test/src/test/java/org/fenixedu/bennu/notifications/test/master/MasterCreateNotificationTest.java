@@ -1,5 +1,8 @@
 package org.fenixedu.bennu.notifications.test.master;
 
+import static org.fenixedu.bennu.notifications.test.utils.TestUtils.findUser;
+import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
+import static org.fenixedu.bennu.notifications.test.utils.TestUtils.getInexistantUsername;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

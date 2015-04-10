@@ -1,9 +1,9 @@
-package org.fenixedu.notificationstest.core;
+package org.fenixedu.bennu.notifications.test.master.domain;
 
+import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
 import static org.junit.Assert.assertEquals;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.NMaster;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.AbstractTest;
 import org.joda.time.DateTime;
@@ -43,7 +43,7 @@ public class CreateNotificationTest extends AbstractTest {
     public void createFirst() {
         JsonObject payload = createPayload();
         User user = generateUser();
-        DispatchedNotification notification = NMaster.createNotification(user, payload);
+        DispatchedNotification notification = new DispatchedNotification(user, payload);
 
         assertEquals("Notification's user should be the same", user, notification.getUser());
         assertEquals("Payload's key1 should have value value1", VALUE_1, payload.get(KEY_1).getAsString());
