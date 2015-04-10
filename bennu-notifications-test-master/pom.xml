@@ -10,11 +10,11 @@
 		<relativePath />
 	</parent>
 
-	<artifactId>bennu-notifications-test</artifactId>
+	<artifactId>bennu-notifications-test-master</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Notifications Test</name>
+	<name>Bennu Notifications Test Master</name>
 
 	<properties>
 		<fenix.framework.backend>jvstm-common</fenix.framework.backend>
@@ -73,17 +73,12 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
 			<artifactId>bennu-notifications-master</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-notifications-client</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -101,6 +96,7 @@
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-inmemory</artifactId>
 			<version>2.10.1</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
