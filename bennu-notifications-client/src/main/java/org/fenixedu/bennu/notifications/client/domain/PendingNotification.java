@@ -18,6 +18,7 @@ public class PendingNotification extends PendingNotification_Base {
 
     protected void init(User user, JsonElement payload, DateTime timestamp) {
         addUser(user);
+        setNotificationsSystem(NotificationsSystem.getInstance());
         super.init(payload, timestamp);
     }
 
