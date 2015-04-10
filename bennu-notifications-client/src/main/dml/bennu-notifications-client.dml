@@ -1,0 +1,30 @@
+package org.fenixedu.bennu.notifications.client.domain;
+
+class PendingNotification extends .org.fenixedu.notificationscore.domain.Notification {
+}
+
+class NotificationsClientApp {
+}
+
+relation UsersHavePendingNotifications {
+	PendingNotification playsRole pendingNotification {
+		multiplicity *;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole user {
+		multiplicity *;
+	}
+}
+
+relation BennuRepositories {
+    .org.fenixedu.bennu.core.domain.Bennu playsRole root;
+    NotificationsClientApp playsRole clientApp;
+}
+
+relation NotificationsClientApp {
+	NotificationsClientApp playsRole clientApp {
+		multiplicity 1..1;
+	}
+	PendingNotification playsRole pendingNotification {
+		multiplicity *;
+	}
+}

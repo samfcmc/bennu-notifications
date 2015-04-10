@@ -16,6 +16,7 @@
     <modules>
         <module>bennu-notifications-core</module>
         <module>bennu-notifications-master</module>
+        <module>bennu-notifications-client</module>
         <module>bennu-notifications-test</module>
         <module>bennu-notifications-webapp</module>
     </modules>
