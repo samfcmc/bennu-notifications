@@ -7,7 +7,7 @@
         <groupId>org.fenixedu</groupId>
         <artifactId>web-app-project</artifactId>
         <version>2.2.0</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <artifactId>bennu-notifications-webapp</artifactId>
@@ -96,7 +96,7 @@
         </dependency>
         <dependency>
             <groupId>org.fenixedu</groupId>
-            <artifactId>bennu-notifications-master</artifactId>
+            <artifactId>bennu-notifications-client</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

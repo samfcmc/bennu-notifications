@@ -5,9 +5,8 @@
 
 	<parent>
 		<groupId>org.fenixedu</groupId>
-		<artifactId>fenix-framework-project</artifactId>
-		<version>2.2.0</version>
-		<relativePath />
+		<artifactId>bennu-notifications</artifactId>
+		<version>1.0</version>
 	</parent>
 
 	<artifactId>bennu-notifications-test-master</artifactId>
@@ -101,16 +100,4 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>fenixedu-maven-repository</id>
-			<url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>fenix-ashes-maven-repository</id>
-			<url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-maven-repository</url>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

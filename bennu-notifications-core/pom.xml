@@ -5,9 +5,8 @@
 
 	<parent>
 		<groupId>org.fenixedu</groupId>
-		<artifactId>fenix-framework-project</artifactId>
-		<version>2.2.0</version>
-		<relativePath />
+		<artifactId>bennu-notifications</artifactId>
+		<version>1.0</version>
 	</parent>
 
 	<artifactId>bennu-notifications-core</artifactId>
@@ -16,35 +15,4 @@
 
 	<name>Bennu Notifications Core</name>
 
-	<properties>
-		<version.org.fenixedu.bennu>3.4.1</version.org.fenixedu.bennu>
-	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-core</artifactId>
-			<version>${version.org.fenixedu.bennu}</version>
-		</dependency>
-	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>fenixedu-maven-repository</id>
-			<url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
-		</repository>
-	</repositories>
 </project>
