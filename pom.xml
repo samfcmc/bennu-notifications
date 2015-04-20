@@ -20,7 +20,6 @@
         <module>bennu-notifications-client</module>
         <module>bennu-notifications-test-client</module>
         <module>bennu-notifications-test-master</module>
-        <module>bennu-notifications-webapp</module>
     </modules>
 
     <properties>
