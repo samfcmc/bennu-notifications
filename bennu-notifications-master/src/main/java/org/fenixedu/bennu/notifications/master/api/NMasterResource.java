@@ -25,8 +25,16 @@ public class NMasterResource extends AbstractNotificationsResource {
     }
 
     @GET
-    public Response getNotifications(@QueryParam("last") String lastId) {
-        DispatchedNotification notification = readDomainObject(lastId);
-        return ok(view(notification.getLast()));
+    public Response getNotifications(@QueryParam("last") String lastId, @QueryParam("before") String beforeId,
+            @QueryParam("page") int page) {
+        if (lastId != null) {
+            DispatchedNotification notification = readDomainObject(lastId);
+            return ok(view(notification.getLast()));
+        } else if (beforeId != null) {
+            DispatchedNotification notification = readDomainObject(beforeId);
+            return ok(view(notification.getBefore()));
+        } else {
+            return serverError();
+        }
     }
 }

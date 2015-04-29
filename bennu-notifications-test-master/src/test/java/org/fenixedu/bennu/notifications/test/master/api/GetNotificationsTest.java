@@ -12,18 +12,37 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class GetLastNotificationsTest extends AbstractAPITest {
+public class GetNotificationsTest extends AbstractAPITest {
 
     private static final String ID = "id";
 
     @Test
-    public void success() {
+    public void successLastNotifications() {
+        User user = generateUser();
+        JsonElement payload = getNotificationPayload();
+        DispatchedNotification last = new DispatchedNotification(user, payload);
+        new DispatchedNotification(user, payload);
+        new DispatchedNotification(user, payload);
+        JsonArray responseJson = invokeGetLastNotificationsEndpoint(last.getExternalId());
+
+        assertEquals("Result should have 2 elements", 2, responseJson.size());
+
+        // Last should not be in result
+        for (JsonElement jsonElement : responseJson) {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            String id = jsonObject.get(ID).getAsString();
+            assertNotEquals("last notification should not be included in the result", id, last.getExternalId());
+        }
+    }
+
+    @Test
+    public void successBeforeNotifications() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         DispatchedNotification notification3 = new DispatchedNotification(user, payload);
-        JsonArray responseJson = invokeGetLastNotificationsEndpoint(notification3.getExternalId());
+        JsonArray responseJson = invokeGetNotificationsBeforeEndpoint(notification3.getExternalId());
 
         assertEquals("Result should have 2 elements", 2, responseJson.size());
 
@@ -31,18 +50,18 @@ public class GetLastNotificationsTest extends AbstractAPITest {
         for (JsonElement jsonElement : responseJson) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String id = jsonObject.get(ID).getAsString();
-            assertNotEquals("Notification3 should not be included in the result", id, notification3.getExternalId());
+            assertNotEquals("notification3 should not be included in the result", id, notification3.getExternalId());
         }
     }
 
     @Test
-    public void noLastNotification() {
+    public void noNotificationsAfterLast() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
-        DispatchedNotification notification = new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
-        JsonArray responseJson = invokeGetLastNotificationsEndpoint(notification.getExternalId());
+        DispatchedNotification last = new DispatchedNotification(user, payload);
+        JsonArray responseJson = invokeGetLastNotificationsEndpoint(last.getExternalId());
 
         assertEquals("Result shoulb be empty", 0, responseJson.size());
     }
@@ -55,6 +74,14 @@ public class GetLastNotificationsTest extends AbstractAPITest {
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         invokeGetLastNotificationsEndpoint("fake");
+    }
+
+    @Test(expected = Exception.class)
+    public void noQueryParamsProvided() {
+        User user = generateUser();
+        JsonElement payload = getNotificationPayload();
+        new DispatchedNotification(user, payload);
+        invokeGetLastNotificationsEndpoint();
     }
 
 }

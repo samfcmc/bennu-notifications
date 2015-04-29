@@ -19,4 +19,8 @@ public class AbstractNotificationsResource extends BennuRestResource {
         return create(payload.toString(), clazz);
     }
 
+    protected Response serverError() {
+        return Response.serverError().build();
+    }
+
 }

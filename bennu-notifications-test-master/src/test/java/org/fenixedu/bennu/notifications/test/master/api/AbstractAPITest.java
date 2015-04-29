@@ -1,6 +1,7 @@
 package org.fenixedu.bennu.notifications.test.master.api;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
@@ -111,8 +112,25 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     protected JsonArray invokeGetLastNotificationsEndpoint(String lastId) {
-        String response = target(NOTIFICATIONS_ENDPOINT).queryParam("last", lastId).request().get(String.class);
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("last", lastId);
+        String response = invokeGet(target);
         return getJsonArray(response);
+    }
+
+    protected JsonArray invokeGetLastNotificationsEndpoint() {
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT);
+        String response = invokeGet(target);
+        return getJsonArray(response);
+    }
+
+    protected JsonArray invokeGetNotificationsBeforeEndpoint(String beforeId) {
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("before", beforeId);
+        String response = invokeGet(target);
+        return getJsonArray(response);
+    }
+
+    private String invokeGet(WebTarget webTarget) {
+        return webTarget.request().get(String.class);
     }
 
     protected JsonObject getNotificationPayload() {

@@ -13,7 +13,7 @@ relation UserHasLastNotification {
 }
 
 relation NotificationBelongsToUser {
-	DispatchedNotification playsRole notification {
+	DispatchedNotification playsRole {
 		multiplicity 1..1;
 	}
 	.org.fenixedu.bennu.core.domain.User playsRole user {

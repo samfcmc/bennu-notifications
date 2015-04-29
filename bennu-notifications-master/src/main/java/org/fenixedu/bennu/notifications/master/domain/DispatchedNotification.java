@@ -57,12 +57,29 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         return getPrevious() != null;
     }
 
-    public Set<DispatchedNotification> getLast() {
+    public Set<DispatchedNotification> getBefore() {
         Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
         DispatchedNotification notification = this;
         while (notification.hasPrevious()) {
             notifications.add(notification.getPrevious());
             notification = notification.getPrevious();
+        }
+
+        return notifications;
+    }
+
+    public Set<DispatchedNotification> getLast() {
+        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
+        DispatchedNotification notification = getUser().getLastNotification();
+        if (notification.hasPrevious()) {
+            while (notification != null) {
+                if (notification.equals(this)) {
+                    break;
+                } else {
+                    notifications.add(notification);
+                    notification = notification.getPrevious();
+                }
+            }
         }
 
         return notifications;
