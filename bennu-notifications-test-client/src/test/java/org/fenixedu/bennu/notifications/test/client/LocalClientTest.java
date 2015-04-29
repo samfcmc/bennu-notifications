@@ -10,7 +10,6 @@ import java.util.Set;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.client.LocalNotificationsClient;
 import org.fenixedu.bennu.notifications.client.domain.PendingNotification;
-import org.fenixedu.bennu.notifications.client.exception.NoUserProvidedException;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.AbstractTest;
 import org.junit.Test;
@@ -73,9 +72,36 @@ public class LocalClientTest extends AbstractTest {
         assertEquals("Key 2 of payload should be the same", payloadJson.get(KEY_2).getAsString(), VALUE_2);
     }
 
-    @Test(expected = NoUserProvidedException.class)
-    public void nullUser() {
+    @Test
+    public void successMultipleUsers() {
+        User user1 = generateUser();
+        User user2 = generateUser();
         JsonElement payload = getPayload();
-        LocalNotificationsClient.getInstance().postNotification(null, payload);
+        LocalNotificationsClient client = LocalNotificationsClient.getInstance();
+        client.postNotification(user1, payload);
+        client.postNotification(user2, payload);
+
+        Set<PendingNotification> pendingNotificationsUser1 = user1.getPendingNotificationSet();
+        Set<PendingNotification> pendingNotificationsUser2 = user2.getPendingNotificationSet();
+        DispatchedNotification dispatchedNotificationUser1 = user1.getLastNotification();
+        DispatchedNotification dispatchedNotificationUser2 = user2.getLastNotification();
+
+        assertEquals("User 1 should not have any pending notifications", pendingNotificationsUser1.size(), 0);
+        assertEquals("User 2 should not have any pending notifications", pendingNotificationsUser2.size(), 0);
+        assertNotNull("Dispatched notification of user 1 should not be null", dispatchedNotificationUser1);
+        assertNotNull("Dispatched notification of user 2 should not be null", dispatchedNotificationUser2);
+        assertNull("Previous of dispatched notification of user 1 should be null", dispatchedNotificationUser1.getPrevious());
+        assertNull("Previous of dispatched notification of user 2 should be null", dispatchedNotificationUser2.getPrevious());
+
+        assertEquals("User of dispatched notification 1 should be the same as user 1", user1,
+                dispatchedNotificationUser1.getUser());
+        assertEquals("User of dispatched notification 1 should be the same as user 2", user2,
+                dispatchedNotificationUser2.getUser());
+        JsonObject payloadJson = dispatchedNotificationUser1.getPayload().getAsJsonObject();
+        assertEquals("Key 1 of payload should be the same", payloadJson.get(KEY_1).getAsString(), VALUE_1);
+        assertEquals("Key 2 of payload should be the same", payloadJson.get(KEY_2).getAsString(), VALUE_2);
+        payloadJson = dispatchedNotificationUser2.getPayload().getAsJsonObject();
+        assertEquals("Key 1 of payload should be the same", payloadJson.get(KEY_1).getAsString(), VALUE_1);
+        assertEquals("Key 2 of payload should be the same", payloadJson.get(KEY_2).getAsString(), VALUE_2);
     }
 }

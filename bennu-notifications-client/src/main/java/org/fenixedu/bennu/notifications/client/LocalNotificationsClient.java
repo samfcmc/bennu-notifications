@@ -1,7 +1,8 @@
 package org.fenixedu.bennu.notifications.client;
 
+import java.util.Set;
+
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.client.exception.NoUserProvidedException;
 import org.fenixedu.bennu.notifications.master.NMaster;
 
 import com.google.gson.JsonElement;
@@ -27,10 +28,13 @@ public class LocalNotificationsClient implements NotificationsClient {
 
     @Override
     public void postNotification(User user, JsonElement payload) {
-        if (user == null) {
-            throw new NoUserProvidedException();
-        }
         NMaster.createNotification(user, payload);
+    }
+
+    @Override
+    public void postNotification(Set<User> users, JsonElement payload) {
+        NMaster.createNotification(users, payload);
+
     }
 
 }
