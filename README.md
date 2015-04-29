@@ -48,3 +48,6 @@ http://localhost:8000 and go through the entire bootstrap process.
 Now you can invoke the REST API endpoints.
 
 TODO: Describe all endpoints here:
+
+## Usage
+TODO: Explain how to use with a code snippet
