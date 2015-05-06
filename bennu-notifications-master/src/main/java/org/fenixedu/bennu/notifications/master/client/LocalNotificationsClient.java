@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.client;
+package org.fenixedu.bennu.notifications.master.client;
 
 import java.util.Set;
 

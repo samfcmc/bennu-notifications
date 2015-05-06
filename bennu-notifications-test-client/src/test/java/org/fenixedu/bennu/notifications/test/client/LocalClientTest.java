@@ -4,14 +4,18 @@ import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.client.LocalNotificationsClient;
+import org.fenixedu.bennu.notifications.client.ClientType;
+import org.fenixedu.bennu.notifications.client.NotificationsClientFactory;
 import org.fenixedu.bennu.notifications.client.domain.PendingNotification;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.AbstractTest;
+import org.fenixedu.notificationscore.client.NotificationsClient;
 import org.junit.Test;
 
 import com.google.gson.JsonElement;
@@ -35,7 +39,8 @@ public class LocalClientTest extends AbstractTest {
     public void success() {
         User user = generateUser();
         JsonElement payload = getPayload();
-        LocalNotificationsClient.getInstance().postNotification(user, payload);
+        NotificationsClient client = NotificationsClientFactory.getClient();
+        client.postNotification(user, payload);
         Set<PendingNotification> pendingNotifications = user.getPendingNotificationSet();
         DispatchedNotification dispatchedNotification = user.getLastNotification();
 
@@ -52,7 +57,7 @@ public class LocalClientTest extends AbstractTest {
     public void successPostMultipleNotifications() {
         User user = generateUser();
         JsonElement payload = getPayload();
-        LocalNotificationsClient client = LocalNotificationsClient.getInstance();
+        NotificationsClient client = NotificationsClientFactory.getClient();
         client.postNotification(user, payload);
         client.postNotification(user, payload);
         Set<PendingNotification> pendingNotifications = user.getPendingNotificationSet();
@@ -77,7 +82,7 @@ public class LocalClientTest extends AbstractTest {
         User user1 = generateUser();
         User user2 = generateUser();
         JsonElement payload = getPayload();
-        LocalNotificationsClient client = LocalNotificationsClient.getInstance();
+        NotificationsClient client = NotificationsClientFactory.getClient();
         client.postNotification(user1, payload);
         client.postNotification(user2, payload);
 
@@ -103,5 +108,14 @@ public class LocalClientTest extends AbstractTest {
         payloadJson = dispatchedNotificationUser2.getPayload().getAsJsonObject();
         assertEquals("Key 1 of payload should be the same", payloadJson.get(KEY_1).getAsString(), VALUE_1);
         assertEquals("Key 2 of payload should be the same", payloadJson.get(KEY_2).getAsString(), VALUE_2);
+    }
+
+    @Test
+    public void allAvailableClientTypes() {
+        List<ClientType> types = NotificationsClientFactory.getAvailableClientTypes();
+
+        assertEquals("All types should be available", types.size(), ClientType.values().length);
+        assertTrue("Local client should be available", types.contains(ClientType.LOCAL));
+        assertTrue("Remote client should be available", types.contains(ClientType.REMOTE));
     }
 }
