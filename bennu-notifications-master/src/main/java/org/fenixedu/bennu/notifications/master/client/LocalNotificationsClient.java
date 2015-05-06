@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.NMaster;
+import org.fenixedu.notificationscore.client.ClientCallback;
 import org.fenixedu.notificationscore.client.NotificationsClient;
 
 import com.google.gson.JsonElement;
@@ -36,6 +37,18 @@ public class LocalNotificationsClient implements NotificationsClient {
     public void postNotification(Set<User> users, JsonElement payload) {
         NMaster.createNotification(users, payload);
 
+    }
+
+    @Override
+    public void postNotificationAsync(User user, JsonElement payload, ClientCallback callback) {
+        NMaster.createNotification(user, payload);
+        callback.success();
+    }
+
+    @Override
+    public void postNotificationAsync(Set<User> users, JsonElement payload, ClientCallback callback) {
+        NMaster.createNotification(users, payload);
+        callback.success();
     }
 
 }

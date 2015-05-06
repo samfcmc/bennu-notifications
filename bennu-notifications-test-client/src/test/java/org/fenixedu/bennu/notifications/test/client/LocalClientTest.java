@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.client.ClientType;
 import org.fenixedu.bennu.notifications.client.NotificationsClientFactory;
 import org.fenixedu.bennu.notifications.client.domain.PendingNotification;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.AbstractTest;
+import org.fenixedu.notificationscore.client.ClientType;
 import org.fenixedu.notificationscore.client.NotificationsClient;
 import org.junit.Test;
 

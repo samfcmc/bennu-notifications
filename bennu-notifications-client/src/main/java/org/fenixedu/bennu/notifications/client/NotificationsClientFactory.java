@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fenixedu.notificationscore.client.ClientType;
 import org.fenixedu.notificationscore.client.NotificationsClient;
 
 public class NotificationsClientFactory {
