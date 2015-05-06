@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.NMaster;
+import org.fenixedu.notificationscore.client.NotificationsClient;
 
 import com.google.gson.JsonElement;
 

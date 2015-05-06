@@ -27,7 +27,8 @@ public class MasterCreateNotificationTest extends AbstractTest {
     public void successCreateOne() {
         User user = generateUser();
         JsonObject payload = getPayload();
-        DispatchedNotification notification = NMaster.createNotification(user, payload);
+        NMaster.createNotification(user, payload);
+        DispatchedNotification notification = user.getLastNotification();
 
         assertNotNull("Created notification should not be null", notification);
         assertEquals("The last notification should be the created one", notification, user.getLastNotification());
@@ -38,10 +39,14 @@ public class MasterCreateNotificationTest extends AbstractTest {
     public void successCreateMultiple() {
         User user = generateUser();
         JsonObject payload = getPayload();
-        DispatchedNotification notificationT0 = NMaster.createNotification(user, payload);
-        DispatchedNotification notificationT1 = NMaster.createNotification(user, payload);
-        DispatchedNotification notificationT2 = NMaster.createNotification(user, payload);
-        DispatchedNotification notificationT3 = NMaster.createNotification(user, payload);
+        NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT0 = user.getLastNotification();
+        NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT1 = user.getLastNotification();
+        NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT2 = user.getLastNotification();
+        NMaster.createNotification(user, payload);
+        DispatchedNotification notificationT3 = user.getLastNotification();
         DispatchedNotification lastNotification = user.getLastNotification();
         DispatchedNotification previous = lastNotification.getPrevious();
 
