@@ -54,9 +54,9 @@ public class NotificationsClientFactory {
         if (instance == null) {
             /* TODO: Get the right client based on configuration (file or admin interface)
              * if the configuration says that the client is remote and which url to use, 
-             * instatiate the remote one.
+             * instantiate the remote one.
              * if the configuration says that the client is local and we have the dependency of master module, 
-             * instatiate the local client
+             * instantiate the local client
              */
             instance = getLocalClient();
         }
