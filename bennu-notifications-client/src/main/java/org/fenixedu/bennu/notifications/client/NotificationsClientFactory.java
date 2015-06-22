@@ -1,7 +1,5 @@
 package org.fenixedu.bennu.notifications.client;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import org.fenixedu.notificationscore.client.NotificationsClient;
 public class NotificationsClientFactory {
 
     private static final String LOCAL_CLIENT_CLASS = "org.fenixedu.bennu.notifications.master.client.LocalNotificationsClient";
-    private static final String GET_INSTANCE = "getInstance";
 
     private static NotificationsClient instance;
 
@@ -25,18 +22,18 @@ public class NotificationsClientFactory {
     }
 
     private static NotificationsClient getLocalClient() {
+        Class<? extends NotificationsClient> clazz;
         try {
-            Class<?> clazz = Class.forName(LOCAL_CLIENT_CLASS);
-            Method getInstanceMethod = clazz.getMethod(GET_INSTANCE);
-            return (NotificationsClient) getInstanceMethod.invoke(null);
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+            clazz = Class.forName(LOCAL_CLIENT_CLASS).asSubclass(NotificationsClient.class);
+            return clazz.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             return null;
         }
+
     }
 
     private static NotificationsClient getRemoteClient() {
-        return RemoteNotificationsClient.getInstance();
+        return new RemoteNotificationsClient(new RemoteClientConfig());
     }
 
     public static boolean isLocalClientAvailable() {
@@ -55,10 +52,13 @@ public class NotificationsClientFactory {
 
     public static NotificationsClient getClient() {
         if (instance == null) {
+            /* TODO: Get the right client based on configuration (file or admin interface)
+             * if the configuration says that the client is remote and which url to use, 
+             * instatiate the remote one.
+             * if the configuration says that the client is local and we have the dependency of master module, 
+             * instatiate the local client
+             */
             instance = getLocalClient();
-            if (instance == null) {
-                instance = getRemoteClient();
-            }
         }
         return instance;
     }

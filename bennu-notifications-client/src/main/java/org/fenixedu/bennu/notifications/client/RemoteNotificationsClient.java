@@ -20,19 +20,11 @@ public class RemoteNotificationsClient implements NotificationsClient {
 
     private static final String USERNAMES = "usernames";
     private static final String PAYLOAD = "payload";
-    private static RemoteNotificationsClient instance;
     private RemoteClientConfig config;
     private static final String NOTIFICATIONS_ENDPOINT = "bennu-notifications";
 
-    private RemoteNotificationsClient() {
-        this.config = RemoteClientConfig.getInstance();
-    }
-
-    public static RemoteNotificationsClient getInstance() {
-        if (instance == null) {
-            instance = new RemoteNotificationsClient();
-        }
-        return instance;
+    public RemoteNotificationsClient(RemoteClientConfig config) {
+        this.config = config;
     }
 
     private JsonArray getUsernamesJsonArray(User... users) {
@@ -52,7 +44,7 @@ public class RemoteNotificationsClient implements NotificationsClient {
     }
 
     private String getEndpointUrl(String endpoint) {
-        return this.config.getUrl() + endpoint;
+        return this.config.getEndpointUrl(endpoint);
     }
 
     private void invokePost(String endpoint, String body) throws NotificationsClientException {

@@ -16,16 +16,7 @@ import com.google.gson.JsonElement;
  */
 public class LocalNotificationsClient implements NotificationsClient {
 
-    private static LocalNotificationsClient instance;
-
-    public static LocalNotificationsClient getInstance() {
-        if (instance == null) {
-            instance = new LocalNotificationsClient();
-        }
-        return instance;
-    }
-
-    private LocalNotificationsClient() {
+    public LocalNotificationsClient() {
     }
 
     @Override
