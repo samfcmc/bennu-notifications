@@ -1,0 +1,30 @@
+{
+  "apps": [
+    {
+      "title": {
+        "pt-PT": "BennuNotificationsFrontend",
+        "en-GB": "BennuNotificationsFrontend"
+      },
+      "description": {
+        "pt-PT": "BennuNotificationsFrontend",
+        "en-GB": "BennuNotificationsFrontend"
+      },
+      "accessExpression": "logged",
+      "path": "bennu-notifications-frontend",
+      "functionalities": [
+        {
+          "title": {
+            "pt-PT": "BennuNotificationsFrontend",
+            "en-GB": "BennuNotificationsFrontend"
+          },
+          "description": {
+            "pt-PT": "BennuNotificationsFrontend",
+            "en-GB": "BennuNotificationsFrontend"
+          },
+          "accessExpression": "logged",
+          "path": "#"
+        }
+      ]
+    }
+  ]
+}

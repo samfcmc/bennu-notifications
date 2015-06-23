@@ -20,6 +20,7 @@
         <version.ch.qos.logback.logback.classic>1.1.2</version.ch.qos.logback.logback.classic>
         <version.org.fenixedu.ashes.theme>1.1.1</version.org.fenixedu.ashes.theme>
         <version.org.fenixedu.bennu>3.4.1</version.org.fenixedu.bennu>
+        <frontend.location>../bennu-notifications-frontend</frontend.location>
     </properties>
 
     <build>
@@ -31,7 +32,7 @@
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
-                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warSourceDirectory>${frontend.location}/src/main/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -80,25 +81,21 @@
             <version>${version.org.fenixedu.bennu}</version>
         </dependency>
         <dependency>
-            <groupId>org.fenixedu</groupId>
-            <artifactId>default-theme</artifactId>
-            <version>${version.org.fenixedu.bennu}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fenixedu</groupId>
-            <artifactId>ashes-theme</artifactId>
-            <version>${version.org.fenixedu.ashes.theme}</version>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
             <version>2.9</version>
         </dependency>
         <dependency>
-            <groupId>org.fenixedu</groupId>
-            <artifactId>bennu-notifications-master</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+			<groupId>org.fenixedu</groupId>
+			<artifactId>bennu-notifications-frontend</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fenixedu</groupId>
+			<artifactId>default-theme</artifactId>
+			<version>${version.org.fenixedu.bennu}</version>
+		</dependency>
+
     </dependencies>
 
     <repositories>
