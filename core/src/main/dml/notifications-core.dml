@@ -1,0 +1,7 @@
+package org.fenixedu.notifications.core.domain;
+
+class Notification {
+	JsonElement payload;
+	DateTime timestamp;
+}
+

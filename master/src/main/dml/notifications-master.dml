@@ -1,0 +1,32 @@
+package org.fenixedu.bennu.notifications.master.domain;
+
+class DispatchedNotification extends .org.fenixedu.notifications.core.domain.Notification {
+}
+
+relation UserHasLastNotification {
+	DispatchedNotification playsRole lastNotification {
+		multiplicity 0..1;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole {
+		multiplicity 1..1;
+	}
+}
+
+relation NotificationBelongsToUser {
+	DispatchedNotification playsRole {
+		multiplicity 1..1;
+	}
+	.org.fenixedu.bennu.core.domain.User playsRole user {
+		multiplicity 1..1;
+	}
+}
+
+relation NotificationHasPreviousNotification {
+	DispatchedNotification playsRole {
+		multiplicity 1..1;
+	}
+	
+	DispatchedNotification playsRole previous {
+		multiplicity 0..1;
+	}
+}

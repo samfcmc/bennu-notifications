@@ -14,13 +14,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bennu-notifications-core</module>
-        <module>bennu-notifications-master</module>
-        <module>bennu-notifications-client</module>
-        <module>bennu-notifications-frontend</module>
-        <module>bennu-notifications-test-client</module>
-        <module>bennu-notifications-test-master</module>
-        <module>bennu-notifications-webapp</module>
+        <module>core</module>
+        <module>master</module>
+        <module>client</module>
+        <module>frontend</module>
+        <module>test-client</module>
+        <module>test-master</module>
+        <module>webapp</module>
     </modules>
 
     <properties>
