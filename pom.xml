@@ -15,7 +15,7 @@
 
     <modules>
         <module>core</module>
-        <module>master</module>
+        <module>backend</module>
         <module>client</module>
         <module>frontend</module>
         <module>test-client</module>

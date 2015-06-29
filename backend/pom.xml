@@ -9,10 +9,10 @@
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>bennu-notifications-master</artifactId>
+	<artifactId>bennu-notifications-backend</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Bennu Notifications Master</name>
+	<name>Bennu Notifications Backend</name>
 
 	<dependencies>
 		<dependency>

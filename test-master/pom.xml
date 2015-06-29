@@ -12,7 +12,7 @@
 	<artifactId>bennu-notifications-test-master</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Bennu Notifications Test Master</name>
+	<name>Bennu Notifications Test Backend</name>
 
 	<properties>
 		<fenix.framework.backend>jvstm-common</fenix.framework.backend>
@@ -72,7 +72,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-notifications-master</artifactId>
+			<artifactId>bennu-notifications-backend</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
