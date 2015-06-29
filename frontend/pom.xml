@@ -52,7 +52,44 @@
 						</execution>
 					</executions>
     		</plugin>
-			</plugins>
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>**/scripts/**</exclude>
+								<exclude>**/bower_components/**</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/bower_components</directory>
+						</fileset>
+						<fileset>
+							<directory>node</directory>
+						</fileset>
+						<fileset>
+							<directory>node_modules</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencies>
