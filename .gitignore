@@ -8,3 +8,6 @@ fenix-framework.properties
 .classpath
 .project
 .settings
+node/
+node_modules/
+
