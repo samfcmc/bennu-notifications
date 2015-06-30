@@ -14,7 +14,7 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>Notifications Webapp</name>
+    <name>Bennu Notifications Webapp</name>
 
     <properties>
         <version.ch.qos.logback.logback.classic>1.1.2</version.ch.qos.logback.logback.classic>

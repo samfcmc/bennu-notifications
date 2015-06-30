@@ -9,12 +9,13 @@
   	</parent>
 
     <artifactId>bennu-notifications</artifactId>
-    <name>BennuNotifications</name>
+    <name>Bennu Notifications</name>
     <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>core</module>
+        <module>master</module>
         <module>backend</module>
         <module>client</module>
         <module>frontend</module>
