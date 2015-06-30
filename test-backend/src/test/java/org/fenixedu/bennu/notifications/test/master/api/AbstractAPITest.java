@@ -18,9 +18,11 @@ import org.fenixedu.bennu.core.rest.DomainObjectParamConverter;
 import org.fenixedu.bennu.core.rest.JsonAwareResource;
 import org.fenixedu.bennu.core.rest.JsonBodyReaderWriter;
 import org.fenixedu.bennu.core.rest.JsonParamConverterProvider;
-import org.fenixedu.bennu.notifications.backend.api.MasterResource;
+import org.fenixedu.bennu.notifications.backend.api.NotificationsResource;
 import org.fenixedu.bennu.notifications.backend.json.DispatchedNotificationJsonAdapter;
+import org.fenixedu.bennu.notifications.backend.json.NotificationViewJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.PayloadJsonViewer;
+import org.fenixedu.bennu.notifications.backend.view.NotificationView;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.ff.FenixFrameworkRunner;
 import org.fenixedu.notifications.core.domain.Payload;
@@ -57,8 +59,8 @@ public abstract class AbstractAPITest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(MasterResource.class, JsonParamConverterProvider.class, DomainObjectParamConverter.class,
-                JsonBodyReaderWriter.class);
+        return new ResourceConfig(NotificationsResource.class, JsonParamConverterProvider.class,
+                DomainObjectParamConverter.class, JsonBodyReaderWriter.class);
     }
 
     @BeforeClass
@@ -88,6 +90,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     private static void registerDefaultJsonAdapters() {
         JsonAwareResource.setDefault(DispatchedNotification.class, DispatchedNotificationJsonAdapter.class);
         JsonAwareResource.setDefault(Payload.class, PayloadJsonViewer.class);
+        JsonAwareResource.setDefault(NotificationView.class, NotificationViewJsonViewer.class);
     }
 
     protected JsonObject getJson(String jsonString) {
@@ -108,9 +111,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     protected JsonObject invokeCreateNotificationEndpoint(JsonObject requestJson) {
-        String response =
-                target(NOTIFICATIONS_ENDPOINT).request().post(Entity.entity(requestJson.toString(), MediaType.APPLICATION_JSON),
-                        String.class);
+        String response = invokePost(target(NOTIFICATIONS_ENDPOINT), requestJson);
         return getJson(response);
     }
 
@@ -132,8 +133,23 @@ public abstract class AbstractAPITest extends JerseyTest {
         return getJsonArray(response);
     }
 
+    protected JsonObject invokeReadNotificationEndpoint(String notificationId) {
+        String url = NOTIFICATIONS_ENDPOINT + "/" + notificationId + "/read";
+        WebTarget target = target(url);
+        String response = invokePost(target);
+        return getJson(response);
+    }
+
     private String invokeGet(WebTarget webTarget) {
         return webTarget.request().get(String.class);
+    }
+
+    private String invokePost(WebTarget webTarget, JsonObject requestJson) {
+        return webTarget.request().post(Entity.entity(requestJson.toString(), MediaType.APPLICATION_JSON), String.class);
+    }
+
+    private String invokePost(WebTarget webTarget) {
+        return invokePost(webTarget, new JsonObject());
     }
 
     protected JsonObject getNotificationPayload() {

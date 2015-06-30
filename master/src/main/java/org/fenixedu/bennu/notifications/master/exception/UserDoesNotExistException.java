@@ -1,6 +1,6 @@
 package org.fenixedu.bennu.notifications.master.exception;
 
-public class UserDoesNotExistException extends RuntimeException {
+public class UserDoesNotExistException extends MasterException {
 
     /**
      * 

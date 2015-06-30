@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.notifications.master.exception.NotificationAlreadReadException;
 import org.fenixedu.notifications.core.domain.Payload;
 import org.joda.time.DateTime;
 
@@ -21,6 +22,7 @@ public class DispatchedNotification extends DispatchedNotification_Base {
     protected void init(User user, Payload payload, DateTime timestamp) {
         super.init(payload, timestamp);
         setUser(user);
+        setRead(false);
         updateLastNotification();
     }
 
@@ -82,6 +84,16 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         }
 
         return notifications;
+    }
+
+    @Override
+    public void setRead(boolean read) {
+        if (read && getRead()) {
+            //Notification has already been read
+            throw new NotificationAlreadReadException(this);
+        } else {
+            super.setRead(read);
+        }
     }
 
 }

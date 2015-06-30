@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.domain.UserProfile;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 public class TestUtils {
 
@@ -49,6 +50,14 @@ public class TestUtils {
 
     public static String getInexistantUsername() {
         return getAvailableUsername(INEXISTANT_USERNAME);
+    }
+
+    public static void login(User user) {
+        Authenticate.mock(user);
+    }
+
+    public static void logout() {
+        Authenticate.unmock();
     }
 
 }

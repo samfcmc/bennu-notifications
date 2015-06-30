@@ -6,6 +6,7 @@ import java.util.Set;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.master.exception.UserDoesNotExistException;
+import org.fenixedu.bennu.notifications.master.exception.UserNotAllowedToReadException;
 import org.fenixedu.notifications.core.domain.Payload;
 
 import com.google.gson.JsonElement;
@@ -28,6 +29,14 @@ public class Master {
 
     public static void createNotification(Set<User> users, JsonElement payload) {
         users.stream().forEach(user -> createNotification(user, payload));
+    }
+
+    public static void read(DispatchedNotification notification, User user) {
+        if (user.equals(notification.getUser())) {
+            notification.setRead(true);
+        } else {
+            throw new UserNotAllowedToReadException(notification, user);
+        }
     }
 
 }
