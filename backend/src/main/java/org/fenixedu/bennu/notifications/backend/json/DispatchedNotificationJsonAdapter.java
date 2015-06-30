@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.master.json;
+package org.fenixedu.bennu.notifications.backend.json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,8 @@ public class DispatchedNotificationJsonAdapter implements JsonAdapter<Dispatched
     @Override
     public JsonElement view(DispatchedNotification notification, JsonBuilder builder) {
         JsonObject jsonObject = new JsonObject();
-        JsonElement notificationPayload = notification.getPayload();
         jsonObject.addProperty(ID, notification.getExternalId());
-        jsonObject.add(PAYLOAD, notificationPayload);
+        jsonObject.add(PAYLOAD, builder.view(notification.getPayload()));
 
         return jsonObject;
     }

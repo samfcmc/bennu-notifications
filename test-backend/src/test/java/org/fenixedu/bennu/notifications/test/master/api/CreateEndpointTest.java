@@ -42,7 +42,8 @@ public class CreateEndpointTest extends AbstractAPITest {
         assertJsonKeyEqualsValue(payloadJson, KEY_2, VALUE_2);
         assertNotNull("There should be a new notification", notification);
         assertEquals("notification user should be the same", user, notification.getUser());
-        assertEquals("notification payload should be the same as in response", payloadJson, notification.getPayload());
+        assertEquals("notification payload should be the same as in response", payloadJson, notification.getPayload()
+                .getContent());
     }
 
     @Test(expected = Exception.class)

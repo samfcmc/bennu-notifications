@@ -18,8 +18,8 @@
         <module>backend</module>
         <module>client</module>
         <module>frontend</module>
+        <module>test-backend</module>
         <module>test-client</module>
-        <module>test-master</module>
         <module>webapp</module>
     </modules>
 

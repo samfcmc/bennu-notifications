@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.master.api;
+package org.fenixedu.bennu.notifications.backend.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

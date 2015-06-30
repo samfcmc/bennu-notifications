@@ -4,22 +4,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.notifications.core.domain.Payload;
 import org.joda.time.DateTime;
-
-import com.google.gson.JsonElement;
 
 public class DispatchedNotification extends DispatchedNotification_Base {
 
-    public DispatchedNotification(User user, JsonElement payload) {
+    public DispatchedNotification(User user, Payload payload) {
         this(user, payload, DateTime.now());
     }
 
-    public DispatchedNotification(User user, JsonElement payload, DateTime timestamp) {
+    public DispatchedNotification(User user, Payload payload, DateTime timestamp) {
         super();
         init(user, payload, timestamp);
     }
 
-    protected void init(User user, JsonElement payload, DateTime timestamp) {
+    protected void init(User user, Payload payload, DateTime timestamp) {
         super.init(payload, timestamp);
         setUser(user);
         updateLastNotification();

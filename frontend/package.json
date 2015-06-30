@@ -1,6 +1,7 @@
 {
   "name": "bennu-notifications-frontend",
   "version": "0.0.1",
+  "description": "Frontend to manage the notifications service",
   "dependencies": {
     "grunt": "^0.4.5",
     "grunt-bower-task": "^0.4.0",

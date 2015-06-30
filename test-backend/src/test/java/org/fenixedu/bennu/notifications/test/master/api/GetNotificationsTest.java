@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.notifications.core.domain.Payload;
 import org.junit.Test;
 
 import com.google.gson.JsonArray;
@@ -20,9 +21,9 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void successLastNotifications() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
-        DispatchedNotification last = new DispatchedNotification(user, payload);
-        new DispatchedNotification(user, payload);
-        new DispatchedNotification(user, payload);
+        DispatchedNotification last = new DispatchedNotification(user, new Payload(payload));
+        new DispatchedNotification(user, new Payload(payload));
+        new DispatchedNotification(user, new Payload(payload));
         JsonArray responseJson = invokeGetLastNotificationsEndpoint(last.getExternalId());
 
         assertEquals("Result should have 2 elements", 2, responseJson.size());
@@ -38,7 +39,8 @@ public class GetNotificationsTest extends AbstractAPITest {
     @Test
     public void successBeforeNotifications() {
         User user = generateUser();
-        JsonElement payload = getNotificationPayload();
+        JsonElement payloadJson = getNotificationPayload();
+        Payload payload = new Payload(payloadJson);
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         DispatchedNotification notification3 = new DispatchedNotification(user, payload);
@@ -57,7 +59,8 @@ public class GetNotificationsTest extends AbstractAPITest {
     @Test
     public void noNotificationsAfterLast() {
         User user = generateUser();
-        JsonElement payload = getNotificationPayload();
+        JsonElement payloadJson = getNotificationPayload();
+        Payload payload = new Payload(payloadJson);
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         DispatchedNotification last = new DispatchedNotification(user, payload);
@@ -69,7 +72,8 @@ public class GetNotificationsTest extends AbstractAPITest {
     @Test(expected = Exception.class)
     public void lastIdDoesNotExist() {
         User user = generateUser();
-        JsonElement payload = getNotificationPayload();
+        JsonElement payloadJson = getNotificationPayload();
+        Payload payload = new Payload(payloadJson);
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
         new DispatchedNotification(user, payload);
@@ -79,7 +83,8 @@ public class GetNotificationsTest extends AbstractAPITest {
     @Test(expected = Exception.class)
     public void noQueryParamsProvided() {
         User user = generateUser();
-        JsonElement payload = getNotificationPayload();
+        JsonElement payloadJson = getNotificationPayload();
+        Payload payload = new Payload(payloadJson);
         new DispatchedNotification(user, payload);
         invokeGetLastNotificationsEndpoint();
     }

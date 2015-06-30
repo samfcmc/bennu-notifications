@@ -5,5 +5,4 @@ import org.junit.runner.RunWith;
 
 @RunWith(FenixFrameworkRunner.class)
 public abstract class AbstractTest {
-
 }

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.AbstractTest;
+import org.fenixedu.notifications.core.domain.Payload;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -41,13 +42,15 @@ public class CreateNotificationTest extends AbstractTest {
      */
     @Test
     public void createFirst() {
-        JsonObject payload = createPayload();
+        JsonObject payloadJson = createPayload();
+        Payload payload = new Payload(payloadJson);
         User user = generateUser();
         DispatchedNotification notification = new DispatchedNotification(user, payload);
+        JsonObject payloadJsonObject = notification.getPayload().getContent().getAsJsonObject();
 
         assertEquals("Notification's user should be the same", user, notification.getUser());
-        assertEquals("Payload's key1 should have value value1", VALUE_1, payload.get(KEY_1).getAsString());
-        assertEquals("Payload's key2 should have value value2", VALUE_2, payload.get(KEY_2).getAsString());
+        assertEquals("Payload's key1 should have value value1", VALUE_1, payloadJsonObject.get(KEY_1).getAsString());
+        assertEquals("Payload's key2 should have value value2", VALUE_2, payloadJsonObject.get(KEY_2).getAsString());
         assertEquals("Created notification should be the last one", notification, user.getLastNotification());
     }
 
@@ -56,7 +59,8 @@ public class CreateNotificationTest extends AbstractTest {
      */
     @Test
     public void testOrder() {
-        JsonObject payload = createPayload();
+        JsonObject payloadJson = createPayload();
+        Payload payload = new Payload(payloadJson);
         User user = generateUser();
         DispatchedNotification notificationT0 = new DispatchedNotification(user, payload);
         DispatchedNotification notificationT1 = new DispatchedNotification(user, payload);
@@ -69,7 +73,8 @@ public class CreateNotificationTest extends AbstractTest {
 
     @Test
     public void insertOneInTheMiddle() {
-        JsonObject payload = createPayload();
+        JsonObject payloadJson = createPayload();
+        Payload payload = new Payload(payloadJson);
         User user = generateUser();
 
         DispatchedNotification notificationT0 = new DispatchedNotification(user, payload);
@@ -87,7 +92,8 @@ public class CreateNotificationTest extends AbstractTest {
 
     @Test
     public void insertInBegin() {
-        JsonObject payload = createPayload();
+        JsonObject payloadJson = createPayload();
+        Payload payload = new Payload(payloadJson);
         User user = generateUser();
 
         DispatchedNotification notificationT1 = new DispatchedNotification(user, payload);

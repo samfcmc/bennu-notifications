@@ -6,6 +6,7 @@ import java.util.Set;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.master.exception.UserDoesNotExistException;
+import org.fenixedu.notifications.core.domain.Payload;
 
 import com.google.gson.JsonElement;
 
@@ -22,7 +23,7 @@ public class Master {
         if (user == null) {
             throw new UserDoesNotExistException();
         }
-        new DispatchedNotification(user, payload);
+        new DispatchedNotification(user, new Payload(payload));
     }
 
     public static void createNotification(Set<User> users, JsonElement payload) {

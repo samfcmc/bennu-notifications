@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             install: {
                 options: {
                     targetDir: 'src/main/webapp/bower_components',
-                    cleanBowerDir: true
+                    cleanBowerDir: false
                 }
             }
         }

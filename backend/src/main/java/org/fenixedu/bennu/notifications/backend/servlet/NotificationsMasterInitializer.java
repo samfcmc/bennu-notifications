@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.master.servlet;
+package org.fenixedu.bennu.notifications.backend.servlet;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

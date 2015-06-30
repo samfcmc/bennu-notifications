@@ -9,7 +9,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>bennu-notifications-test-master</artifactId>
+	<artifactId>bennu-notifications-test-backend</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Bennu Notifications Test Backend</name>
@@ -79,7 +79,6 @@
 			<groupId>org.glassfish.jersey.test-framework</groupId>
 			<artifactId>jersey-test-framework-core</artifactId>
 			<version>2.10.1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
