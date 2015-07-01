@@ -15,45 +15,52 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 @DefaultJsonAdapter(DispatchedNotification.class)
-public class DispatchedNotificationJsonAdapter implements JsonAdapter<DispatchedNotification> {
+public class DispatchedNotificationJsonAdapter implements
+		JsonAdapter<DispatchedNotification> {
 
-    private static final String USERNAMES = "usernames";
-    private static final String PAYLOAD = "payload";
-    private static final String ID = "id";
+	private static final String USERNAMES = "usernames";
+	private static final String PAYLOAD = "payload";
+	private static final String ID = "id";
+	private static final String READ = "read";
 
-    @Override
-    public DispatchedNotification create(JsonElement payload, JsonBuilder builder) {
-        JsonObject jsonPayload = payload.getAsJsonObject();
-        JsonArray usernamesArray = jsonPayload.get(USERNAMES).getAsJsonArray();
-        List<String> usernames = getUsernames(usernamesArray);
-        JsonElement notificationPayload = jsonPayload.get(PAYLOAD);
+	@Override
+	public DispatchedNotification create(JsonElement payload,
+			JsonBuilder builder) {
+		JsonObject jsonPayload = payload.getAsJsonObject();
+		JsonArray usernamesArray = jsonPayload.get(USERNAMES).getAsJsonArray();
+		List<String> usernames = getUsernames(usernamesArray);
+		JsonElement notificationPayload = jsonPayload.get(PAYLOAD);
 
-        Master.createNotification(usernames, notificationPayload);
-        return Authenticate.getUser().getLastNotification();
-    }
+		Master.createNotification(usernames, notificationPayload);
+		return Authenticate.getUser().getLastNotification();
+	}
 
-    @Override
-    public DispatchedNotification update(JsonElement payload, DispatchedNotification notification, JsonBuilder builder) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public DispatchedNotification update(JsonElement payload,
+			DispatchedNotification notification, JsonBuilder builder) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public JsonElement view(DispatchedNotification notification, JsonBuilder builder) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(ID, notification.getExternalId());
-        jsonObject.add(PAYLOAD, builder.view(notification.getPayload()));
+	@Override
+	public JsonElement view(DispatchedNotification notification,
+			JsonBuilder builder) {
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty(ID, notification.getExternalId());
+		jsonObject.add(PAYLOAD, builder.view(notification.getPayload()));
+		jsonObject.addProperty(READ, notification.getRead());
 
-        return jsonObject;
-    }
+		return jsonObject;
+	}
 
-    private List<String> getUsernames(JsonArray usernamesJsonArray) {
-        List<String> usernames = new ArrayList<String>(usernamesJsonArray.size());
-        for (JsonElement usernameJsonElement : usernamesJsonArray) {
-            String username = usernameJsonElement.getAsString();
-            usernames.add(username);
-        }
-        return usernames;
-    }
+	private List<String> getUsernames(JsonArray usernamesJsonArray) {
+		List<String> usernames = new ArrayList<String>(
+				usernamesJsonArray.size());
+		for (JsonElement usernameJsonElement : usernamesJsonArray) {
+			String username = usernameJsonElement.getAsString();
+			usernames.add(username);
+		}
+		return usernames;
+	}
 
 }

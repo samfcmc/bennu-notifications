@@ -43,119 +43,142 @@ import com.google.gson.JsonObject;
 @RunWith(FenixFrameworkRunner.class)
 public abstract class AbstractAPITest extends JerseyTest {
 
-    private static boolean done = false;
-    private static final String NOTIFICATIONS_ENDPOINT = "notifications";
+	private static boolean done = false;
+	private static final String NOTIFICATIONS_ENDPOINT = "notifications";
 
-    protected static final String KEY_1 = "key1";
-    protected static final String KEY_2 = "key2";
-    protected static final String VALUE_1 = "value1";
-    protected static final String VALUE_2 = "value2";
+	protected static final String KEY_1 = "key1";
+	protected static final String KEY_2 = "key2";
+	protected static final String VALUE_1 = "value1";
+	protected static final String VALUE_2 = "value2";
+	private static final String ID = "id";
+	private static final String PAYLOAD = "payload";
+	private static final String READ = "read";
 
-    @Override
-    protected void configureClient(ClientConfig config) {
-        super.configureClient(config);
-        config.register(JsonBodyReaderWriter.class, JsonParamConverterProvider.class, DomainObjectParamConverter.class);
-    }
+	@Override
+	protected void configureClient(ClientConfig config) {
+		super.configureClient(config);
+		config.register(JsonBodyReaderWriter.class,
+				JsonParamConverterProvider.class,
+				DomainObjectParamConverter.class);
+	}
 
-    @Override
-    protected Application configure() {
-        return new ResourceConfig(NotificationsResource.class, JsonParamConverterProvider.class,
-                DomainObjectParamConverter.class, JsonBodyReaderWriter.class);
-    }
+	@Override
+	protected Application configure() {
+		return new ResourceConfig(NotificationsResource.class,
+				JsonParamConverterProvider.class,
+				DomainObjectParamConverter.class, JsonBodyReaderWriter.class);
+	}
 
-    @BeforeClass
-    @Atomic(mode = TxMode.WRITE)
-    public static void initObjects() {
-        ensure();
-    }
+	@BeforeClass
+	@Atomic(mode = TxMode.WRITE)
+	public static void initObjects() {
+		ensure();
+	}
 
-    private static void ensure() {
-        if (!done) {
-            CustomGroupRegistry.registerCustomGroup(AnonymousGroup.class);
-            CustomGroupRegistry.registerCustomGroup(AnyoneGroup.class);
-            CustomGroupRegistry.registerCustomGroup(LoggedGroup.class);
-            CustomGroupRegistry.registerCustomGroup(NobodyGroup.class);
-            CustomGroupRegistry.registerCustomGroup(UserGroup.class);
-            CustomGroupRegistry.registerArgumentParser(UserGroup.UserArgumentParser.class);
-            CustomGroupRegistry.registerArgumentParser(BooleanParser.class);
-            CustomGroupRegistry.registerArgumentParser(StringParser.class);
-            CustomGroupRegistry.registerArgumentParser(DateTimeParser.class);
+	private static void ensure() {
+		if (!done) {
+			CustomGroupRegistry.registerCustomGroup(AnonymousGroup.class);
+			CustomGroupRegistry.registerCustomGroup(AnyoneGroup.class);
+			CustomGroupRegistry.registerCustomGroup(LoggedGroup.class);
+			CustomGroupRegistry.registerCustomGroup(NobodyGroup.class);
+			CustomGroupRegistry.registerCustomGroup(UserGroup.class);
+			CustomGroupRegistry
+					.registerArgumentParser(UserGroup.UserArgumentParser.class);
+			CustomGroupRegistry.registerArgumentParser(BooleanParser.class);
+			CustomGroupRegistry.registerArgumentParser(StringParser.class);
+			CustomGroupRegistry.registerArgumentParser(DateTimeParser.class);
 
-            registerDefaultJsonAdapters();
+			registerDefaultJsonAdapters();
 
-            done = true;
-        }
-    }
+			done = true;
+		}
+	}
 
-    private static void registerDefaultJsonAdapters() {
-        JsonAwareResource.setDefault(DispatchedNotification.class, DispatchedNotificationJsonAdapter.class);
-        JsonAwareResource.setDefault(Payload.class, PayloadJsonViewer.class);
-        JsonAwareResource.setDefault(NotificationView.class, NotificationViewJsonViewer.class);
-    }
+	private static void registerDefaultJsonAdapters() {
+		JsonAwareResource.setDefault(DispatchedNotification.class,
+				DispatchedNotificationJsonAdapter.class);
+		JsonAwareResource.setDefault(Payload.class, PayloadJsonViewer.class);
+		JsonAwareResource.setDefault(NotificationView.class,
+				NotificationViewJsonViewer.class);
+	}
 
-    protected JsonObject getJson(String jsonString) {
-        return new Gson().fromJson(jsonString, JsonObject.class);
-    }
+	protected JsonObject getJson(String jsonString) {
+		return new Gson().fromJson(jsonString, JsonObject.class);
+	}
 
-    protected JsonArray getJsonArray(String jsonArrayString) {
-        return new Gson().fromJson(jsonArrayString, JsonArray.class);
-    }
+	protected JsonArray getJsonArray(String jsonArrayString) {
+		return new Gson().fromJson(jsonArrayString, JsonArray.class);
+	}
 
-    protected void assertJsonHasKey(JsonObject jsonObject, String key) {
-        Assert.assertTrue("Json object should have key " + key, jsonObject.has(key));
-    }
+	protected void assertJsonHasKey(JsonObject jsonObject, String key) {
+		Assert.assertTrue("Json object should have key " + key + " "
+				+ jsonObject.toString(), jsonObject.has(key));
+	}
 
-    protected void assertJsonKeyEqualsValue(JsonObject jsonObject, String key, String expectedValue) {
-        Assert.assertEquals("json key " + key + " should have value " + expectedValue, jsonObject.get(key).getAsString(),
-                expectedValue);
-    }
+	protected void assertJsonKeyEqualsValue(JsonObject jsonObject, String key,
+			String expectedValue) {
+		Assert.assertEquals("json key " + key + " should have value "
+				+ expectedValue, jsonObject.get(key).getAsString(),
+				expectedValue);
+	}
 
-    protected JsonObject invokeCreateNotificationEndpoint(JsonObject requestJson) {
-        String response = invokePost(target(NOTIFICATIONS_ENDPOINT), requestJson);
-        return getJson(response);
-    }
+	protected JsonObject invokeCreateNotificationEndpoint(JsonObject requestJson) {
+		String response = invokePost(target(NOTIFICATIONS_ENDPOINT),
+				requestJson);
+		return getJson(response);
+	}
 
-    protected JsonArray invokeGetLastNotificationsEndpoint(String lastId) {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("last", lastId);
-        String response = invokeGet(target);
-        return getJsonArray(response);
-    }
+	protected JsonArray invokeGetLastNotificationsEndpoint(String lastId) {
+		WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("last",
+				lastId);
+		String response = invokeGet(target);
+		return getJsonArray(response);
+	}
 
-    protected JsonArray invokeGetLastNotificationsEndpoint() {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT);
-        String response = invokeGet(target);
-        return getJsonArray(response);
-    }
+	protected JsonArray invokeGetLastNotificationsEndpoint() {
+		WebTarget target = target(NOTIFICATIONS_ENDPOINT);
+		String response = invokeGet(target);
+		return getJsonArray(response);
+	}
 
-    protected JsonArray invokeGetNotificationsBeforeEndpoint(String beforeId) {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("before", beforeId);
-        String response = invokeGet(target);
-        return getJsonArray(response);
-    }
+	protected JsonArray invokeGetNotificationsBeforeEndpoint(String beforeId) {
+		WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("before",
+				beforeId);
+		String response = invokeGet(target);
+		return getJsonArray(response);
+	}
 
-    protected JsonObject invokeReadNotificationEndpoint(String notificationId) {
-        String url = NOTIFICATIONS_ENDPOINT + "/" + notificationId + "/read";
-        WebTarget target = target(url);
-        String response = invokePost(target);
-        return getJson(response);
-    }
+	protected JsonObject invokeReadNotificationEndpoint(String notificationId) {
+		String url = NOTIFICATIONS_ENDPOINT + "/" + notificationId + "/read";
+		WebTarget target = target(url);
+		String response = invokePost(target);
+		return getJson(response);
+	}
 
-    private String invokeGet(WebTarget webTarget) {
-        return webTarget.request().get(String.class);
-    }
+	private String invokeGet(WebTarget webTarget) {
+		return webTarget.request().get(String.class);
+	}
 
-    private String invokePost(WebTarget webTarget, JsonObject requestJson) {
-        return webTarget.request().post(Entity.entity(requestJson.toString(), MediaType.APPLICATION_JSON), String.class);
-    }
+	private String invokePost(WebTarget webTarget, JsonObject requestJson) {
+		return webTarget.request().post(
+				Entity.entity(requestJson.toString(),
+						MediaType.APPLICATION_JSON), String.class);
+	}
 
-    private String invokePost(WebTarget webTarget) {
-        return invokePost(webTarget, new JsonObject());
-    }
+	private String invokePost(WebTarget webTarget) {
+		return invokePost(webTarget, new JsonObject());
+	}
 
-    protected JsonObject getNotificationPayload() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(KEY_1, VALUE_1);
-        jsonObject.addProperty(KEY_2, VALUE_2);
-        return jsonObject;
-    }
+	protected JsonObject getNotificationPayload() {
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty(KEY_1, VALUE_1);
+		jsonObject.addProperty(KEY_2, VALUE_2);
+		return jsonObject;
+	}
+
+	protected void assertNotification(JsonObject json) {
+		assertJsonHasKey(json, ID);
+		assertJsonHasKey(json, PAYLOAD);
+		assertJsonHasKey(json, READ);
+	}
 }
