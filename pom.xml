@@ -55,14 +55,6 @@
         </plugins>
     </build>
 
-    <dependencies>
-  		<dependency>
-  			<groupId>org.fenixedu</groupId>
-  			<artifactId>bennu-core</artifactId>
-  			<version>${version.org.fenixedu.bennu}</version>
-  		</dependency>
-  	</dependencies>
-
     <repositories>
         <repository>
             <id>fenixedu-maven-repository</id>
