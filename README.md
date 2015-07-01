@@ -6,48 +6,23 @@ Notifications service for the
 
 This library allows applications developed using the Bennu Framework to have real-time notifications (e-mail, push notifications, etc)
 
-Give a brief introduction about the architecture
-* NMaster
-* NClient
-* ...
+## Architecture
+![Architecture](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/architecture.png)
 
 ## Requirements:
 * Java JDK 8
 * Maven
 
-## Installation
-In the project's root run:
-
+## Development
+* Clone this repo
+* Go to project's directory
+* Install all modules and run unit tests
 ```
 mvn install
 ```
-
-It will install and run all unit tests.
-
-## Add this library as a dependency in your application:
-TODO:
-
-## Run in a embedded web server
-You can use maven to run the REST API in an embedded tomcat container.
-
-Go to web-app directory
-
-```
-cd bennu-notifications-webapp
-```
-
-And launch the embedded tomcat container
-
+* Run the embedded server
 ```
 mvn tomcat7:run
 ```
-
-Open your web browser in
-http://localhost:8000 and go through the entire bootstrap process.
-
-Now you can invoke the REST API endpoints.
-
-TODO: Describe all endpoints here:
-
-## Usage
-TODO: Explain how to use with a code snippet
+* Open a web browser in [http://localhost:8080](http://localhost:8080)
+* Enjoy your notifications service ;)
