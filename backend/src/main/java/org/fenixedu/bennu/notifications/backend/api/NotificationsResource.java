@@ -8,10 +8,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.notifications.backend.json.ReadNotificationJsonUpdater;
 import org.fenixedu.bennu.notifications.backend.view.NotificationView;
-import org.fenixedu.bennu.notifications.master.Master;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsAfterByIdView;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsBeforeByIdView;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsLastNView;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 
 import com.google.gson.JsonElement;
@@ -31,18 +32,15 @@ public class NotificationsResource extends AbstractResource {
     }
 
     @GET
-    public Response getNotifications(@QueryParam("after") String lastId, @QueryParam("before") String beforeId,
+    public Response getNotifications(@QueryParam("after") String afterId, @QueryParam("before") String beforeId,
             @QueryParam("lastN") Integer n, @QueryParam("page") int page) {
         User user = getUser();
-        if (lastId != null) {
-            DispatchedNotification notification = Master.getNotification(user, lastId);
-            return ok(view(notification.getNotificationsAfter()));
+        if (afterId != null) {
+            return ok(view(new NotificationsAfterByIdView(user, afterId)));
         } else if (beforeId != null) {
-            DispatchedNotification notification = Master.getNotification(user, beforeId);
-            return ok(view(notification.getBefore()));
+            return ok(view(new NotificationsBeforeByIdView(user, beforeId)));
         } else if (n != null) {
-            DispatchedNotification notification = getUser().getLastNotification();
-            return ok(view(notification.getLastN(n)));
+            return ok(view(new NotificationsLastNView(user, n)));
         } else {
             return serverError();
         }
@@ -51,7 +49,7 @@ public class NotificationsResource extends AbstractResource {
     @Path("/{notification}/read")
     @POST
     public Response read(@PathParam("notification") DispatchedNotification notification) {
-        User user = Authenticate.getUser();
+        User user = getUser();
         return ok(updateAndView(new NotificationView(user, notification), ReadNotificationJsonUpdater.class));
     }
 }

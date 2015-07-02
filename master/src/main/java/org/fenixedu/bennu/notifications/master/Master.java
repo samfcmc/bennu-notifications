@@ -54,4 +54,8 @@ public class Master {
         }
     }
 
+    public static Set<DispatchedNotification> getLastN(User user, int n) {
+        return user.getLastNotification().getLastN(n);
+    }
+
 }

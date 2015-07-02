@@ -23,8 +23,14 @@ import org.fenixedu.bennu.core.rest.JsonParamConverterProvider;
 import org.fenixedu.bennu.notifications.backend.api.NotificationsResource;
 import org.fenixedu.bennu.notifications.backend.json.DispatchedNotificationJsonAdapter;
 import org.fenixedu.bennu.notifications.backend.json.NotificationViewJsonViewer;
+import org.fenixedu.bennu.notifications.backend.json.NotificationsAfterByIdJsonViewer;
+import org.fenixedu.bennu.notifications.backend.json.NotificationsBeforeByIdJsonViewer;
+import org.fenixedu.bennu.notifications.backend.json.NotificationsLastNJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.PayloadJsonViewer;
 import org.fenixedu.bennu.notifications.backend.view.NotificationView;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsAfterByIdView;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsBeforeByIdView;
+import org.fenixedu.bennu.notifications.backend.view.NotificationsLastNView;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.ff.FenixFrameworkRunner;
 import org.fenixedu.notifications.core.domain.Payload;
@@ -103,6 +109,9 @@ public abstract class AbstractAPITest extends JerseyTest {
         JsonAwareResource.setDefault(DispatchedNotification.class, DispatchedNotificationJsonAdapter.class);
         JsonAwareResource.setDefault(Payload.class, PayloadJsonViewer.class);
         JsonAwareResource.setDefault(NotificationView.class, NotificationViewJsonViewer.class);
+        JsonAwareResource.setDefault(NotificationsAfterByIdView.class, NotificationsAfterByIdJsonViewer.class);
+        JsonAwareResource.setDefault(NotificationsBeforeByIdView.class, NotificationsBeforeByIdJsonViewer.class);
+        JsonAwareResource.setDefault(NotificationsLastNView.class, NotificationsLastNJsonViewer.class);
     }
 
     protected JsonObject getJson(String jsonString) {

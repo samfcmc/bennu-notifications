@@ -95,7 +95,7 @@ public class DispatchedNotification extends DispatchedNotification_Base {
      *
      * @return the before
      */
-    public Set<DispatchedNotification> getBefore() {
+    public Set<DispatchedNotification> getNotificationsBefore() {
         Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
         DispatchedNotification notification = this;
         while (notification.hasPrevious()) {
