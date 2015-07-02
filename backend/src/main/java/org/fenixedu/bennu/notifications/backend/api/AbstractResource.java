@@ -14,7 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 @Produces(MediaType.APPLICATION_JSON)
-public class AbstractNotificationsResource extends BennuRestResource {
+public class AbstractResource extends BennuRestResource {
 
     protected Response ok(Object object) {
         return Response.ok(object).build();

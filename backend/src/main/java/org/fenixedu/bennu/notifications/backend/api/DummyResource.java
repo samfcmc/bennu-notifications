@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
 @Path("/dummy")
-public class DummyResource extends AbstractNotificationsResource {
+public class DummyResource extends AbstractResource {
 
     public static class DummyView {
         private String value;

@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.test.master.api;
+package org.fenixedu.bennu.notifications.test.backend.api;
 
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.login;
