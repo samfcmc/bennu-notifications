@@ -25,7 +25,7 @@ public class GetNotificationsTest extends AbstractAPITest {
 				new Payload(payload));
 		new DispatchedNotification(user, new Payload(payload));
 		new DispatchedNotification(user, new Payload(payload));
-		JsonArray responseJson = invokeGetLastNotificationsEndpoint(last
+		JsonArray responseJson = invokeGetNotificationsAfterEndpoint(last
 				.getExternalId());
 
 		assertEquals("Result should have 2 elements", 2, responseJson.size());
@@ -73,7 +73,7 @@ public class GetNotificationsTest extends AbstractAPITest {
 		new DispatchedNotification(user, new Payload(payload));
 		DispatchedNotification last = new DispatchedNotification(user,
 				new Payload(payload));
-		JsonArray responseJson = invokeGetLastNotificationsEndpoint(last
+		JsonArray responseJson = invokeGetNotificationsAfterEndpoint(last
 				.getExternalId());
 
 		assertEquals("Result should be empty", 0, responseJson.size());
@@ -87,7 +87,7 @@ public class GetNotificationsTest extends AbstractAPITest {
 		new DispatchedNotification(user, payload);
 		new DispatchedNotification(user, payload);
 		new DispatchedNotification(user, payload);
-		invokeGetLastNotificationsEndpoint("fake");
+		invokeGetNotificationsAfterEndpoint("fake");
 	}
 
 	@Test(expected = Exception.class)

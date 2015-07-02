@@ -30,11 +30,11 @@ public class NotificationsResource extends AbstractNotificationsResource {
     }
 
     @GET
-    public Response getNotifications(@QueryParam("last") String lastId, @QueryParam("before") String beforeId,
+    public Response getNotifications(@QueryParam("after") String lastId, @QueryParam("before") String beforeId,
             @QueryParam("page") int page) {
         if (lastId != null) {
             DispatchedNotification notification = readDomainObject(lastId);
-            return ok(view(notification.getLast()));
+            return ok(view(notification.getNotificationsAfter()));
         } else if (beforeId != null) {
             DispatchedNotification notification = readDomainObject(beforeId);
             return ok(view(notification.getBefore()));

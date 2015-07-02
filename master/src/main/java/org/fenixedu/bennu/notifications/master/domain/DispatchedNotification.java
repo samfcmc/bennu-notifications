@@ -8,17 +8,41 @@ import org.fenixedu.bennu.notifications.master.exception.NotificationAlreadReadE
 import org.fenixedu.notifications.core.domain.Payload;
 import org.joda.time.DateTime;
 
+/**
+ * DispatchedNotification: Notifications stored in the backend
+ *
+ */
 public class DispatchedNotification extends DispatchedNotification_Base {
 
+    /**
+     * Instantiates a new dispatched notification.
+     *
+     * @param user the user
+     * @param payload the payload
+     */
     public DispatchedNotification(User user, Payload payload) {
         this(user, payload, DateTime.now());
     }
 
+    /**
+     * Instantiates a new dispatched notification.
+     *
+     * @param user the user
+     * @param payload the payload
+     * @param timestamp the timestamp
+     */
     public DispatchedNotification(User user, Payload payload, DateTime timestamp) {
         super();
         init(user, payload, timestamp);
     }
 
+    /**
+     * Inits the.
+     *
+     * @param user the user
+     * @param payload the payload
+     * @param timestamp the timestamp
+     */
     protected void init(User user, Payload payload, DateTime timestamp) {
         super.init(payload, timestamp);
         setUser(user);
@@ -26,6 +50,9 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         updateLastNotification();
     }
 
+    /**
+     * updateLastNotification: Update its order in the user's notifications according to its timestamp
+     */
     private void updateLastNotification() {
         User user = getUser();
         DateTime timestamp = getTimestamp();
@@ -54,10 +81,20 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         }
     }
 
+    /**
+     * Checks for previous.
+     *
+     * @return true, if successful
+     */
     public boolean hasPrevious() {
         return getPrevious() != null;
     }
 
+    /**
+     * getBefore: Get all notifications before this one
+     *
+     * @return the before
+     */
     public Set<DispatchedNotification> getBefore() {
         Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
         DispatchedNotification notification = this;
@@ -69,7 +106,12 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         return notifications;
     }
 
-    public Set<DispatchedNotification> getLast() {
+    /**
+     * getNotificationsAfter: Get all notifications from this one to the user's last notification
+     *
+     * @return the last
+     */
+    public Set<DispatchedNotification> getNotificationsAfter() {
         Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
         DispatchedNotification notification = getUser().getLastNotification();
         if (notification.hasPrevious()) {
@@ -83,6 +125,21 @@ public class DispatchedNotification extends DispatchedNotification_Base {
             }
         }
 
+        return notifications;
+    }
+
+    public Set<DispatchedNotification> getLastN(int n) {
+        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
+        DispatchedNotification notification = this;
+        while (notification.hasPrevious()) {
+            if (n == 0) {
+                break;
+            } else {
+                notifications.add(notification);
+                notification = notification.getPrevious();
+                n--;
+            }
+        }
         return notifications;
     }
 
