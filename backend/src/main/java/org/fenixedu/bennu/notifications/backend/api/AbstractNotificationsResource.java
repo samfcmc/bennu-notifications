@@ -4,9 +4,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.json.JsonCreator;
 import org.fenixedu.bennu.core.json.JsonUpdater;
 import org.fenixedu.bennu.core.rest.BennuRestResource;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -55,6 +57,10 @@ public class AbstractNotificationsResource extends BennuRestResource {
 
     protected <T> Object updateAndView(T object, Class<? extends JsonUpdater<T>> updaterClass) {
         return updateAndView(new JsonObject(), object, updaterClass);
+    }
+
+    protected User getUser() {
+        return Authenticate.getUser();
     }
 
 }

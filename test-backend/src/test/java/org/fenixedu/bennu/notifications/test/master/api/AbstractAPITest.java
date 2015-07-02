@@ -1,5 +1,7 @@
 package org.fenixedu.bennu.notifications.test.master.api;
 
+import static org.fenixedu.bennu.notifications.test.utils.TestUtils.logout;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
@@ -29,6 +31,7 @@ import org.fenixedu.notifications.core.domain.Payload;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -70,6 +73,12 @@ public abstract class AbstractAPITest extends JerseyTest {
     @Atomic(mode = TxMode.WRITE)
     public static void initObjects() {
         ensure();
+    }
+
+    @After
+    @Atomic(mode = TxMode.WRITE)
+    public void after() {
+        logout();
     }
 
     private static void ensure() {
@@ -141,6 +150,12 @@ public abstract class AbstractAPITest extends JerseyTest {
         WebTarget target = target(url);
         String response = invokePost(target);
         return getJson(response);
+    }
+
+    protected JsonArray invokeGetNLastNotifications(int n) {
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("lastN", n);
+        String response = invokeGet(target);
+        return getJsonArray(response);
     }
 
     private String invokeGet(WebTarget webTarget) {

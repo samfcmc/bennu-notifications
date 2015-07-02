@@ -130,16 +130,16 @@ public class DispatchedNotification extends DispatchedNotification_Base {
 
     public Set<DispatchedNotification> getLastN(int n) {
         Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
-        DispatchedNotification notification = this;
-        while (notification.hasPrevious()) {
-            if (n == 0) {
-                break;
-            } else {
-                notifications.add(notification);
-                notification = notification.getPrevious();
-                n--;
-            }
+        //DispatchedNotification notification = this;
+        if (n < 0) {
+            throw new IllegalArgumentException();
         }
+
+        for (DispatchedNotification notification = this; (notification != null) && (n != 0); notification =
+                notification.getPrevious(), n--) {
+            notifications.add(notification);
+        }
+
         return notifications;
     }
 

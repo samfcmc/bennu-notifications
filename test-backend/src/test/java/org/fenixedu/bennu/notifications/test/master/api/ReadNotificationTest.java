@@ -2,18 +2,13 @@ package org.fenixedu.bennu.notifications.test.master.api;
 
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.login;
-import static org.fenixedu.bennu.notifications.test.utils.TestUtils.logout;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.notifications.core.domain.Payload;
-import org.junit.After;
 import org.junit.Test;
-
-import pt.ist.fenixframework.Atomic;
-import pt.ist.fenixframework.Atomic.TxMode;
 
 import com.google.gson.JsonObject;
 
@@ -21,12 +16,6 @@ public class ReadNotificationTest extends AbstractAPITest {
 
     private Payload getPayload() {
         return new Payload(new JsonObject());
-    }
-
-    @Atomic(mode = TxMode.WRITE)
-    @After
-    public void after() {
-        logout();
     }
 
     @Test

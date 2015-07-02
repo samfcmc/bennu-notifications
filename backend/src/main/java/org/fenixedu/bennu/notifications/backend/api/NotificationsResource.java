@@ -11,6 +11,7 @@ import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.notifications.backend.json.ReadNotificationJsonUpdater;
 import org.fenixedu.bennu.notifications.backend.view.NotificationView;
+import org.fenixedu.bennu.notifications.master.Master;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 
 import com.google.gson.JsonElement;
@@ -31,13 +32,17 @@ public class NotificationsResource extends AbstractNotificationsResource {
 
     @GET
     public Response getNotifications(@QueryParam("after") String lastId, @QueryParam("before") String beforeId,
-            @QueryParam("page") int page) {
+            @QueryParam("lastN") Integer n, @QueryParam("page") int page) {
+        User user = getUser();
         if (lastId != null) {
-            DispatchedNotification notification = readDomainObject(lastId);
+            DispatchedNotification notification = Master.getNotification(user, lastId);
             return ok(view(notification.getNotificationsAfter()));
         } else if (beforeId != null) {
-            DispatchedNotification notification = readDomainObject(beforeId);
+            DispatchedNotification notification = Master.getNotification(user, beforeId);
             return ok(view(notification.getBefore()));
+        } else if (n != null) {
+            DispatchedNotification notification = getUser().getLastNotification();
+            return ok(view(notification.getLastN(n)));
         } else {
             return serverError();
         }

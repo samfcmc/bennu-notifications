@@ -5,9 +5,13 @@ import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.bennu.notifications.master.exception.NotificationDoesNotBelongToUserException;
+import org.fenixedu.bennu.notifications.master.exception.NotificationNotFoundException;
 import org.fenixedu.bennu.notifications.master.exception.UserDoesNotExistException;
 import org.fenixedu.bennu.notifications.master.exception.UserNotAllowedToReadException;
 import org.fenixedu.notifications.core.domain.Payload;
+
+import pt.ist.fenixframework.FenixFramework;
 
 import com.google.gson.JsonElement;
 
@@ -36,6 +40,17 @@ public class Master {
             notification.setRead(true);
         } else {
             throw new UserNotAllowedToReadException(notification, user);
+        }
+    }
+
+    public static DispatchedNotification getNotification(User user, String id) {
+        DispatchedNotification notification = FenixFramework.getDomainObject(id);
+        if (notification == null) {
+            throw new NotificationNotFoundException(id);
+        } else if (notification.getUser().equals(user)) {
+            return notification;
+        } else {
+            throw new NotificationDoesNotBelongToUserException(user.getUsername(), id);
         }
     }
 
