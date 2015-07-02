@@ -9,6 +9,11 @@ This library allows applications developed using the Bennu Framework to have rea
 ## Architecture
 ![Architecture](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/architecture.png)
 
+### Domain in the backend
+The following diagram shows the domain that is stored in the backend
+
+![Domain](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/domain-backend.png)
+
 ## Requirements:
 * Java JDK 8
 * Maven
