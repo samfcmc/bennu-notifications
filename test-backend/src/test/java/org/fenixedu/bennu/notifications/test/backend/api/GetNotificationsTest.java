@@ -6,8 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
-import org.fenixedu.notifications.core.domain.Payload;
+import org.fenixedu.bennu.notifications.master.Master;
+import org.fenixedu.notifications.master.backend.NotificationInfo;
 import org.junit.Test;
 
 import com.google.gson.JsonArray;
@@ -22,11 +22,12 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void successNotificationsAfter() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
-        DispatchedNotification last = new DispatchedNotification(user, new Payload(payload));
-        new DispatchedNotification(user, new Payload(payload));
-        new DispatchedNotification(user, new Payload(payload));
+        String username = user.getUsername();
+        NotificationInfo first = Master.getInstance().createNotification(username, payload);
+        Master.getInstance().createNotification(username, payload);
+        Master.getInstance().createNotification(username, payload);
         login(user);
-        JsonArray responseJson = invokeGetNotificationsAfterEndpoint(last.getExternalId());
+        JsonArray responseJson = invokeGetNotificationsAfterEndpoint(first.getId());
 
         assertEquals("Result should have 2 elements", 2, responseJson.size());
 
@@ -35,7 +36,7 @@ public class GetNotificationsTest extends AbstractAPITest {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String id = jsonObject.get(ID).getAsString();
             assertNotification(jsonObject);
-            assertNotEquals("last notification should not be included in the result", id, last.getExternalId());
+            assertNotEquals("last notification should not be included in the result", id, first.getId());
         }
     }
 
@@ -43,10 +44,10 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void afterIdDoesNotExist() {
         User user = generateUser();
         JsonElement payloadJson = getNotificationPayload();
-        Payload payload = new Payload(payloadJson);
-        new DispatchedNotification(user, payload);
-        new DispatchedNotification(user, payload);
-        new DispatchedNotification(user, payload);
+        String username = user.getUsername();
+        Master.getInstance().createNotification(username, payloadJson);
+        Master.getInstance().createNotification(username, payloadJson);
+        Master.getInstance().createNotification(username, payloadJson);
         login(user);
         invokeGetNotificationsAfterEndpoint("fake");
     }
@@ -55,23 +56,24 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void afterIdDoesNotBelongToUser() {
         User loggedIn = generateUser();
         User user = generateUser();
+        String username = user.getUsername();
         JsonElement payloadJson = getNotificationPayload();
-        DispatchedNotification notification = new DispatchedNotification(user, new Payload(payloadJson));
-        new DispatchedNotification(user, new Payload(payloadJson));
-
+        NotificationInfo notification = Master.getInstance().createNotification(username, payloadJson);
+        Master.getInstance().createNotification(username, payloadJson);
         login(loggedIn);
-        invokeGetNotificationsAfterEndpoint(notification.getExternalId());
+        invokeGetNotificationsAfterEndpoint(notification.getId());
     }
 
     @Test
     public void successNotificationsBefore() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
-        new DispatchedNotification(user, new Payload(payload));
-        new DispatchedNotification(user, new Payload(payload));
-        DispatchedNotification notification3 = new DispatchedNotification(user, new Payload(payload));
+        String username = user.getUsername();
+        Master.getInstance().createNotification(username, payload);
+        Master.getInstance().createNotification(username, payload);
+        NotificationInfo notificationInfo = Master.getInstance().createNotification(username, payload);
         login(user);
-        JsonArray responseJson = invokeGetNotificationsBeforeEndpoint(notification3.getExternalId());
+        JsonArray responseJson = invokeGetNotificationsBeforeEndpoint(notificationInfo.getId());
 
         assertEquals("Result should have 2 elements", 2, responseJson.size());
 
@@ -80,7 +82,7 @@ public class GetNotificationsTest extends AbstractAPITest {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String id = jsonObject.get(ID).getAsString();
             assertNotification(jsonObject);
-            assertNotEquals("notification3 should not be included in the result", id, notification3.getExternalId());
+            assertNotEquals("notification3 should not be included in the result", id, notificationInfo.getId());
         }
     }
 
@@ -88,23 +90,25 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void beforeIdDoesNotBelongToUser() {
         User loggedIn = generateUser();
         User user = generateUser();
+        String username = user.getUsername();
         JsonElement payloadJson = getNotificationPayload();
-        new DispatchedNotification(user, new Payload(payloadJson));
-        DispatchedNotification notification = new DispatchedNotification(user, new Payload(payloadJson));
+        Master.getInstance().createNotification(username, payloadJson);
+        NotificationInfo notificationInfo = Master.getInstance().createNotification(username, payloadJson);
 
         login(loggedIn);
-        invokeGetNotificationsBeforeEndpoint(notification.getExternalId());
+        invokeGetNotificationsBeforeEndpoint(notificationInfo.getId());
     }
 
     @Test
     public void noNotificationsAfterLast() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
-        new DispatchedNotification(user, new Payload(payload));
-        new DispatchedNotification(user, new Payload(payload));
-        DispatchedNotification last = new DispatchedNotification(user, new Payload(payload));
+        String username = user.getUsername();
+        Master.getInstance().createNotification(username, payload);
+        Master.getInstance().createNotification(username, payload);
+        NotificationInfo notificationInfo = Master.getInstance().createNotification(username, payload);
         login(user);
-        JsonArray responseJson = invokeGetNotificationsAfterEndpoint(last.getExternalId());
+        JsonArray responseJson = invokeGetNotificationsAfterEndpoint(notificationInfo.getId());
 
         assertEquals("Result should be empty", 0, responseJson.size());
     }
@@ -113,9 +117,10 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void getNLastGreaterThan0() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
+        String username = user.getUsername();
         int n = 10;
         for (int i = 0; i < n; i++) {
-            new DispatchedNotification(user, new Payload(payload));
+            Master.getInstance().createNotification(username, payload);
         }
         login(user);
         JsonArray responseJson = invokeGetNLastNotifications(n);
@@ -132,9 +137,10 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void getNLastEqual0() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
+        String username = user.getUsername();
         int n = 10;
         for (int i = 0; i < n; i++) {
-            new DispatchedNotification(user, new Payload(payload));
+            Master.getInstance().createNotification(username, payload);
         }
         login(user);
         JsonArray responseJson = invokeGetNLastNotifications(0);
@@ -146,9 +152,10 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void getNLastLessThan0() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
+        String username = user.getUsername();
         int n = 10;
         for (int i = 0; i < n; i++) {
-            new DispatchedNotification(user, new Payload(payload));
+            Master.getInstance().createNotification(username, payload);
         }
         login(user);
         invokeGetNLastNotifications(-1);
@@ -158,9 +165,10 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void getNLastNGreaterThanAll() {
         User user = generateUser();
         JsonElement payload = getNotificationPayload();
+        String username = user.getUsername();
         int n = 10;
         for (int i = 0; i < n; i++) {
-            new DispatchedNotification(user, new Payload(payload));
+            Master.getInstance().createNotification(username, payload);
         }
 
         login(user);
@@ -179,8 +187,8 @@ public class GetNotificationsTest extends AbstractAPITest {
     public void noQueryParamsProvided() {
         User user = generateUser();
         JsonElement payloadJson = getNotificationPayload();
-        Payload payload = new Payload(payloadJson);
-        new DispatchedNotification(user, payload);
+        String username = user.getUsername();
+        Master.getInstance().createNotification(username, payloadJson);
         login(user);
         invokeGetLastNotificationsEndpoint();
     }

@@ -1,12 +1,11 @@
 package org.fenixedu.bennu.notifications.master.exception;
 
-import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.notifications.master.backend.NotificationInfo;
 
 public class UserNotAllowedToReadException extends MasterException {
 
-    public UserNotAllowedToReadException(DispatchedNotification notification, User user) {
-        super("User " + user.getUsername() + " is not allowed to read notification " + notification.getExternalId());
+    public UserNotAllowedToReadException(NotificationInfo notification, String username) {
+        super("User " + username + " is not allowed to read notification " + notification.getId());
     }
 
     /**

@@ -1,6 +1,6 @@
-package org.fenixedu.bennu.notifications.master.exception;
+package org.fenixedu.notifications.master.backend.exception;
 
-public class NotificationDoesNotBelongToUserException extends MasterException {
+public class NotificationDoesNotBelongToUserException extends MasterBackendException {
 
     public NotificationDoesNotBelongToUserException(String username, String notificationId) {
         super("Notification with id " + notificationId + " does not belong to user " + username);

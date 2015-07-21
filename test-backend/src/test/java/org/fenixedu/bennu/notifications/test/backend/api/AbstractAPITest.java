@@ -21,19 +21,17 @@ import org.fenixedu.bennu.core.rest.JsonAwareResource;
 import org.fenixedu.bennu.core.rest.JsonBodyReaderWriter;
 import org.fenixedu.bennu.core.rest.JsonParamConverterProvider;
 import org.fenixedu.bennu.notifications.backend.api.NotificationsResource;
-import org.fenixedu.bennu.notifications.backend.json.DispatchedNotificationJsonAdapter;
+import org.fenixedu.bennu.notifications.backend.json.NotificationInfoJsonAdapter;
 import org.fenixedu.bennu.notifications.backend.json.NotificationViewJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.NotificationsAfterByIdJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.NotificationsBeforeByIdJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.NotificationsLastNJsonViewer;
-import org.fenixedu.bennu.notifications.backend.json.PayloadJsonViewer;
 import org.fenixedu.bennu.notifications.backend.view.NotificationView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsAfterByIdView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsBeforeByIdView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsLastNView;
-import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.fenixedu.bennu.notifications.test.ff.FenixFrameworkRunner;
-import org.fenixedu.notifications.core.domain.Payload;
+import org.fenixedu.notifications.master.backend.NotificationInfo;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
@@ -106,8 +104,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     private static void registerDefaultJsonAdapters() {
-        JsonAwareResource.setDefault(DispatchedNotification.class, DispatchedNotificationJsonAdapter.class);
-        JsonAwareResource.setDefault(Payload.class, PayloadJsonViewer.class);
+        JsonAwareResource.setDefault(NotificationInfo.class, NotificationInfoJsonAdapter.class);
         JsonAwareResource.setDefault(NotificationView.class, NotificationViewJsonViewer.class);
         JsonAwareResource.setDefault(NotificationsAfterByIdView.class, NotificationsAfterByIdJsonViewer.class);
         JsonAwareResource.setDefault(NotificationsBeforeByIdView.class, NotificationsBeforeByIdJsonViewer.class);

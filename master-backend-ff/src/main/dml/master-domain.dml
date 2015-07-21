@@ -1,6 +1,6 @@
 package org.fenixedu.notifications.master.domain;
 
-package org.fenixedu.bennu.notifications.master.domain;
+package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
 class DispatchedNotification extends .org.fenixedu.notifications.core.domain.Notification {
 	boolean read;

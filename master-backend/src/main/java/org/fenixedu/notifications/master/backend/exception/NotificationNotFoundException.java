@@ -1,6 +1,6 @@
-package org.fenixedu.bennu.notifications.master.exception;
+package org.fenixedu.notifications.master.backend.exception;
 
-public class NotificationNotFoundException extends MasterException {
+public class NotificationNotFoundException extends MasterBackendException {
 
     public NotificationNotFoundException(String id) {
         super("Notification with id " + id + " not found");

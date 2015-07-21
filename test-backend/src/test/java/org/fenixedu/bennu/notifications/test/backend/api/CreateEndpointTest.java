@@ -1,16 +1,10 @@
 package org.fenixedu.bennu.notifications.test.backend.api;
 
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
-import static org.fenixedu.bennu.notifications.test.utils.TestUtils.getInexistantUsername;
 import static org.fenixedu.bennu.notifications.test.utils.TestUtils.login;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
 import org.junit.Test;
-
-import pt.ist.fenixframework.FenixFramework;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -32,26 +26,12 @@ public class CreateEndpointTest extends AbstractAPITest {
         requestJson.add(PAYLOAD, getNotificationPayload());
         JsonObject json = invokeCreateNotificationEndpoint(requestJson);
         JsonObject payloadJson = json.get(PAYLOAD).getAsJsonObject();
-        DispatchedNotification notification = FenixFramework.getDomainObject(json.get(ID).getAsString());
 
         assertNotification(json);
         assertJsonHasKey(payloadJson, KEY_1);
         assertJsonHasKey(payloadJson, KEY_2);
         assertJsonKeyEqualsValue(payloadJson, KEY_1, VALUE_1);
         assertJsonKeyEqualsValue(payloadJson, KEY_2, VALUE_2);
-        assertNotNull("There should be a new notification", notification);
-        assertEquals("notification user should be the same", user, notification.getUser());
-        assertEquals("notification payload should be the same as in response", payloadJson, notification.getPayload()
-                .getContent());
-    }
-
-    @Test(expected = Exception.class)
-    public void userDoesNotExist() {
-        JsonObject requestJson = new JsonObject();
-        String username = getInexistantUsername();
-        requestJson.add(USERNAMES, getUsernamesJsonArray(username));
-        requestJson.add(PAYLOAD, getNotificationPayload());
-        invokeCreateNotificationEndpoint(requestJson);
     }
 
     private JsonArray getUsernamesJsonArray(User... users) {

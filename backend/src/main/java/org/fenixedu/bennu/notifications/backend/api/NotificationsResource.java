@@ -13,7 +13,8 @@ import org.fenixedu.bennu.notifications.backend.view.NotificationView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsAfterByIdView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsBeforeByIdView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsLastNView;
-import org.fenixedu.bennu.notifications.master.domain.DispatchedNotification;
+import org.fenixedu.bennu.notifications.master.Master;
+import org.fenixedu.notifications.master.backend.NotificationInfo;
 
 import com.google.gson.JsonElement;
 
@@ -28,7 +29,7 @@ public class NotificationsResource extends AbstractResource {
 
     @POST
     public Response createNotification(JsonElement payload) {
-        return ok(createAndView(payload, DispatchedNotification.class));
+        return ok(createAndView(payload, NotificationInfo.class));
     }
 
     @GET
@@ -48,8 +49,9 @@ public class NotificationsResource extends AbstractResource {
 
     @Path("/{notification}/read")
     @POST
-    public Response read(@PathParam("notification") DispatchedNotification notification) {
+    public Response read(@PathParam("notification") String id) {
         User user = getUser();
+        NotificationInfo notification = Master.getInstance().getNotification(user.getUsername(), id);
         return ok(updateAndView(new NotificationView(user, notification), ReadNotificationJsonUpdater.class));
     }
 }

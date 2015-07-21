@@ -1,11 +1,11 @@
-package org.fenixedu.bennu.notifications.master.domain;
+package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.exception.NotificationAlreadReadException;
 import org.fenixedu.notifications.core.domain.Payload;
+import org.fenixedu.notifications.master.backend.exception.NotificationAlreadyReadException;
 import org.joda.time.DateTime;
 
 /**
@@ -147,7 +147,7 @@ public class DispatchedNotification extends DispatchedNotification_Base {
     public void setRead(boolean read) {
         if (read && getRead()) {
             //Notification has already been read
-            throw new NotificationAlreadReadException(this);
+            throw new NotificationAlreadyReadException("");
         } else {
             super.setRead(read);
         }

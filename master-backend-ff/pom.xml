@@ -9,29 +9,22 @@
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>bennu-notifications-master</artifactId>
+	<artifactId>bennu-notifications-master-backend-ff</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Bennu Notifications Master</name>
+	<name>Bennu Notifications Master Backend FF</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.fenixedu</groupId>
+			<artifactId>bennu-notifications-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
 			<artifactId>bennu-notifications-master-backend</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-core</artifactId>
-			<version>${version.org.fenixedu.bennu}</version>
-		</dependency>
 	</dependencies>
 
-
-	<repositories>
-		<repository>
-			<id>fenixedu-maven-repository</id>
-			<url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
-		</repository>
-	</repositories>
 </project>

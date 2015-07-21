@@ -11,7 +11,7 @@ public class ReadNotificationJsonUpdater implements JsonUpdater<NotificationView
 
     @Override
     public NotificationView update(JsonElement json, NotificationView obj, JsonBuilder ctx) {
-        Master.read(obj.getObject(), obj.getUser());
+        Master.getInstance().read(obj.getObject().getId(), obj.getUser().getUsername());
         return obj;
     }
 

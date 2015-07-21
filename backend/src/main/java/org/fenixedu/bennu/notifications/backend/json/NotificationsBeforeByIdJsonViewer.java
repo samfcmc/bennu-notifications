@@ -13,7 +13,7 @@ public class NotificationsBeforeByIdJsonViewer implements JsonViewer<Notificatio
 
     @Override
     public JsonElement view(NotificationsBeforeByIdView obj, JsonBuilder ctx) {
-        return ctx.view(Master.getNotification(obj.getUser(), obj.getObject()).getNotificationsBefore());
+        return ctx.view(Master.getInstance().getNotificationsBefore(obj.getUser().getUsername(), obj.getObject()));
     }
 
 }
