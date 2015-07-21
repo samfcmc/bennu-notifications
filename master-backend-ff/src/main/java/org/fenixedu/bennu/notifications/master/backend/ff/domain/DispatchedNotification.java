@@ -147,10 +147,14 @@ public class DispatchedNotification extends DispatchedNotification_Base {
     public void setRead(boolean read) {
         if (read && getRead()) {
             //Notification has already been read
-            throw new NotificationAlreadyReadException("");
+            throw new NotificationAlreadyReadException(getExternalId());
         } else {
             super.setRead(read);
         }
+    }
+
+    public void read() {
+        setRead(true);
     }
 
 }

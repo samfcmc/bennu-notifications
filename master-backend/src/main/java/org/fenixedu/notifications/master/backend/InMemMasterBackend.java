@@ -72,7 +72,6 @@ public class InMemMasterBackend implements MasterBackend {
 
     @Override
     public Collection<NotificationInfo> getLastNNotificatons(String username, int n) {
-        // FIXME
         return getStreamForUser(username).sorted(new Comparator<NotificationInfo>() {
 
             @Override
