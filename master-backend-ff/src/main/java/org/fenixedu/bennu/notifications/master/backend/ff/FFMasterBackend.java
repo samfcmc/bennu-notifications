@@ -53,7 +53,7 @@ public class FFMasterBackend implements MasterBackend {
     }
 
     @Override
-    public void read(String id, String username) {
+    public void markAsRead(String id, String username) {
         DispatchedNotification notification = getNotificationFromDomain(id, username);
         notification.read();
     }

@@ -37,8 +37,8 @@ public class Master {
         return backend.createNotification(username, payload);
     }
 
-    public void read(String id, String username) {
-        backend.read(id, username);
+    public void markAsRead(String id, String username) {
+        backend.markAsRead(id, username);
     }
 
     public NotificationInfo getNotification(String username, String id) {

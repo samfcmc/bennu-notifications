@@ -10,7 +10,7 @@ public interface MasterBackend {
 
     NotificationInfo createNotification(String username, JsonElement payload);
 
-    void read(String id, String username);
+    void markAsRead(String id, String username);
 
     NotificationInfo getNotification(String id, String username);
 

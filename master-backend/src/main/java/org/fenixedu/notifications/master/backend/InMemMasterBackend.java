@@ -45,7 +45,7 @@ public class InMemMasterBackend implements MasterBackend {
     }
 
     @Override
-    public void read(String id, String username) {
+    public void markAsRead(String id, String username) {
         NotificationInfo notification = getNotification(id, username);
         if (notification.isRead()) {
             throw new NotificationAlreadyReadException(notification);
