@@ -2,6 +2,7 @@ package org.fenixedu.bennu.notifications.master.backend.ff;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -80,6 +81,10 @@ public class FFMasterBackend implements MasterBackend {
     @Override
     public Collection<NotificationInfo> getLastNNotificatons(String username, int n) {
         User user = User.findByUsername(username);
+        DispatchedNotification notification = user.getLastNotification();
+        if (notification == null) {
+            return new HashSet<>();
+        }
         Set<DispatchedNotification> notifications = user.getLastNotification().getLastN(n);
         return getNotificationInfoCollection(notifications);
     }
