@@ -67,7 +67,7 @@ public class FFMasterBackend implements MasterBackend {
 
     private NotificationInfo getNotificationInfo(DispatchedNotification notification) {
         return new NotificationInfo(notification.getExternalId(), notification.getUser().getUsername(), notification.getPayload()
-                .getContent(), notification.getTimestamp());
+                .getContent(), notification.getRead(), notification.getTimestamp());
     }
 
     private Collection<NotificationInfo> getNotificationInfoCollection(Collection<DispatchedNotification> notifications) {

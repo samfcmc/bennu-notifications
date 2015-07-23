@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 
 public class NotificationInfo {
     private String id;
-    String username;
+    private String username;
     private JsonElement payload;
     private boolean read;
     private DateTime timestamp;
