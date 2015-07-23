@@ -9,11 +9,13 @@ public class NotificationsClientFactory {
 
     private static NotificationsClient instance;
 
-    public static NotificationsClient getClient() {
+    private NotificationsClientFactory() {
+    }
+
+    public static NotificationsClient getClient() throws IOException {
         if (instance == null) {
-            /*
-             * TODO: Get the right client based on configuration file 
-             */
+            RemoteClientConfig config = getConfigFromPropertiesFile();
+            instance = new RemoteNotificationsClient(config);
         }
         return instance;
     }
