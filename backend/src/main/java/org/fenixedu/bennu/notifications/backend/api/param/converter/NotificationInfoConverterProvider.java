@@ -5,13 +5,12 @@ import java.lang.reflect.Type;
 
 import javax.ws.rs.ext.ParamConverter;
 import javax.ws.rs.ext.ParamConverterProvider;
-import javax.ws.rs.ext.Provider;
 
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.notifications.master.Master;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 
-@Provider
+//@Provider
 public class NotificationInfoConverterProvider implements ParamConverter<NotificationInfo>, ParamConverterProvider {
 
     @SuppressWarnings("unchecked")

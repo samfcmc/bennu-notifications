@@ -11,4 +11,5 @@ fenix-framework.properties
 node/
 node_modules/
 bower_components/
-
+notifications.properties
+master-backend.properties

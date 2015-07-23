@@ -98,6 +98,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
+			<artifactId>bennu-notifications-backend</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fenixedu</groupId>
 			<artifactId>default-theme</artifactId>
 			<version>${version.org.fenixedu.bennu}</version>
 		</dependency>

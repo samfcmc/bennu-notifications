@@ -2,7 +2,7 @@ package org.fenixedu.bennu.notifications.master;
 
 import java.util.Collection;
 
-import org.fenixedu.notifications.master.backend.AvailableMasterBackend;
+import org.fenixedu.notifications.master.backend.MasterBackendFactory;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 
@@ -30,7 +30,7 @@ public class Master {
     }
 
     private MasterBackend getBackend() {
-        return AvailableMasterBackend.getRegisteredBackend();
+        return MasterBackendFactory.getBackend();
     }
 
     public NotificationInfo createNotification(String username, JsonElement payload) {

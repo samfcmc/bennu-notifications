@@ -21,6 +21,7 @@ public class NotificationInfoJsonAdapter implements JsonViewer<NotificationInfo>
     private static final String PAYLOAD = "payload";
     private static final String ID = "id";
     private static final String READ = "read";
+    private static final String TIMESTAMP = "timestamp";
 
     @Override
     public NotificationInfo create(JsonElement payload, JsonBuilder builder) {
@@ -38,6 +39,7 @@ public class NotificationInfoJsonAdapter implements JsonViewer<NotificationInfo>
         jsonObject.addProperty(ID, notification.getId());
         jsonObject.add(PAYLOAD, notification.getPayload());
         jsonObject.addProperty(READ, notification.isRead());
+        jsonObject.addProperty(TIMESTAMP, notification.getTimestamp().getMillis());
 
         return jsonObject;
     }
