@@ -45,8 +45,6 @@ $ mvn tomcat7:run
 * Open a web browser in [http://localhost:8080](http://localhost:8080)
 * Enjoy your notifications service ;)
 
-NOTE: When you change server-side code while the embedded tomcat is running you just need to run ```mvn install``` in the module you have changed and the embedded server will automatically reload
-
 ## Client (JAVA)
 The client is the component that actually generates and sends notifications to the Notifications service.
 There is only a Java Client.
