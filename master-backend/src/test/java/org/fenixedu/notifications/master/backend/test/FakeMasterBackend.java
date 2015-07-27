@@ -4,12 +4,14 @@ import java.util.Collection;
 
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
+import org.fenixedu.notifications.master.backend.annotation.MasterBackendImplementation;
 
 import com.google.gson.JsonElement;
 
+@MasterBackendImplementation
 public class FakeMasterBackend implements MasterBackend {
 
-    public FakeMasterBackend(String name) {
+    public FakeMasterBackend() {
         // Just to not have an empty constructor
     }
 
