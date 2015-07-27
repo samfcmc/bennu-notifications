@@ -2,12 +2,12 @@ package org.fenixedu.notifications.master.domain;
 
 package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
-class DispatchedNotification extends .org.fenixedu.notifications.core.domain.Notification {
+class Notification extends .org.fenixedu.notifications.core.domain.Notification {
 	boolean read;
 }
 
 relation UserHasLastNotification {
-	DispatchedNotification playsRole lastNotification {
+	Notification playsRole lastNotification {
 		multiplicity 0..1;
 	}
 	.org.fenixedu.bennu.core.domain.User playsRole {
@@ -16,7 +16,7 @@ relation UserHasLastNotification {
 }
 
 relation NotificationBelongsToUser {
-	DispatchedNotification playsRole {
+	Notification playsRole {
 		multiplicity 1..1;
 	}
 	.org.fenixedu.bennu.core.domain.User playsRole user {
@@ -25,11 +25,11 @@ relation NotificationBelongsToUser {
 }
 
 relation NotificationHasPreviousNotification {
-	DispatchedNotification playsRole {
+	Notification playsRole {
 		multiplicity 1..1;
 	}
 	
-	DispatchedNotification playsRole previous {
+	Notification playsRole previous {
 		multiplicity 0..1;
 	}
 }

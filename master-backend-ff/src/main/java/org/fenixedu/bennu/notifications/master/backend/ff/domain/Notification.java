@@ -8,19 +8,13 @@ import org.fenixedu.notifications.core.domain.Payload;
 import org.fenixedu.notifications.master.backend.exception.NotificationAlreadyReadException;
 import org.joda.time.DateTime;
 
-/**
- * DispatchedNotification: Notifications stored in the backend
- *
- */
-public class DispatchedNotification extends DispatchedNotification_Base {
+public class Notification extends Notification_Base {
 
-    /**
-     * Instantiates a new dispatched notification.
-     *
-     * @param user the user
-     * @param payload the payload
-     */
-    public DispatchedNotification(User user, Payload payload) {
+    public Notification() {
+        super();
+    }
+
+    public Notification(User user, Payload payload) {
         this(user, payload, DateTime.now());
     }
 
@@ -31,7 +25,7 @@ public class DispatchedNotification extends DispatchedNotification_Base {
      * @param payload the payload
      * @param timestamp the timestamp
      */
-    public DispatchedNotification(User user, Payload payload, DateTime timestamp) {
+    public Notification(User user, Payload payload, DateTime timestamp) {
         super();
         init(user, payload, timestamp);
     }
@@ -44,7 +38,6 @@ public class DispatchedNotification extends DispatchedNotification_Base {
      * @param timestamp the timestamp
      */
     protected void init(User user, Payload payload, DateTime timestamp) {
-        super.init(payload, timestamp);
         setUser(user);
         setRead(false);
         updateLastNotification();
@@ -56,15 +49,15 @@ public class DispatchedNotification extends DispatchedNotification_Base {
     private void updateLastNotification() {
         User user = getUser();
         DateTime timestamp = getTimestamp();
-        DispatchedNotification lastNotification = user.getLastNotification();
+        Notification lastNotification = user.getLastNotification();
         if (lastNotification == null || !timestamp.isBefore(lastNotification.getTimestamp())) {
             // There was no last notification or this is the most recent one
             setPrevious(lastNotification);
             user.setLastNotification(this);
         } else {
-            DispatchedNotification currentNotification = lastNotification;
+            Notification currentNotification = lastNotification;
             while (currentNotification.hasPrevious()) {
-                DispatchedNotification previousNotification = currentNotification.getPrevious();
+                Notification previousNotification = currentNotification.getPrevious();
                 if (timestamp.isAfter(previousNotification.getTimestamp())) {
                     currentNotification.setPrevious(this);
                     setPrevious(previousNotification);
@@ -95,9 +88,9 @@ public class DispatchedNotification extends DispatchedNotification_Base {
      *
      * @return the before
      */
-    public Set<DispatchedNotification> getNotificationsBefore() {
-        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
-        DispatchedNotification notification = this;
+    public Set<Notification> getNotificationsBefore() {
+        Set<Notification> notifications = new HashSet<Notification>();
+        Notification notification = this;
         while (notification.hasPrevious()) {
             notifications.add(notification.getPrevious());
             notification = notification.getPrevious();
@@ -111,9 +104,9 @@ public class DispatchedNotification extends DispatchedNotification_Base {
      *
      * @return the last
      */
-    public Set<DispatchedNotification> getNotificationsAfter() {
-        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
-        DispatchedNotification notification = getUser().getLastNotification();
+    public Set<Notification> getNotificationsAfter() {
+        Set<Notification> notifications = new HashSet<Notification>();
+        Notification notification = getUser().getLastNotification();
         if (notification.hasPrevious()) {
             while (notification != null) {
                 if (notification.equals(this)) {
@@ -128,15 +121,14 @@ public class DispatchedNotification extends DispatchedNotification_Base {
         return notifications;
     }
 
-    public Set<DispatchedNotification> getLastN(int n) {
-        Set<DispatchedNotification> notifications = new HashSet<DispatchedNotification>();
+    public Set<Notification> getLastN(int n) {
+        Set<Notification> notifications = new HashSet<Notification>();
         //DispatchedNotification notification = this;
         if (n < 0) {
             throw new IllegalArgumentException();
         }
 
-        for (DispatchedNotification notification = this; (notification != null) && (n != 0); notification =
-                notification.getPrevious(), n--) {
+        for (Notification notification = this; (notification != null) && (n != 0); notification = notification.getPrevious(), n--) {
             notifications.add(notification);
         }
 

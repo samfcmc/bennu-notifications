@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.notifications.master.backend.ff.domain.DispatchedNotification;
+import org.fenixedu.bennu.notifications.master.backend.ff.domain.Notification;
 import org.fenixedu.notifications.core.domain.Payload;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
@@ -31,14 +31,14 @@ public class FFMasterBackend implements MasterBackend {
     @Override
     public NotificationInfo createNotification(String username, JsonElement payload) {
         User user = User.findByUsername(username);
-        DispatchedNotification notification = new DispatchedNotification(user, new Payload(payload));
+        Notification notification = new Notification(user, new Payload(payload));
         NotificationInfo notificationInfo =
                 new NotificationInfo(notification.getExternalId(), username, payload, notification.getTimestamp());
         return notificationInfo;
     }
 
-    private DispatchedNotification getNotificationFromDomain(String id, User user) {
-        DispatchedNotification notification = FenixFramework.getDomainObject(id);
+    private Notification getNotificationFromDomain(String id, User user) {
+        Notification notification = FenixFramework.getDomainObject(id);
         if (notification.getUser().equals(user)) {
             // User owns this notification
             return notification;
@@ -47,32 +47,32 @@ public class FFMasterBackend implements MasterBackend {
         }
     }
 
-    private DispatchedNotification getNotificationFromDomain(String id, String username) {
+    private Notification getNotificationFromDomain(String id, String username) {
         User user = User.findByUsername(username);
         return getNotificationFromDomain(id, user);
     }
 
     @Override
     public void markAsRead(String id, String username) {
-        DispatchedNotification notification = getNotificationFromDomain(id, username);
+        Notification notification = getNotificationFromDomain(id, username);
         notification.read();
     }
 
     @Override
     public NotificationInfo getNotification(String id, String username) {
-        DispatchedNotification notification = getNotificationFromDomain(id, username);
+        Notification notification = getNotificationFromDomain(id, username);
         return getNotificationInfo(notification);
 
     }
 
-    private NotificationInfo getNotificationInfo(DispatchedNotification notification) {
+    private NotificationInfo getNotificationInfo(Notification notification) {
         return new NotificationInfo(notification.getExternalId(), notification.getUser().getUsername(), notification.getPayload()
                 .getContent(), notification.getRead(), notification.getTimestamp());
     }
 
-    private Collection<NotificationInfo> getNotificationInfoCollection(Collection<DispatchedNotification> notifications) {
+    private Collection<NotificationInfo> getNotificationInfoCollection(Collection<Notification> notifications) {
         List<NotificationInfo> list = new ArrayList<>(notifications.size());
-        for (DispatchedNotification notification : notifications) {
+        for (Notification notification : notifications) {
             list.add(getNotificationInfo(notification));
         }
         return list;
@@ -81,25 +81,25 @@ public class FFMasterBackend implements MasterBackend {
     @Override
     public Collection<NotificationInfo> getLastNNotificatons(String username, int n) {
         User user = User.findByUsername(username);
-        DispatchedNotification notification = user.getLastNotification();
+        Notification notification = user.getLastNotification();
         if (notification == null) {
             return new HashSet<>();
         }
-        Set<DispatchedNotification> notifications = user.getLastNotification().getLastN(n);
+        Set<Notification> notifications = user.getLastNotification().getLastN(n);
         return getNotificationInfoCollection(notifications);
     }
 
     @Override
     public Collection<NotificationInfo> getNotificationsAfter(String username, String id) {
-        DispatchedNotification notification = getNotificationFromDomain(id, username);
-        Set<DispatchedNotification> notifications = notification.getNotificationsAfter();
+        Notification notification = getNotificationFromDomain(id, username);
+        Set<Notification> notifications = notification.getNotificationsAfter();
         return getNotificationInfoCollection(notifications);
     }
 
     @Override
     public Collection<NotificationInfo> getNotificationsBefore(String username, String id) {
-        DispatchedNotification notification = getNotificationFromDomain(id, username);
-        Set<DispatchedNotification> notifications = notification.getNotificationsBefore();
+        Notification notification = getNotificationFromDomain(id, username);
+        Set<Notification> notifications = notification.getNotificationsBefore();
         return getNotificationInfoCollection(notifications);
     }
 
