@@ -29,7 +29,8 @@ module.exports = function(grunt) {
                 options: {
                     variables: {
                         debug: true,
-                        targetPath: '<%= buildPath %>'
+                        targetPath: '<%= buildPath %>',
+                        livereload: '<script src="//localhost:35729/livereload.js"></script>'
                     }
                 }
             },
@@ -37,9 +38,26 @@ module.exports = function(grunt) {
                 options: {
                     variables: {
                         debug: false,
-                        targetPath: '<%= distPath %>'
+                        targetPath: '<%= distPath %>',
                     }
                 }
+            }
+        },
+        replace: {
+            build: {
+                options: {
+                    variables: {
+                        livereload: '<%= livereload %>'
+                    }
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['src/main/webapp/index.html'],
+                        dest: '<%= targetPath %>'
+                    }
+                ]
             }
         },
         bower: {
@@ -116,36 +134,48 @@ module.exports = function(grunt) {
         uglify: {
             vendors: {
                 files: {
-                    '<%= vendorsScriptTargetPath %>': ['<%= vendorsScriptPath %>']
+                    '<%= vendorsScriptTargetPath %>': ['<%= vendorsScriptTargetPath %>']
                 }
             },
             main: {
                 files: {
-                    '<%= mainScriptTargetPath %>': ['<%= mainScriptPath %>']
+                    '<%= mainScriptTargetPath %>': ['<%= mainScriptTargetPath %>']
                 }
             }
         },
         watch: {
             main: {
                 files: ['<%= mainScriptPath %>', '<%= scriptsPath %>/**/*.js'],
-                tasks: ['config:dev', 'browserify:main']
+                tasks: ['config:dev', 'browserify:main'],
+                options: {
+                    livereload: true
+                }
             },
             vendors: {
                 files: ['<%= vendorsScriptPath %>'],
-                tasks: ['config:dev', 'browserify:vendors']
+                tasks: ['config:dev', 'browserify:vendors'],
+                options: {
+                    livereload: true
+                }
             },
             index: {
                 files: ['<%= indexPath %>'],
-                tasks: ['config:dev', 'copy:index']
+                tasks: ['config:dev', 'replace'],
+                options: {
+                    livereload: true
+                }
             },
             styles: {
                 files: ['<%= styleSrcPath %>/**/*.less'],
-                tasks: ['config:dev', 'less']
+                tasks: ['config:dev', 'less'],
+                options: {
+                    livereload: true
+                }
             }
         }
     });
 
-    grunt.registerTask('common', ['bower', 'browserify', 'copy', 'less']);
+    grunt.registerTask('common', ['bower', 'browserify', 'less', 'replace']);
     grunt.registerTask('dev', ['config:dev', 'common', 'connect', 'watch']);
     grunt.registerTask('dist', ['config:dist', 'common', 'uglify']);
     grunt.registerTask('default', ['dev']);
