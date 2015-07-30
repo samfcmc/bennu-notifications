@@ -15,3 +15,4 @@ notifications.properties
 master-backend.properties
 build/
 dist/
+target-grunt/

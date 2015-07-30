@@ -3,5 +3,7 @@
 (function(window, require) {
   window.jQuery = require('jquery');
   require('bootstrap');
-  require('angular');  
+  require('angular');
+  window.React = require('react');
+  window.ReactRouter = require('react-router');
 }(window, require))

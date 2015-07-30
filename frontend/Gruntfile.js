@@ -61,7 +61,7 @@ module.exports = function(grunt) {
                 src: ['<%= mainScriptPath %>'],
                 dest: '<%= mainScriptTargetPath %>',
                 options: {
-                    transform: ['debowerify'],
+                    transform: ['reactify'],
                     browserifyOptions: {
                         debug: '<%= debug %>'
                     }
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
         },
         watch: {
             main: {
-                files: ['<%= mainScriptPath %>'],
+                files: ['<%= mainScriptPath %>', '<%= scriptsPath %>/**/*.js'],
                 tasks: ['config:dev', 'browserify:main']
             },
             vendors: {
