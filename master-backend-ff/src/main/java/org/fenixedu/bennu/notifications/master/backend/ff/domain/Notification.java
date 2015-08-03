@@ -1,6 +1,9 @@
 package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
@@ -147,6 +150,20 @@ public class Notification extends Notification_Base {
 
     public void read() {
         setRead(true);
+    }
+
+    public Collection<Notification> getPreviousUnread() {
+        Notification notification = this;
+        List<Notification> unread = new LinkedList<>();
+        while (notification.hasPrevious()) {
+            if (notification.getRead()) {
+                break;
+            } else {
+                unread.add(notification);
+                notification = notification.getPrevious();
+            }
+        }
+        return unread;
     }
 
 }

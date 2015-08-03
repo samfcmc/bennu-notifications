@@ -54,4 +54,11 @@ public class NotificationsResource extends AbstractResource {
         NotificationInfo notification = Master.getInstance().getNotification(user.getUsername(), id);
         return ok(updateAndView(new NotificationView(user, notification), ReadNotificationJsonUpdater.class));
     }
+
+    @GET
+    @Path("/unread")
+    public Response getUnread() {
+        User user = getUser();
+        return ok(view(Master.getInstance().getUnread(user.getUsername())));
+    }
 }

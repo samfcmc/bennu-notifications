@@ -1,6 +1,6 @@
 'use strict';
 
-(function(module) {
+(function(module, require) {
 
   module.exports = function(React, ReactRouter) {
 
@@ -11,4 +11,4 @@
     };
   };
 
-}(module));
+}(module, require));

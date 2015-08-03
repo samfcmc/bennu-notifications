@@ -2,8 +2,8 @@ package org.fenixedu.bennu.notifications.master;
 
 import java.util.Collection;
 
-import org.fenixedu.notifications.master.backend.MasterBackendFactory;
 import org.fenixedu.notifications.master.backend.MasterBackend;
+import org.fenixedu.notifications.master.backend.MasterBackendFactory;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 
 import com.google.gson.JsonElement;
@@ -55,6 +55,10 @@ public class Master {
 
     public Collection<NotificationInfo> getNotificationsBefore(String username, String id) {
         return backend.getNotificationsBefore(username, id);
+    }
+
+    public Collection<NotificationInfo> getUnread(String username) {
+        return backend.getUnread(username);
     }
 
 }

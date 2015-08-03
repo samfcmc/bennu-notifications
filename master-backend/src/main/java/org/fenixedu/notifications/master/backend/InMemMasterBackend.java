@@ -110,4 +110,9 @@ public class InMemMasterBackend implements MasterBackend {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public Collection<NotificationInfo> getUnread(String username) {
+        return getStreamForUser(username).filter(notification -> !notification.isRead()).collect(Collectors.toSet());
+    }
+
 }

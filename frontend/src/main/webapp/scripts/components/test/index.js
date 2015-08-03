@@ -1,9 +1,9 @@
 'use strict';
 
-(function(module) {
+(function(module, require) {
 
-  module.exports = function(React) {
-    var Generate = require('./generate.jsx')(React);
+  module.exports = function(React, NotificationsClient) {
+    var Generate = require('./generate.jsx')(React, NotificationsClient);
     var New = require('./new.jsx')(React);
     var Notification = require('./notification.jsx')(React);
     var List = require('./list.jsx')(React, Notification);
@@ -14,4 +14,4 @@
 
   };
 
-}(module));
+}(module, require));

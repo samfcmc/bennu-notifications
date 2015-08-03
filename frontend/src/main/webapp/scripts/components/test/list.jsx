@@ -6,7 +6,8 @@
     var List = React.createClass({
       getInitialState: function() {
         return {
-          data: []
+          data: [],
+          type: this.props.type
         };
       },
       render: function() {
@@ -19,7 +20,7 @@
         return (
           <div className="row">
             <div className="row">
-              <h2>{this.props.type}</h2>
+              <h2>{this.state.type}</h2>
             </div>
             <div className="row">
               <ul className="list-groupt">

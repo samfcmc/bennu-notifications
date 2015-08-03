@@ -1,6 +1,6 @@
 'use strict';
 
-(function(module) {
+(function(module, require) {
 
   module.exports = function(React) {
 
@@ -10,4 +10,4 @@
 
   }
 
-}(module));
+}(module, require));

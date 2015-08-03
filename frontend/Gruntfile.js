@@ -177,8 +177,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('common', ['bower', 'browserify', 'less', 'replace', 'copy']);
-    grunt.registerTask('dev', ['config:dev', 'common', 'connect', 'watch']);
+    grunt.registerTask('common', ['bower', 'browserify', 'less', 'copy', 'replace']);
+    grunt.registerTask('server', ['configureProxies:server', 'connect:server']);
+    grunt.registerTask('dev', ['config:dev', 'common', 'server', 'watch']);
     grunt.registerTask('dist', ['config:dist', 'common', 'uglify']);
     grunt.registerTask('default', ['dev']);
 };

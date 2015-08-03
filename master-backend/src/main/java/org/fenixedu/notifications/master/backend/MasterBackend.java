@@ -20,4 +20,6 @@ public interface MasterBackend {
 
     Collection<NotificationInfo> getNotificationsBefore(String username, String id);
 
+    Collection<NotificationInfo> getUnread(String username);
+
 }

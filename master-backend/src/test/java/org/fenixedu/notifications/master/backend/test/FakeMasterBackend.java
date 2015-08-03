@@ -49,4 +49,10 @@ public class FakeMasterBackend implements MasterBackend {
         return null;
     }
 
+    @Override
+    public Collection<NotificationInfo> getUnread(String username) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

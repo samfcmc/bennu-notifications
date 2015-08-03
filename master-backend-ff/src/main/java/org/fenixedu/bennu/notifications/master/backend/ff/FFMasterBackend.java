@@ -103,4 +103,13 @@ public class FFMasterBackend implements MasterBackend {
         return getNotificationInfoCollection(notifications);
     }
 
+    @Override
+    public Collection<NotificationInfo> getUnread(String username) {
+        User user = User.findByUsername(username);
+        Notification notification = user.getLastNotification();
+        Collection<Notification> unread = notification.getPreviousUnread();
+        Collection<NotificationInfo> result = getNotificationInfoCollection(unread);
+        return result;
+    }
+
 }
