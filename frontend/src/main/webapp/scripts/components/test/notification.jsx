@@ -3,17 +3,15 @@
 (function(module) {
 
   module.exports = function(React) {
-    var Test = React.createClass({
+    var Notification = React.createClass({
       render: function() {
         return (
-          <div>
-            <h2>Test</h2>
-          </div>
+          <li className="list-group-item">{this.props.data}</li>
         );
       }
     });
 
-    return Test;
-  }
+    return Notification;
+  };
 
 }(module));

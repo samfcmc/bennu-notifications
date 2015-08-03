@@ -2,17 +2,17 @@
 
 (function(module) {
   module.exports = function(React) {
-    var Settings = React.createClass({
+    var Admin = React.createClass({
       render: function() {
         return (
-          <div>
+          <div className="row">
             <h2>Admin</h2>
           </div>
         );
       }
     });
 
-    return Settings;
+    return Admin;
   }
 
 }(module))

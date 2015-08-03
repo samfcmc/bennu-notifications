@@ -3,13 +3,13 @@
 (function(module) {
 
   module.exports = function(React, ReactRouter) {
-    var Navbar = require('./navbar')(React, ReactRouter);
-    var Main = require('./main')(React, Navbar, ReactRouter);
-    var Welcome = require('./welcome')(React);
+    var Partials = require('./partials')(React, ReactRouter);
+    var Main = require('./main.jsx')(React, Partials.Navbar, ReactRouter);
+    var Welcome = require('./welcome.jsx')(React);
     var Admin = require('./admin')(React);
     var Test = require('./test')(React);
     return {
-      Navbar: Navbar,
+      Partials: Partials,
       Main: Main,
       Welcome: Welcome,
       Admin: Admin,
@@ -17,4 +17,4 @@
     };
   }
 
-}(module))
+}(module));

@@ -33,7 +33,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>**/scripts/**</exclude>
+								<exclude>src/main/webapp/</exclude>
 								<exclude>**/bower_components/**</exclude>
 							</excludes>
 						</configuration>
@@ -95,6 +95,7 @@
 				</configuration>
 				<executions>
 					<execution>
+						<phase>generate-resources</phase>
 						<goals>
 							<goal>npm</goal>
 							<goal>grunt</goal>

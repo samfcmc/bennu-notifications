@@ -39,6 +39,7 @@ module.exports = function(grunt) {
                     variables: {
                         debug: false,
                         targetPath: '<%= distPath %>',
+                        livereload: ''
                     }
                 }
             }
@@ -54,7 +55,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['src/main/webapp/index.html'],
+                        src: ['<%= indexPath %>'],
                         dest: '<%= targetPath %>'
                     }
                 ]
@@ -121,13 +122,14 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            index: {
+            fonts: {
                 files: [
-                    {expand: true,
-                    cwd: '<%= srcPath %>',
-                    src: ['<%= index %>'],
-                    dest: '<%= targetPath %>/',
-                    filter: 'isFile'},
+                    {
+                        expand: true,
+                        cwd: '<%= bowerComponents %>/bootstrap',
+                        src: ['fonts/**/*'],
+                        dest: '<%= targetPath %>'
+                    }
                 ]
             }
         },
@@ -145,7 +147,7 @@ module.exports = function(grunt) {
         },
         watch: {
             main: {
-                files: ['<%= mainScriptPath %>', '<%= scriptsPath %>/**/*.js'],
+                files: ['<%= mainScriptPath %>', '<%= scriptsPath %>/**/*.*'],
                 tasks: ['config:dev', 'browserify:main'],
                 options: {
                     livereload: true
@@ -175,7 +177,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('common', ['bower', 'browserify', 'less', 'replace']);
+    grunt.registerTask('common', ['bower', 'browserify', 'less', 'replace', 'copy']);
     grunt.registerTask('dev', ['config:dev', 'common', 'connect', 'watch']);
     grunt.registerTask('dist', ['config:dist', 'common', 'uglify']);
     grunt.registerTask('default', ['dev']);
