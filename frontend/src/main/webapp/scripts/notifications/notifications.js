@@ -13,60 +13,58 @@
       return found;
     }
 
+    var request = function(url, method, data, success, error) {
+      if(method == 'GET') {
+        dataRequest = null;
+      }
+      else {
+        dataRequest = JSON.stringify(data);
+      }
+      jQuery.ajax(url, {
+        contentType: "application/json; charset=utf-8",
+        method: method,
+        data: dataRequest,
+        success: success,
+        error: error
+      })
+    }
+
     return {
       getLastN: function(n, success, error) {
         var url = baseUrl + '?lastN=' + n;
         var self = this;
-        jQuery.ajax(url, {
-          method: 'GET',
-          success: function(response) {
-            if(response.length > 0) {
-              self.last = mostRecent(response);
-            }
-            if(success) {
-              success(response);
-            }
-          },
-          error: error
-        });
+        request(url, 'GET', {}, function(response) {
+          if(response.length > 0) {
+            self.last = mostRecent(response);
+          }
+          if(success) {
+            success(response);
+          }
+        }, error);
       },
       create: function(usernames, payload, success, error) {
         var data = {
           usernames: usernames,
           payload: payload
         };
-        jQuery.ajax(baseUrl, {
-          data: JSON.stringify(data),
-          contentType: "application/json; charset=utf-8",
-          method: 'POST',
-          success: success,
-          error: error
-        });
+        request(baseUrl, 'POST', data, success, error);
       },
       unread: function(success, error) {
         var url = baseUrl + '/unread';
         var self = this;
-        jQuery.ajax(url, {
-          method: 'GET',
-          success: success,
-          error: error
-        });
+        request(url, 'GET', {}, success, error);
       },
       after: function(id, success, error) {
         var url = baseUrl + '?after=' + id;
         var self = this;
-        jQuery.ajax(url, {
-          method: 'GET',
-          success: function(response) {
-            if(response.length > 0) {
-              self.last = mostRecent(response);
-            }
-            if(success) {
-              success(response);
-            }
-          },
-          error: error
-        });
+        request(url, 'GET', {}, function(response) {
+          if(response.length > 0) {
+            self.last = mostRecent(response);
+          }
+          if(success) {
+            success(response);
+          }
+        }, error);
       },
       poll: function(seconds, success, error) {
         var interval = seconds * 1000;
@@ -79,12 +77,7 @@
       },
       read: function(id, success, error) {
         var url = baseUrl + '/' + id + '/read'
-        jQuery.ajax(url, {
-          contentType: "application/json; charset=utf-8",
-          method: 'POST',
-          success: success,
-          error: error
-        });
+        request(url, 'POST', {}, success, error)
       }
     };
   };
