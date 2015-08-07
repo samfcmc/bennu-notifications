@@ -20,7 +20,9 @@
         jQuery.ajax(url, {
           method: 'GET',
           success: function(response) {
-            self.last = mostRecent(response);
+            if(response.length > 0) {
+              self.last = mostRecent(response);
+            }
             if(success) {
               success(response);
             }
@@ -52,16 +54,27 @@
       },
       after: function(id, success, error) {
         var url = baseUrl + '?after=' + id;
+        var self = this;
         jQuery.ajax(url, {
           method: 'GET',
-          success: success,
+          success: function(response) {
+            if(response.length > 0) {
+              self.last = mostRecent(response);
+            }
+            if(success) {
+              success(response);
+            }
+          },
           error: error
         });
       },
-      poll: function(lastNotificationId, seconds, success, error) {
+      poll: function(seconds, success, error) {
         var interval = seconds * 1000;
+        var self = this;
         setInterval(function() {
-          self.after(lastNotificationId, success, error);
+          if(self.last) {
+            self.after(self.last.id, success, error);
+          }
         }, interval);
       },
       read: function(id, success, error) {

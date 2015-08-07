@@ -40,6 +40,7 @@
           ReadButton = (
             <div className="row">
               <Button
+              className="pull-right"
               bsStyle='default'
               onClick={this.read}>
                 Read
