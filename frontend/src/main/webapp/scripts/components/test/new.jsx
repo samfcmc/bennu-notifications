@@ -5,10 +5,14 @@
   module.exports = function(React) {
     var New = React.createClass({
       render: function() {
+        var itemClass = function(count) {
+          var name = 'list-group-item';
+          return name + (count == 0 ? '' : ' active');
+        }
         return (
           <div className="row">
             <ul className="list-group">
-              <li className="list-group-item">
+              <li className={itemClass(this.props.new)}>
                 <span className="badge">{this.props.new}</span>
                 New notifications
               </li>

@@ -4,13 +4,12 @@
 
   const POLLING_SECONDS = 10;
 
-  module.exports = function(React, New, List, NotificationsClient, ReactBootstrap) {
+  module.exports = function(React, New, List, NotificationsClient) {
     var Notifications = React.createClass({
       getInitialState: function() {
         return {
           list: [],
-          new: 0,
-          alertVisible: false
+          new: 0
         };
       },
       componentDidMount: function() {
@@ -43,35 +42,14 @@
         list.sort(function(a, b) {
           return b.timestamp - a.timestamp;
         });
-        var alertVisible = newList.length > 0 ? true : false;
-
         this.setState({
           list: list,
-          new: count,
-          alertVisible: alertVisible
-        });
-      },
-      handleAlertDismiss: function() {
-        this.setState({
-          alertVisible: false
+          new: count
         });
       },
       render: function() {
-        var Alert = ReactBootstrap.Alert;
-        var NewAlert = (
-          <div></div>
-        );
-        if(this.state.alertVisible) {
-          NewAlert = (
-            <Alert bsStyle="info" onDismiss={this.handleAlertDismiss}
-            dismissAfter={10000}>
-              You got {this.state.new} new notifications
-            </Alert>
-          );
-        }
         return (
           <div className="row">
-            {NewAlert}
             <New new={this.state.new}></New>
             <List list={this.state.list}></List>
           </div>
