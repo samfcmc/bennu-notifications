@@ -4,14 +4,24 @@
 
   module.exports = function(React, New, List, NotificationsClient) {
     var Notifications = React.createClass({
-      get: function(success, error) {
-        return NotificationsClient.getLastN(10, success, error);
+      getInitialState: function() {
+        return {
+          list: []
+        };
+      },
+      componentDidMount: function() {
+        NotificationsClient.getLastN(10, this.updateList);
+      },
+      updateList: function(list) {
+        this.setState({
+          list: list
+        });
       },
       render: function() {
         return (
           <div className="row">
             <New></New>
-            <List source={this.get}></List>
+            <List list={this.state.list}></List>
           </div>
         );
       }
