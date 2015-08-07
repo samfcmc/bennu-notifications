@@ -37,7 +37,7 @@
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                   <li>
-                    <a href="/logout">Logout</a>
+                    <a href="/logout">({this.props.user.username}) Logout</a>
                   </li>
                 </ul>
               </div>

@@ -2,7 +2,7 @@
 
 (function(module) {
 
-  module.exports = function(React, NotificationsClient, ReactBootstrap) {
+  module.exports = function(React, NotificationsClient, ReactBootstrap, user) {
     var Generate = React.createClass({
       getInitialState: function() {
         return {
@@ -10,7 +10,7 @@
         };
       },
       createTestNotification: function() {
-        var usernames = ['admin'];
+        var usernames = [user.username];
         var payload = {test: 'testing...'};
         NotificationsClient.create(usernames, payload, this.afterCreate);
       },
