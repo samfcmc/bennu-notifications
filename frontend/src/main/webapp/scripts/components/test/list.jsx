@@ -7,8 +7,19 @@
       getInitialState: function() {
         return {
           data: [],
-          type: this.props.type
+          type: this.props.type,
+          source: this.props.source
         };
+      },
+      componentDidMount: function() {
+        if(this.state.source) {
+          this.state.source(this.updateList);
+        }
+      },
+      updateList: function(response) {
+        this.setState({
+          data: response
+        });
       },
       render: function() {
         var rows = [];
@@ -20,11 +31,15 @@
         return (
           <div className="row">
             <div className="row">
-              <h2>{this.state.type}</h2>
+              <h2>Notifications</h2>
             </div>
             <div className="row">
               <ul className="list-groupt">
-                {rows}
+                {data.map(function(item) {
+                  return (
+                    <Notification notification={item} key={item.id}/>
+                  );
+                })}
               </ul>
             </div>
           </div>

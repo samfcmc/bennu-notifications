@@ -4,10 +4,10 @@
  * Notifications JS Consumer
  */
 
-(function(require, jQuery) {
+(function(require, module, jQuery) {
 
   var Notifications = require('./notifications')(jQuery);
 
-  window.Notifications = Notifications;
+  module.exports = Notifications;
 
-}(require, window.jQuery));
+}(require, module, window.jQuery));

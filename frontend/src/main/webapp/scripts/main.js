@@ -1,8 +1,9 @@
 'use strict';
 
-(function (require, React, Router) {
-  require('./notifications');
-  var components = require('./components')(React, Router, window.Notifications);
+(function (require, React, Router, ReactBootstrap, moment) {
+  var NotificationsClient = require('./notifications');
+  var components = require('./components')(React, Router, NotificationsClient,
+    ReactBootstrap, moment);
   var Main = components.Main;
   var Welcome = components.Welcome;
   var Admin = components.Admin;
@@ -25,4 +26,5 @@
     );
   });
 
-}(require, window.React, window.ReactRouter));
+}(require, window.React, window.ReactRouter, window.ReactBootstrap,
+  window.moment));

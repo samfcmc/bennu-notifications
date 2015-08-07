@@ -2,14 +2,16 @@
 
 (function(module) {
 
-  module.exports = function(React, New, List) {
+  module.exports = function(React, New, List, NotificationsClient) {
     var Notifications = React.createClass({
+      get: function(success, error) {
+        return NotificationsClient.getLastN(10, success, error);
+      },
       render: function() {
         return (
           <div className="row">
             <New></New>
-            <List type="Unread"></List>
-            <List type="Read"></List>
+            <List source={this.get}></List>
           </div>
         );
       }

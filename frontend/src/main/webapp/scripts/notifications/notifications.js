@@ -46,12 +46,7 @@
         var self = this;
         jQuery.ajax(url, {
           method: 'GET',
-          success: function(response) {
-            self.last = mostRecent(response);
-            if(success) {
-              success(response);
-            }
-          },
+          success: success,
           error: error
         });
       },
@@ -63,21 +58,20 @@
           error: error
         });
       },
-      poll: function(seconds, success, error) {
+      poll: function(lastNotificationId, seconds, success, error) {
         var interval = seconds * 1000;
-        var self = this;
-        if(!this.last) {
-          this.unread(function(response) {
-            self.poll(seconds, success, error)
-          }, function() {
-            throw 'Error getting unread notifications';
-          });
-        }
-        else {
-          setInterval(function() {
-            self.after(self.last.id, success, error);
-          }, interval);
-        }
+        setInterval(function() {
+          self.after(lastNotificationId, success, error);
+        }, interval);
+      },
+      read: function(id, success, error) {
+        var url = baseUrl + '/' + id + '/read'
+        jQuery.ajax(url, {
+          contentType: "application/json; charset=utf-8",
+          method: 'POST',
+          success: success,
+          error: error
+        });
       }
     };
   };
