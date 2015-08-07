@@ -35,6 +35,11 @@
                     <Link to="/test">Test</Link>
                   </li>
                 </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="/logout">Logout</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </nav>

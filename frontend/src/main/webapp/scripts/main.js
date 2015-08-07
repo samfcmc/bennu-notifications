@@ -1,6 +1,6 @@
 'use strict';
 
-(function (require, React, Router, ReactBootstrap, moment) {
+(function (require, React, Router, ReactBootstrap, moment, jQuery) {
   var NotificationsClient = require('./notifications');
   var components = require('./components')(React, Router, NotificationsClient,
     ReactBootstrap, moment);
@@ -19,12 +19,27 @@
     </Route>
   )
 
-  Router.run(Routes, Router.HashLocation, function(Handler) {
-    React.render(
-      <Handler/>,
-      document.getElementById('content')
-    );
+  jQuery.ajax('/api/bennu-core/profile', {
+    method: 'GET',
+    success: function(response) {
+      if(response.username) {
+        Router.run(Routes, Router.HashLocation, function(Handler) {
+          React.render(
+            <Handler/>,
+            document.getElementById('content')
+          );
+        });
+      }
+      else {
+        window.location = '/login';
+      }
+    },
+    error: function(err) {
+      console.error(err);
+    }
   });
 
+
+
 }(require, window.React, window.ReactRouter, window.ReactBootstrap,
-  window.moment));
+  window.moment, jQuery));
