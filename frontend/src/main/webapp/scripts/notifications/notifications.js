@@ -52,7 +52,14 @@
       unread: function(success, error) {
         var url = baseUrl + '/unread';
         var self = this;
-        request(url, 'GET', {}, success, error);
+        request(url, 'GET', {}, function(response) {
+          if(response.length > 0) {
+            self.last = mostRecent(response);
+          }
+          if(success) {
+            success(response);
+          }
+        }, error);
       },
       after: function(id, success, error) {
         var url = baseUrl + '?after=' + id;
@@ -72,6 +79,9 @@
         this.polling = setInterval(function() {
           if(self.last) {
             self.after(self.last.id, success, error);
+          }
+          else {
+            self.unread(success, error);
           }
         }, interval);
       },

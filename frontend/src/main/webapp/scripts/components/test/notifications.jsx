@@ -28,7 +28,6 @@
         }, this.startPolling);
       },
       startPolling: function() {
-        var last = this.state.list[0];
         NotificationsClient.poll(POLLING_SECONDS, this.addAll);
       },
       stopPolling: function() {
