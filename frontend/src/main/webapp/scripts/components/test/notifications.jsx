@@ -16,6 +16,9 @@
       componentDidMount: function() {
         NotificationsClient.getLastN(10, this.updateList);
       },
+      componentWillUnmount: function() {
+        this.stopPolling();
+      },
       updateList: function(list) {
         list.sort(function(a, b) {
           return b.timestamp - a.timestamp;
@@ -27,6 +30,9 @@
       startPolling: function() {
         var last = this.state.list[0];
         NotificationsClient.poll(POLLING_SECONDS, this.addAll);
+      },
+      stopPolling: function() {
+        NotificationsClient.stopPolling();
       },
       addAll: function(newList) {
         var list = this.state.list;

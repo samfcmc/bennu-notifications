@@ -69,11 +69,14 @@
       poll: function(seconds, success, error) {
         var interval = seconds * 1000;
         var self = this;
-        setInterval(function() {
+        this.polling = setInterval(function() {
           if(self.last) {
             self.after(self.last.id, success, error);
           }
         }, interval);
+      },
+      stopPolling: function() {
+        clearInterval(this.polling);
       },
       read: function(id, success, error) {
         var url = baseUrl + '/' + id + '/read'
