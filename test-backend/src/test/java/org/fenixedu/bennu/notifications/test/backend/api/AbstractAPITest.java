@@ -134,7 +134,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     protected JsonArray invokeGetNotificationsAfterEndpoint(String lastId) {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("after", lastId);
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT + "/after/" + lastId);
         String response = invokeGet(target);
         return getJsonArray(response);
     }
@@ -146,7 +146,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     protected JsonArray invokeGetNotificationsBeforeEndpoint(String beforeId) {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("before", beforeId);
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT + "/before/" + beforeId);
         String response = invokeGet(target);
         return getJsonArray(response);
     }
@@ -159,7 +159,7 @@ public abstract class AbstractAPITest extends JerseyTest {
     }
 
     protected JsonArray invokeGetNLastNotifications(int n) {
-        WebTarget target = target(NOTIFICATIONS_ENDPOINT).queryParam("lastN", n);
+        WebTarget target = target(NOTIFICATIONS_ENDPOINT + "/last/" + n);
         String response = invokeGet(target);
         return getJsonArray(response);
     }

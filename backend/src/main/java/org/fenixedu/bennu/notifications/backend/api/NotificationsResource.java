@@ -4,7 +4,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.fenixedu.bennu.core.domain.User;
@@ -32,24 +31,30 @@ public class NotificationsResource extends AbstractResource {
         return ok(createAndView(payload, NotificationInfo.class));
     }
 
+    @Path("/after/{id}")
     @GET
-    public Response getNotifications(@QueryParam("after") String afterId, @QueryParam("before") String beforeId,
-            @QueryParam("lastN") Integer n, @QueryParam("page") int page) {
+    public Response getAfter(@PathParam("id") String id) {
         User user = getUser();
-        if (afterId != null) {
-            return ok(view(new NotificationsAfterByIdView(user, afterId)));
-        } else if (beforeId != null) {
-            return ok(view(new NotificationsBeforeByIdView(user, beforeId)));
-        } else if (n != null) {
-            return ok(view(new NotificationsLastNView(user, n)));
-        } else {
-            return serverError();
-        }
+        return ok(view(new NotificationsAfterByIdView(user, id)));
     }
 
-    @Path("/{notification}/read")
+    @Path("/before/{id}")
+    @GET
+    public Response getBefore(@PathParam("id") String id) {
+        User user = getUser();
+        return ok(view(new NotificationsBeforeByIdView(user, id)));
+    }
+
+    @Path("/last/{n}")
+    @GET
+    public Response getLastN(@PathParam("n") Integer n) {
+        User user = getUser();
+        return ok(view(new NotificationsLastNView(user, n)));
+    }
+
+    @Path("/{id}/read")
     @POST
-    public Response read(@PathParam("notification") String id) {
+    public Response read(@PathParam("id") String id) {
         User user = getUser();
         NotificationInfo notification = Master.getInstance().getNotification(user.getUsername(), id);
         return ok(updateAndView(new NotificationView(user, notification), ReadNotificationJsonUpdater.class));

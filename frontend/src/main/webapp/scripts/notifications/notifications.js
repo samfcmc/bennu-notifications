@@ -14,10 +14,8 @@
     }
 
     var request = function(url, method, data, success, error) {
-      if(method == 'GET') {
-        dataRequest = null;
-      }
-      else {
+      var dataRequest = null;
+      if(method != 'GET') {
         dataRequest = JSON.stringify(data);
       }
       jQuery.ajax(url, {
@@ -31,7 +29,7 @@
 
     return {
       getLastN: function(n, success, error) {
-        var url = baseUrl + '?lastN=' + n;
+        var url = baseUrl + '/last/' + n;
         var self = this;
         request(url, 'GET', {}, function(response) {
           if(response.length > 0) {
@@ -62,7 +60,7 @@
         }, error);
       },
       after: function(id, success, error) {
-        var url = baseUrl + '?after=' + id;
+        var url = baseUrl + '/after/' + id;
         var self = this;
         request(url, 'GET', {}, function(response) {
           if(response.length > 0) {
