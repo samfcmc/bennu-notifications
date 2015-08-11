@@ -2,8 +2,12 @@
 
 (function(module) {
 
-  module.exports = function(React, Generate, Notifications) {
-    var Test = React.createClass({
+  module.exports = function(context, name) {
+    var components = context.components.Test;
+    var Generate = components.Generate;
+    var Notifications = components.Notifications;
+
+    context.createComponent(name, 'Main', {
       render: function() {
         return (
           <div className="row">
@@ -23,7 +27,6 @@
       }
     });
 
-    return Test;
-  }
+  };
 
 }(module));

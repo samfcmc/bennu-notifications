@@ -2,13 +2,10 @@
 
 (function(module, require) {
 
-  module.exports = function(React, ReactRouter) {
+  module.exports = function(context, name) {
 
-    var Navbar = require('./navbar.jsx')(React, ReactRouter);
+    var Navbar = require('./navbar.jsx')(context, name);
 
-    return {
-      Navbar: Navbar
-    };
   };
 
 }(module, require));

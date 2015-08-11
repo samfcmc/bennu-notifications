@@ -2,10 +2,16 @@
 
 (function(module) {
 
-  module.exports = function(React, Navbar, ReactRouter, user) {
+  module.exports = function(context, name) {
+    var libs = context.libs;
+    var ReactRouter = libs.ReactRouter;
     var RouteHandler = ReactRouter.RouteHandler;
+    var React = libs.React;
+    var user = context.user;
+    var Partials = context.components.Partials;
+    var Navbar = Partials.Navbar;
 
-    var Main = React.createClass({
+    context.createComponent(name, 'Main', {
       render: function() {
         return (
           <div className="container">
@@ -16,7 +22,6 @@
       }
     });
 
-    return Main;
-  }
+  };
 
 }(module));

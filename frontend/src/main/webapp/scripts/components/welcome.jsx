@@ -1,8 +1,8 @@
 'use strict';
 
 (function(module) {
-  module.exports = function(React){
-    var NotFound = React.createClass({
+  module.exports = function(context, name){
+    context.createComponent(name, 'Welcome', {
       render: function() {
         return (
           <div className="jumbotron">
@@ -14,6 +14,5 @@
       }
     });
 
-    return NotFound;
   }
 }(module));

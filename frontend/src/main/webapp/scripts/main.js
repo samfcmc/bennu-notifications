@@ -22,4 +22,4 @@
 
 
 }(require, window.React, window.ReactRouter, window.ReactBootstrap,
-  window.moment, jQuery));
+  window.moment, window.jQuery));

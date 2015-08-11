@@ -2,10 +2,13 @@
 
 (function(module) {
 
-  module.exports = function(React, ReactRouter) {
+  module.exports = function(context, name) {
+    var libs = context.libs;
+    var ReactRouter = libs.ReactRouter;
     var Link = ReactRouter.Link;
     var State = ReactRouter.State;
-    var Navbar = React.createClass({
+    var React = libs.React;
+    context.createComponent(name, 'Navbar', {
       mixins: [State],
       render: function() {
         var currentRoute = this.getPathname();
@@ -47,7 +50,6 @@
       }
     });
 
-    return Navbar;
   }
 
 }(module));

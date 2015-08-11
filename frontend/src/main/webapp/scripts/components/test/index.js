@@ -2,19 +2,13 @@
 
 (function(module, require) {
 
-  module.exports = function(React, NotificationsClient, ReactBootstrap,
-    moment, user) {
-    var Generate = require('./generate.jsx')(React, NotificationsClient,
-      ReactBootstrap, user);
-    var New = require('./new.jsx')(React);
-    var Notification = require('./notification.jsx')(React, ReactBootstrap,
-      NotificationsClient, moment);
-    var List = require('./list.jsx')(React, Notification);
-    var Notifications = require('./notifications.jsx')(React, New, List,
-      NotificationsClient);
-    var Test = require('./test.jsx')(React, Generate, Notifications);
-
-    return Test;
+  module.exports = function(context, name) {
+    var Generate = require('./generate.jsx')(context, name);
+    var New = require('./new.jsx')(context, name);
+    var Notification = require('./notification.jsx')(context, name);
+    var List = require('./list.jsx')(context, name);
+    var Notifications = require('./notifications.jsx')(context, name);
+    var Test = require('./main.jsx')(context, name);
 
   };
 

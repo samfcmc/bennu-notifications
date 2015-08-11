@@ -2,8 +2,8 @@
 
 (function(module) {
 
-  module.exports = function(React) {
-    var New = React.createClass({
+  module.exports = function(context, name) {
+    context.createComponent(name, 'New', {
       render: function() {
         var itemClass = function(count) {
           var name = 'list-group-item';
@@ -22,7 +22,6 @@
       }
     });
 
-    return New;
-  }
+  };
 
 }(module));

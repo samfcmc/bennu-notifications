@@ -2,11 +2,9 @@
 
 (function(module, require) {
 
-  module.exports = function(React) {
+  module.exports = function(context, name) {
 
-    var Admin = require('./admin.jsx')(React);
-
-    return Admin;
+    require('./main.jsx')(context, name);
 
   }
 

@@ -4,8 +4,14 @@
 
   const POLLING_SECONDS = 10;
 
-  module.exports = function(React, New, List, NotificationsClient) {
-    var Notifications = React.createClass({
+  module.exports = function(context, name) {
+    var libs = context.libs;
+    var NotificationsClient = libs.NotificationsClient;
+    var components = context.components.Test;
+    var New = components.New;
+    var List = components.List;
+
+    context.createComponent(name, 'Notifications', {
       getInitialState: function() {
         return {
           list: [],
@@ -57,7 +63,6 @@
       }
     });
 
-    return Notifications;
   }
 
 }(module));

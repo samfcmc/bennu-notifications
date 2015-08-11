@@ -2,8 +2,13 @@
 
 (function(module) {
 
-  module.exports = function(React, NotificationsClient, ReactBootstrap, user) {
-    var Generate = React.createClass({
+  module.exports = function(context, name) {
+    var libs = context.libs;
+    var NotificationsClient = libs.NotificationsClient;
+    var ReactBootstrap = libs.ReactBootstrap;
+    var user = context.user;
+
+    context.createComponent(name, 'Generate', {
       getInitialState: function() {
         return {
           alertVisible: false
@@ -50,7 +55,6 @@
       }
     });
 
-    return Generate;
-  }
+  };
 
 }(module));

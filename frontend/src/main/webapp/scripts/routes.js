@@ -4,13 +4,16 @@
 
 (function(module) {
 
-  module.exports = function(Router, components) {
+  module.exports = function(context) {
+    var libs = context.libs;
+    var Router = libs.ReactRouter;
+    var components = context.components;
     var Route = Router.Route;
 
-    var Main = components.Main;
-    var Welcome = components.Welcome;
-    var Admin = components.Admin;
-    var Test = components.Test;
+    var Main = components.Main.Main;
+    var Welcome = components.Main.Welcome;
+    var Admin = components.Admin.Main;
+    var Test = components.Test.Main;
 
     var Routes = (
       <Route handler={Main} path="/">

@@ -2,8 +2,10 @@
 
 (function(module) {
 
-  module.exports = function(React, Notification) {
-    var List = React.createClass({
+  module.exports = function(context, name) {
+    var Notification = context.components.Test.Notification;
+    
+    context.createComponent(name, 'List', {
       render: function() {
         return (
           <div className="row">
@@ -24,7 +26,6 @@
       }
     });
 
-    return List;
-  }
+  };
 
 }(module));

@@ -1,8 +1,8 @@
 'use strict';
 
 (function(module) {
-  module.exports = function(React) {
-    var Admin = React.createClass({
+  module.exports = function(context, name) {
+    context.createComponent(name, 'Main', {
       render: function() {
         return (
           <div className="row">
@@ -12,7 +12,6 @@
       }
     });
 
-    return Admin;
   }
 
 }(module))

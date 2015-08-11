@@ -2,8 +2,13 @@
 
 (function(module) {
 
-  module.exports = function(React, ReactBootstrap, NotificationsClient, moment) {
-    var Notification = React.createClass({
+  module.exports = function(context, name) {
+    var libs = context.libs;
+    var NotificationsClient = libs.NotificationsClient;
+    var moment = libs.moment;
+    var ReactBootstrap = libs.ReactBootstrap;
+
+    context.createComponent(name, 'Notification', {
       getInitialState: function() {
         return {
           showModal: false,
@@ -62,7 +67,6 @@
       }
     });
 
-    return Notification;
   };
 
 }(module));
