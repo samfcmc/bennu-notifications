@@ -1,6 +1,6 @@
 'use strict';
 
-(function(module) {
+(function(module, require) {
 
   module.exports = function(context) {
     var Partials = require('./partials')(context, 'Partials');
@@ -10,4 +10,4 @@
     var Test = require('./test')(context, 'Test');
   }
 
-}(module));
+}(module, require));
