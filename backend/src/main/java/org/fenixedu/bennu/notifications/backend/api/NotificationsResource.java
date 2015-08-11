@@ -7,7 +7,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.notifications.backend.json.GetUnreadJsonViewer;
 import org.fenixedu.bennu.notifications.backend.json.ReadNotificationJsonUpdater;
+import org.fenixedu.bennu.notifications.backend.view.GetUnreadView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsAfterByIdView;
 import org.fenixedu.bennu.notifications.backend.view.NotificationsBeforeByIdView;
@@ -64,6 +66,6 @@ public class NotificationsResource extends AbstractResource {
     @Path("/unread")
     public Response getUnread() {
         User user = getUser();
-        return ok(view(Master.getInstance().getUnread(user.getUsername())));
+        return ok(view(new GetUnreadView(user), GetUnreadJsonViewer.class));
     }
 }
