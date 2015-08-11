@@ -11,12 +11,14 @@ import org.fenixedu.bennu.notifications.master.backend.ff.domain.Notification;
 import org.fenixedu.notifications.core.domain.Payload;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
+import org.fenixedu.notifications.master.backend.annotation.MasterBackendImplementation;
 import org.fenixedu.notifications.master.backend.exception.NotificationDoesNotBelongToUserException;
 
 import pt.ist.fenixframework.FenixFramework;
 
 import com.google.gson.JsonElement;
 
+@MasterBackendImplementation
 public class FFMasterBackend implements MasterBackend {
 
     @Override
