@@ -7,7 +7,6 @@
 
     context.createComponent(name, 'List', {
       render: function() {
-        var self = this;
         return (
           <div className="row">
             <div className="row">
@@ -18,9 +17,9 @@
                 {this.props.list.map(function(item) {
                   return (
                     <Notification notification={item} key={item.id}
-                      onRead={self.props.onRead}/>
+                      onRead={this.props.onRead}/>
                   );
-                })}
+                }.bind(this))}
               </ul>
             </div>
           </div>

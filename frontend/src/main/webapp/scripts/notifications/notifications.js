@@ -37,15 +37,14 @@
     return {
       getLastN: function(n, success, error) {
         var url = baseUrl + '/last/' + n;
-        var self = this;
         request(url, 'GET', {}, function(response) {
           if(response.length > 0) {
-            self.last = mostRecent(response);
+            this.last = mostRecent(response);
           }
           if(success) {
             success(response);
           }
-        }, error);
+        }.bind(this), error);
       },
       create: function(usernames, payload, success, error) {
         var data = {
@@ -56,39 +55,36 @@
       },
       unread: function(success, error) {
         var url = baseUrl + '/unread';
-        var self = this;
         request(url, 'GET', {}, function(response) {
           if(response.length > 0) {
-            self.last = mostRecent(response);
+            this.last = mostRecent(response);
           }
           if(success) {
             success(response);
           }
-        }, error);
+        }.bind(this), error);
       },
       after: function(id, success, error) {
         var url = baseUrl + '/after/' + id;
-        var self = this;
         request(url, 'GET', {}, function(response) {
           if(response.length > 0) {
-            self.last = mostRecent(response);
+            this.last = mostRecent(response);
           }
           if(success) {
             success(response);
           }
-        }, error);
+        }.bind(this), error);
       },
       poll: function(seconds, success, error) {
         var interval = seconds * 1000;
-        var self = this;
         this.polling = setInterval(function() {
-          if(self.last) {
-            self.after(self.last.id, success, error);
+          if(this.last) {
+            this.after(this.last.id, success, error);
           }
           else {
-            self.unread(success, error);
+            this.unread(success, error);
           }
-        }, interval);
+        }.bind(this), interval);
       },
       stopPolling: function() {
         clearInterval(this.polling);
