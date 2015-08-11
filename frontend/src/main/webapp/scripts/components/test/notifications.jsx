@@ -28,8 +28,19 @@
         list.sort(function(a, b) {
           return b.timestamp - a.timestamp;
         });
+
+        var unread = 0;
+
+        for(var i in list) {
+          var item = list[i];
+          if(!item.read) {
+            unread++;
+          }
+        }
+
         this.setState({
-          list: list
+          list: list,
+          new: unread
         }, this.startPolling);
       },
       startPolling: function() {
@@ -40,7 +51,7 @@
       },
       addAll: function(newList) {
         var list = this.state.list;
-        var count = newList.length;
+        var count = this.state.new + newList.length;
         for(var i = 0; i < newList.length; i++) {
           var item = newList[i];
           list.push(item);
@@ -53,11 +64,17 @@
           new: count
         });
       },
+      onRead: function() {
+        var count = this.state.new - 1;
+        this.setState({
+          new: count
+        });
+      },
       render: function() {
         return (
           <div className="row">
             <New new={this.state.new}></New>
-            <List list={this.state.list}></List>
+            <List list={this.state.list} onRead={this.onRead}></List>
           </div>
         );
       }
