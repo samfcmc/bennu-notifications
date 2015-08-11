@@ -16,11 +16,11 @@
     );
     context.user = User;
 
-    var components = require('./components')(context);
+    require('./components')(context);
 
-    var Routes = require('./routes')(context);
+    require('./routes')(context);
 
-    Router.run(Routes, Router.HashLocation, function(Handler) {
+    Router.run(context.Routes, Router.HashLocation, function(Handler) {
       React.render(
         <Handler/>,
         document.getElementById('content')

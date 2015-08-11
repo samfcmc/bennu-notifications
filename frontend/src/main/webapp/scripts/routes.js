@@ -15,7 +15,7 @@
     var Admin = components.Admin.Main;
     var Test = components.Test.Main;
 
-    var Routes = (
+    context.Routes = (
       <Route handler={Main} path="/">
         <Route handler={Admin} path="admin"/>
         <Route handler={Test} path="test"/>
@@ -23,7 +23,6 @@
       </Route>
     );
 
-    return Routes;
   }
 
 }(module));
