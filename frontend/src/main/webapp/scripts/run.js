@@ -5,19 +5,8 @@
     var NotificationsClient = require('./notifications');
     var components = require('./components')(React, Router, NotificationsClient,
       ReactBootstrap, moment, User);
-    var Main = components.Main;
-    var Welcome = components.Welcome;
-    var Admin = components.Admin;
-    var Test = components.Test;
-    var Route = Router.Route;
 
-    var Routes = (
-      <Route handler={Main} path="/">
-        <Route handler={Admin} path="admin"/>
-        <Route handler={Test} path="test"/>
-        <Route handler={Welcome} path="*"/>
-      </Route>
-    );
+    var Routes = require('./routes')(Router, components);
 
     Router.run(Routes, Router.HashLocation, function(Handler) {
       React.render(
