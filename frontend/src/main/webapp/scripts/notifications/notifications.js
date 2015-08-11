@@ -1,6 +1,6 @@
 (function(module) {
 
-  module.exports = function(jQuery) {
+  module.exports = function() {
     var baseUrl = '/api/notifications';
     var mostRecent = function(notifications) {
       var found = {timestamp: 0};
@@ -18,13 +18,20 @@
       if(method != 'GET') {
         dataRequest = JSON.stringify(data);
       }
-      jQuery.ajax(url, {
-        contentType: "application/json; charset=utf-8",
-        method: method,
-        data: dataRequest,
-        success: success,
-        error: error
-      })
+      var request = new XMLHttpRequest();
+      request.onload = function () {
+        if(success) {
+          success(JSON.parse(request.responseText));
+        }
+      }
+      request.onerror = function() {
+        if(error) {
+          error(request.responseText);
+        }
+      }
+      request.open(method, url, true);
+      request.setRequestHeader("Content-type", "application/json");
+      request.send(dataRequest);
     }
 
     return {
