@@ -1,5 +1,7 @@
 package org.fenixedu.bennu.notifications.client;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
@@ -21,10 +23,13 @@ public class RemoteNotificationsClient implements NotificationsClient {
     private RemoteClientConfig config;
     private static final String NOTIFICATIONS_ENDPOINT = "/api/notifications";
     private Gson gson;
+    private Map<String, String> headers;
 
     public RemoteNotificationsClient(RemoteClientConfig config) {
         this.config = config;
         this.gson = new Gson();
+        this.headers = new HashMap<>();
+        this.headers.put("Content-type", "application/json");
     }
 
     private JsonArray getUsernamesJsonArray(User... users) {
@@ -52,7 +57,7 @@ public class RemoteNotificationsClient implements NotificationsClient {
     private void invokePost(String endpoint, String body) throws NotificationsClientException {
         String url = getEndpointUrl(endpoint);
         try {
-            Unirest.post(url).body(body).asString();
+            Unirest.post(url).headers(headers).body(body).asString();
         } catch (UnirestException e) {
             throw new NotificationsClientException();
         }
