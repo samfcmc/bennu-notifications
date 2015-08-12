@@ -13,7 +13,6 @@ import com.google.gson.JsonPrimitive;
 
 public class CreateEndpointTest extends AbstractAPITest {
 
-    private static final String ID = "id";
     private static final String USERNAMES = "usernames";
     private static final String PAYLOAD = "payload";
 
@@ -50,6 +49,15 @@ public class CreateEndpointTest extends AbstractAPITest {
             jsonArray.add(usernameJsonElement);
         }
         return jsonArray;
+    }
+
+    @Test(expected = Exception.class)
+    public void userNotLoggedIn() {
+        User user = generateUser();
+        JsonObject requestJsonObject = new JsonObject();
+        requestJsonObject.add(USERNAMES, getUsernamesJsonArray(user));
+        requestJsonObject.add(PAYLOAD, getNotificationPayload());
+        invokeCreateNotificationEndpoint(requestJsonObject);
     }
 
 }

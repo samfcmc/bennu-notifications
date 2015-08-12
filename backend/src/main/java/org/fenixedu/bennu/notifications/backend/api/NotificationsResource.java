@@ -21,12 +21,12 @@ import com.google.gson.JsonElement;
 
 /**
  * The Class NMasterResource. This class defines all the endpoints that the
- * NClient can invoke, such as, create notifications or get the last
+ * Client can invoke, such as, create notifications or get the last
  * notifications for a given user
  */
 
 @Path("/notifications")
-public class NotificationsResource extends AbstractResource {
+public class NotificationsResource extends AuthenticatedResource {
 
     @POST
     public Response createNotification(JsonElement payload) {
@@ -62,8 +62,8 @@ public class NotificationsResource extends AbstractResource {
         return ok(updateAndView(new NotificationView(user, notification), ReadNotificationJsonUpdater.class));
     }
 
-    @GET
     @Path("/unread")
+    @GET
     public Response getUnread() {
         User user = getUser();
         return ok(view(new GetUnreadView(user), GetUnreadJsonViewer.class));
