@@ -51,13 +51,4 @@ public class CreateEndpointTest extends AbstractAPITest {
         return jsonArray;
     }
 
-    @Test(expected = Exception.class)
-    public void userNotLoggedIn() {
-        User user = generateUser();
-        JsonObject requestJsonObject = new JsonObject();
-        requestJsonObject.add(USERNAMES, getUsernamesJsonArray(user));
-        requestJsonObject.add(PAYLOAD, getNotificationPayload());
-        invokeCreateNotificationEndpoint(requestJsonObject);
-    }
-
 }

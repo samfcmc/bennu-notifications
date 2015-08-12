@@ -26,7 +26,7 @@ import com.google.gson.JsonElement;
  */
 
 @Path("/notifications")
-public class NotificationsResource extends AuthenticatedResource {
+public class NotificationsResource extends AbstractResource {
 
     @POST
     public Response createNotification(JsonElement payload) {

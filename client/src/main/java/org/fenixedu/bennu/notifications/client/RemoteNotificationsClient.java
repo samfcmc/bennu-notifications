@@ -4,7 +4,9 @@ import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.client.exception.NotificationsClientException;
+import org.fenixedu.bennu.notifications.client.payload.NotificationPayload;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,10 +19,12 @@ public class RemoteNotificationsClient implements NotificationsClient {
     private static final String USERNAMES = "usernames";
     private static final String PAYLOAD = "payload";
     private RemoteClientConfig config;
-    private static final String NOTIFICATIONS_ENDPOINT = "bennu-notifications";
+    private static final String NOTIFICATIONS_ENDPOINT = "/api/notifications";
+    private Gson gson;
 
     public RemoteNotificationsClient(RemoteClientConfig config) {
         this.config = config;
+        this.gson = new Gson();
     }
 
     private JsonArray getUsernamesJsonArray(User... users) {
@@ -32,10 +36,12 @@ public class RemoteNotificationsClient implements NotificationsClient {
         return jsonArray;
     }
 
-    private JsonObject getJsonNotification(JsonElement payload, User... users) {
+    private JsonObject getJsonNotification(NotificationPayload payload, User... users) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add(USERNAMES, getUsernamesJsonArray(users));
-        jsonObject.add(PAYLOAD, payload);
+        String payloadString = gson.toJson(payload);
+        JsonObject payloadJson = gson.fromJson(payloadString, JsonObject.class);
+        jsonObject.add(PAYLOAD, payloadJson);
         return jsonObject;
     }
 
@@ -57,12 +63,12 @@ public class RemoteNotificationsClient implements NotificationsClient {
     }
 
     @Override
-    public void postNotification(User user, JsonElement payload) throws NotificationsClientException {
+    public void postNotification(User user, NotificationPayload payload) throws NotificationsClientException {
         invokePost(NOTIFICATIONS_ENDPOINT, getJsonNotification(payload, user));
     }
 
     @Override
-    public void postNotification(Set<User> users, JsonElement payload) {
+    public void postNotification(Set<User> users, NotificationPayload payload) {
         invokePost(NOTIFICATIONS_ENDPOINT, getJsonNotification(payload, users.toArray(new User[users.size()])));
     }
 
