@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.notifications.core.domain.Payload;
 import org.fenixedu.notifications.master.backend.exception.NotificationAlreadyReadException;
 import org.joda.time.DateTime;
 

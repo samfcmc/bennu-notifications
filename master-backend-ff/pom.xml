@@ -17,8 +17,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-notifications-core</artifactId>
-			<version>${project.version}</version>
+			<artifactId>bennu-core</artifactId>
+			<version>${version.org.fenixedu.bennu}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fenixedu</groupId>

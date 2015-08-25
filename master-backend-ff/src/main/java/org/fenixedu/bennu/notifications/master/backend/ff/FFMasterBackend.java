@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.notifications.master.backend.ff.domain.Notification;
-import org.fenixedu.notifications.core.domain.Payload;
+import org.fenixedu.bennu.notifications.master.backend.ff.domain.Payload;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 import org.fenixedu.notifications.master.backend.annotation.MasterBackendImplementation;

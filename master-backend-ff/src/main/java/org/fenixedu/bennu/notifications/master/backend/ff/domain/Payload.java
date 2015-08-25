@@ -1,4 +1,4 @@
-package org.fenixedu.notifications.core.domain;
+package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
 import com.google.gson.JsonElement;
 

@@ -14,10 +14,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
         <module>master-backend</module>
-        <module>master-backend-ff</module>
         <module>master</module>
+        <module>master-backend-ff</module>
         <module>backend</module>
         <module>test-backend</module>
         <module>frontend</module>

@@ -2,8 +2,22 @@ package org.fenixedu.notifications.master.domain;
 
 package org.fenixedu.bennu.notifications.master.backend.ff.domain;
 
-class Notification extends .org.fenixedu.notifications.core.domain.Notification {
+class Notification {
+	DateTime timestamp;
 	boolean read;
+}
+
+class Payload {
+	JsonElement content;
+}
+
+relation NotificationHasPayload {
+	Notification playsRole notification {
+		multiplicity 1;
+	}
+	Payload playsRole payload {
+		multiplicity 1;
+	}
 }
 
 relation UserHasLastNotification {
