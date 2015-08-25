@@ -20,8 +20,6 @@
         <module>master</module>
         <module>backend</module>
         <module>test-backend</module>
-        <module>client</module>
-        <module>test-client</module>
         <module>frontend</module>
         <module>webapp</module>
     </modules>
