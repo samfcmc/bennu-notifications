@@ -67,7 +67,6 @@ public abstract class AbstractAPITest extends JerseyTest {
 
     @Before
     public void setup() {
-        System.err.println("BEFORE!!");
         MasterBackendFactory.registerBackend(null);
     }
 
