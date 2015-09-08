@@ -1,8 +1,5 @@
 package org.fenixedu.bennu.notifications.test.backend.api;
 
-import static org.fenixedu.bennu.notifications.test.utils.TestUtils.generateUser;
-import static org.fenixedu.bennu.notifications.test.utils.TestUtils.login;
-
 import org.fenixedu.bennu.core.domain.User;
 import org.junit.Test;
 
@@ -15,15 +12,15 @@ public class CreateEndpointTest extends AbstractAPITest {
 
     private static final String USERNAMES = "usernames";
     private static final String PAYLOAD = "payload";
+    private static final String USERNAME = "user";
+    private static final String TOKEN = "user";
 
     @Test
     public void success() {
         JsonObject requestJson = new JsonObject();
-        User user = generateUser();
-        login(user);
-        requestJson.add(USERNAMES, getUsernamesJsonArray(user));
+        requestJson.add(USERNAMES, getUsernamesJsonArray(USERNAME));
         requestJson.add(PAYLOAD, getNotificationPayload());
-        JsonObject json = invokeCreateNotificationEndpoint(requestJson);
+        JsonObject json = invokeCreateNotificationEndpoint(requestJson, TOKEN);
         JsonObject payloadJson = json.get(PAYLOAD).getAsJsonObject();
 
         assertNotification(json);

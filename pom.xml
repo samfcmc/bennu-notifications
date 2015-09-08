@@ -18,7 +18,6 @@
         <module>master</module>
         <module>master-backend-ff</module>
         <module>backend</module>
-        <module>test-backend</module>
         <module>frontend</module>
         <module>webapp</module>
     </modules>

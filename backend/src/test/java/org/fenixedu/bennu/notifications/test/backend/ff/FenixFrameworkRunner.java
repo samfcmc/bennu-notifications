@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.test.ff;
+package org.fenixedu.bennu.notifications.test.backend.ff;
 
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -12,9 +12,7 @@ import pt.ist.fenixframework.FenixFramework;
 public class FenixFrameworkRunner extends BlockJUnit4ClassRunner {
 
     static {
-        if (!FenixFramework.isInitialized()) {
-            FenixFramework.initialize(new InMemConfig());
-        }
+        FenixFramework.initialize(new InMemDomainObjectValidConfig());
     }
 
     public FenixFrameworkRunner(Class<?> klass) throws InitializationError {

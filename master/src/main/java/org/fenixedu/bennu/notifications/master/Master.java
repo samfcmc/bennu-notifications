@@ -12,10 +12,7 @@ public class Master {
 
     private static Master instance;
 
-    private MasterBackend backend;
-
     private Master() {
-        this.backend = getBackend();
     }
 
     public static Master getInstance() {
@@ -26,7 +23,7 @@ public class Master {
     }
 
     public Collection<NotificationInfo> createNotifications(Collection<String> usernames, JsonElement payload) {
-        return backend.createNotifications(usernames, payload);
+        return getBackend().createNotifications(usernames, payload);
     }
 
     private MasterBackend getBackend() {
@@ -34,31 +31,31 @@ public class Master {
     }
 
     public NotificationInfo createNotification(String username, JsonElement payload) {
-        return backend.createNotification(username, payload);
+        return getBackend().createNotification(username, payload);
     }
 
     public void markAsRead(String id, String username) {
-        backend.markAsRead(id, username);
+        getBackend().markAsRead(id, username);
     }
 
     public NotificationInfo getNotification(String username, String id) {
-        return backend.getNotification(id, username);
+        return getBackend().getNotification(id, username);
     }
 
     public Collection<NotificationInfo> getLastN(String username, int n) {
-        return backend.getLastNNotificatons(username, n);
+        return getBackend().getLastNNotificatons(username, n);
     }
 
     public Collection<NotificationInfo> getNotificationsAfter(String username, String id) {
-        return backend.getNotificationsAfter(username, id);
+        return getBackend().getNotificationsAfter(username, id);
     }
 
     public Collection<NotificationInfo> getNotificationsBefore(String username, String id) {
-        return backend.getNotificationsBefore(username, id);
+        return getBackend().getNotificationsBefore(username, id);
     }
 
     public Collection<NotificationInfo> getUnread(String username) {
-        return backend.getUnread(username);
+        return getBackend().getUnread(username);
     }
 
 }

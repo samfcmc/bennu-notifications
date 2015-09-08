@@ -11,7 +11,7 @@ public class GetUnreadJsonViewer implements JsonViewer<GetUnreadView> {
 
     @Override
     public JsonElement view(GetUnreadView obj, JsonBuilder ctx) {
-        return ctx.view(Master.getInstance().getUnread(obj.getUser().getUsername()));
+        return ctx.view(Master.getInstance().getUnread(obj.getUsername()));
     }
 
 }

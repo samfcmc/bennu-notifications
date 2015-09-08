@@ -13,7 +13,7 @@ public class NotificationsLastNJsonViewer implements JsonViewer<NotificationsLas
 
     @Override
     public JsonElement view(NotificationsLastNView obj, JsonBuilder ctx) {
-        return ctx.view(Master.getInstance().getLastN(obj.getUser().getUsername(), obj.getObject()));
+        return ctx.view(Master.getInstance().getLastN(obj.getUsername(), obj.getObject()));
     }
 
 }

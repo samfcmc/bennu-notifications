@@ -1,11 +1,9 @@
 package org.fenixedu.bennu.notifications.backend.view;
 
-import org.fenixedu.bennu.core.domain.User;
+public class NotificationsBeforeByIdView extends UserBasedView<String> {
 
-public class NotificationsBeforeByIdView extends DomainObjectIdView {
-
-    public NotificationsBeforeByIdView(User user, String object) {
-        super(user, object);
+    public NotificationsBeforeByIdView(String username, String id) {
+        super(username, id);
     }
 
 }

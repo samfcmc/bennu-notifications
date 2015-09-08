@@ -1,18 +1,16 @@
 package org.fenixedu.bennu.notifications.backend.view;
 
-import org.fenixedu.bennu.core.domain.User;
-
 public class UserBasedView<T> {
-    private User user;
+    private String username;
     private T object;
 
-    public UserBasedView(User user, T object) {
-        this.user = user;
+    public UserBasedView(String username, T object) {
+        this.username = username;
         this.object = object;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
     public T getObject() {

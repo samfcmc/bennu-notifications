@@ -63,4 +63,9 @@ public class AbstractResource extends BennuRestResource {
         return Authenticate.getUser();
     }
 
+    protected String getUsername(String token) {
+        //FIXME: For now, the token is the username
+        return token;
+    }
+
 }
