@@ -143,7 +143,6 @@ public class GetNotificationsTest extends AbstractAPITest {
 
         int limit = n + 2;
         JsonArray responseJson = invokeGetNLastNotifications(limit, TOKEN);
-        System.out.println(responseJson.toString());
         assertEquals("Result should have " + n + " elements", n, responseJson.size());
 
         for (JsonElement jsonElement : responseJson) {
