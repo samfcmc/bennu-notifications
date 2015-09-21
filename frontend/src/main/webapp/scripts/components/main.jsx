@@ -10,6 +10,9 @@
     var user = context.user;
     var Partials = context.components.Partials;
     var Navbar = Partials.Navbar;
+    var NotificationsClient = context.libs.NotificationsClient;
+
+    NotificationsClient.init(user.username);
 
     context.createComponent(name, 'Main', {
       render: function() {

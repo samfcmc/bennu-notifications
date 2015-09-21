@@ -13,8 +13,9 @@
       return found;
     }
 
-    var request = function(url, method, data, success, error) {
+    var request = function(url, method, token, data, success, error) {
       var dataRequest = null;
+      var finalUrl = url + '?token=' + token;
       if(method != 'GET') {
         dataRequest = JSON.stringify(data);
       }
@@ -29,15 +30,19 @@
           error(request.responseText);
         }
       }
-      request.open(method, url, true);
+      request.open(method, finalUrl, true);
       request.setRequestHeader("Content-type", "application/json");
       request.send(dataRequest);
     }
 
     return {
+      token: 'token',
+      init: function(token) {
+        this.token = token;
+      },
       getLastN: function(n, success, error) {
         var url = baseUrl + '/last/' + n;
-        request(url, 'GET', {}, function(response) {
+        request(url, 'GET', this.token, {}, function(response) {
           if(response.length > 0) {
             this.last = mostRecent(response);
           }
@@ -51,11 +56,11 @@
           usernames: usernames,
           payload: payload
         };
-        request(baseUrl, 'POST', data, success, error);
+        request(baseUrl, 'POST', this.token, data, success, error);
       },
       unread: function(success, error) {
         var url = baseUrl + '/unread';
-        request(url, 'GET', {}, function(response) {
+        request(url, 'GET', this.token, {}, function(response) {
           if(response.length > 0) {
             this.last = mostRecent(response);
           }
@@ -66,7 +71,7 @@
       },
       after: function(id, success, error) {
         var url = baseUrl + '/after/' + id;
-        request(url, 'GET', {}, function(response) {
+        request(url, 'GET', this.token, {}, function(response) {
           if(response.length > 0) {
             this.last = mostRecent(response);
           }
@@ -91,7 +96,7 @@
       },
       read: function(id, success, error) {
         var url = baseUrl + '/' + id + '/read'
-        request(url, 'POST', {}, success, error)
+        request(url, 'POST', this.token, {}, success, error)
       }
     };
   };
