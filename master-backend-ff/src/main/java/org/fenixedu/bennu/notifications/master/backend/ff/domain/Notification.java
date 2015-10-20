@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.notifications.master.backend.exception.NotificationAlreadyReadException;
 import org.joda.time.DateTime;
 
 public class Notification extends Notification_Base {
@@ -135,16 +134,6 @@ public class Notification extends Notification_Base {
         }
 
         return notifications;
-    }
-
-    @Override
-    public void setRead(boolean read) {
-        if (read && getRead()) {
-            //Notification has already been read
-            throw new NotificationAlreadyReadException(getExternalId());
-        } else {
-            super.setRead(read);
-        }
     }
 
     public void read() {
