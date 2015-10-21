@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.fenixedu.notifications.master.backend.exception.NotificationAlreadyReadException;
 import org.fenixedu.notifications.master.backend.exception.NotificationDoesNotBelongToUserException;
 import org.fenixedu.notifications.master.backend.exception.NotificationNotFoundException;
 import org.joda.time.DateTime;
@@ -47,9 +46,6 @@ public class InMemMasterBackend implements MasterBackend {
     @Override
     public void markAsRead(String id, String username) {
         NotificationInfo notification = getNotification(id, username);
-        if (notification.isRead()) {
-            throw new NotificationAlreadyReadException(notification);
-        }
         notification.setRead(true);
     }
 
