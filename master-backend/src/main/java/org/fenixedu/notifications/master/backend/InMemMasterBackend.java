@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,16 +12,19 @@ import java.util.stream.Stream;
 
 import org.fenixedu.notifications.master.backend.exception.NotificationDoesNotBelongToUserException;
 import org.fenixedu.notifications.master.backend.exception.NotificationNotFoundException;
+import org.fenixedu.notifications.master.backend.webhook.Webhook;
 import org.joda.time.DateTime;
 
 import com.google.gson.JsonElement;
 
 public class InMemMasterBackend implements MasterBackend {
     private Map<String, NotificationInfo> notifications;
+    private List<Webhook> webhooks;
     private int id;
 
     public InMemMasterBackend() {
         this.notifications = new HashMap<>();
+        this.webhooks = new LinkedList<Webhook>();
         this.id = 0;
     }
 
@@ -31,6 +35,12 @@ public class InMemMasterBackend implements MasterBackend {
             NotificationInfo notificationInfo = createNotification(username, payload);
             list.add(notificationInfo);
         }
+
+        // Invoke webhooks
+        for (Webhook webhook : webhooks) {
+            webhook.invoke();
+        }
+
         return list;
     }
 
@@ -109,6 +119,11 @@ public class InMemMasterBackend implements MasterBackend {
     @Override
     public Collection<NotificationInfo> getUnread(String username) {
         return getStreamForUser(username).filter(notification -> !notification.isRead()).collect(Collectors.toSet());
+    }
+
+    @Override
+    public void addWebhook(Webhook webhook) {
+        this.webhooks.add(webhook);
     }
 
 }

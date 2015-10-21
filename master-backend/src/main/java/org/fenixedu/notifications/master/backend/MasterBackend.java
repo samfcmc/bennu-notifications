@@ -2,6 +2,8 @@ package org.fenixedu.notifications.master.backend;
 
 import java.util.Collection;
 
+import org.fenixedu.notifications.master.backend.webhook.Webhook;
+
 import com.google.gson.JsonElement;
 
 public interface MasterBackend {
@@ -21,5 +23,7 @@ public interface MasterBackend {
     Collection<NotificationInfo> getNotificationsBefore(String username, String id);
 
     Collection<NotificationInfo> getUnread(String username);
+
+    void addWebhook(Webhook webhook);
 
 }

@@ -13,6 +13,7 @@ import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 import org.fenixedu.notifications.master.backend.annotation.MasterBackendImplementation;
 import org.fenixedu.notifications.master.backend.exception.NotificationDoesNotBelongToUserException;
+import org.fenixedu.notifications.master.backend.webhook.Webhook;
 
 import pt.ist.fenixframework.FenixFramework;
 
@@ -112,6 +113,11 @@ public class FFMasterBackend implements MasterBackend {
         Collection<Notification> unread = notification.getPreviousUnread();
         Collection<NotificationInfo> result = getNotificationInfoCollection(unread);
         return result;
+    }
+
+    @Override
+    public void addWebhook(Webhook webhook) {
+        // TODO Auto-generated method stub
     }
 
 }
