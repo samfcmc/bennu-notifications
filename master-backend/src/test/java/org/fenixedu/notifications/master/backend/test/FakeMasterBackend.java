@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
 import org.fenixedu.notifications.master.backend.annotation.MasterBackendImplementation;
+import org.fenixedu.notifications.master.backend.webhook.Webhook;
 
 import com.google.gson.JsonElement;
 
@@ -53,6 +54,12 @@ public class FakeMasterBackend implements MasterBackend {
     public Collection<NotificationInfo> getUnread(String username) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void addWebhook(Webhook webhook) {
+        // TODO Auto-generated method stub
+
     }
 
 }
