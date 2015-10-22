@@ -129,7 +129,7 @@ Creates a new notification
 }
 ```
 
-#### GET `/after/{id}`
+#### GET `/after/{id}?token={token}`
 Get all the notifications that were created after the notification with the id {id}
 * Parameters:
   * {id}: A notification's id
@@ -159,7 +159,7 @@ Get all the notifications that were created after the notification with the id {
     ...
 ]
 ```
-#### GET `/before/{id}`
+#### GET `/before/{id}?token={token}`
 Gett all notifications that were created before the notification with the id {id}
 * Parameters:
   * {id}: A notification's id
@@ -190,7 +190,7 @@ Gett all notifications that were created before the notification with the id {id
 ]
 ```
 
-#### GET `/last/{n}`
+#### GET `/last/{n}?token={token}`
 Get all {n} most recent notifications
 * Parameters:
   * {n}: An integer > 0
@@ -221,7 +221,7 @@ Get all {n} most recent notifications
 ]
 ```
 
-#### POST `/read/{id}`
+#### POST `/read/{id}?token={token}`
 Read a given notification
 * Parameters:
   * {id}: A notification's identification
@@ -252,7 +252,7 @@ Read a given notification
 ]
 ```
 
-#### GET `/unread`
+#### GET `/unread?token={token}`
 Get all user's unread notification
 * Response: A JSON array with all unread notifications
 ```javascript
