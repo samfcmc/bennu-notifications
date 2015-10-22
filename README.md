@@ -25,6 +25,8 @@ This library allows applications developed using the Bennu Framework to have rea
     - [POST `/read/{id}?token={token}`](#post-readidtokentoken)
     - [GET `/unread?token={token}`](#get-unreadtokentoken)
 - [Client (JAVA)](#client-java)
+- [Polling Javascript consumer](#polling-javascript-consumer)
+- [Example application](#example-application)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -303,3 +305,13 @@ Get all user's unread notification
 ## Client (JAVA)
 
 There is a [client](https://github.com/samfcmc/notifications-client-java), for this service, written in JAVA.
+
+## Polling Javascript consumer
+
+There is a JS library that consumes notifications from this service using polling.
+Check it here:
+* [notifications-js-polling-consumer](https://github.com/samfcmc/notifications-js-polling-consumer)
+
+## Example application
+You can see everything working together in the following example:
+* [notifications-test-app](https://github.com/samfcmc/notifications-test-app)
