@@ -7,39 +7,18 @@ Notifications service for the[Bennu Framework](https://github.com/FenixEdu/bennu
 
 This library allows applications developed using the Bennu Framework to have real-time notifications (e-mail, push notifications, etc)
 
-Architecture
+## Architecture
 ------------
 
 ![Architecture](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/architecture.png)
 
-### Domain in the backend
-
-The following diagram shows the domain that is stored in the backend
-
-![Domain](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/domain-backend.png)
-
-Requirements:
--------------
+## Requirements:
 
 -	Java JDK 8
 -	Maven
--	MySQL
 
-Development
------------
-
--	Clone this repo
--	Go to project's directory
--	Start mysql server
--	Create a database
--	Go to the webapp folder and create a `fenix-framework.properties` file
-
-```
-$ cp webapp/src/main/resources/fenix-framework.properties-template webapp/src/main/resources/fenix-framework.properties
-```
-
--	Edit that file according to your mysql server
--	Install all modules and run unit tests
+## Development
+* Go to the project's root and use maven to compile it
 
 ```
 $ mvn install
@@ -50,14 +29,31 @@ Backend
 
 The Backend is where the notifications are stored. This backend runs somewhere and allows you to register authorized applications and offers an API, for the Clients, to create notifications. The "consumers" subscribe to this backend and start to receive notifications.
 
--	Run in an embedded server
+### Domain in the backend
 
+The following diagram shows the domain that is stored in the backend
+
+![Domain](http://yuml.me/ec57a5a8)
+
+###	Run in an embedded server
+* Compile the project running the following in the project's root:
+```shell
+mvn install
 ```
-$ mvn tomcat7:run
+
+* Go to the webapp dir:
+```shell
+cd webapp
+```
+
+* Run the webapp in an embedded tomcat container using maven
+```shell
+mvn tomcat7
 ```
 
 -	Open a web browser in [http://localhost:8080](http://localhost:8080)
--	Enjoy your notifications service ;)
+-	The first time you navigate to it you have to follow the wizzard in order to complete the bootstrap process
+- You notifications service is up and running ;)
 
 ### Endpoints
 All requests receive a `token` query parameter.
