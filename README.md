@@ -3,7 +3,7 @@ bennu-notifications
 
 [![Build Status](https://travis-ci.org/samfcmc/bennu-notifications.svg?branch=master)](https://travis-ci.org/samfcmc/bennu-notifications)
 
-Notifications service for the[Bennu Framework](https://github.com/FenixEdu/bennu).
+Notifications service for the [Bennu Framework](https://github.com/FenixEdu/bennu).
 
 This library allows applications developed using the Bennu Framework to have real-time notifications (e-mail, push notifications, etc)
 
