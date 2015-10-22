@@ -7,6 +7,27 @@ Notifications service for the [Bennu Framework](https://github.com/FenixEdu/benn
 
 This library allows applications developed using the Bennu Framework to have real-time notifications (e-mail, push notifications, etc)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Architecture](#architecture)
+- [Requirements:](#requirements)
+- [Development](#development)
+- [Backend](#backend)
+- [Domain in the backend](#domain-in-the-backend)
+- [	Run in an embedded server](#run-in-an-embedded-server)
+- [Endpoints](#endpoints)
+  - [POST `/api/notifications?token={token}`](#post-apinotificationstokentoken)
+  - [GET `/after/{id}?token={token}`](#get-afteridtokentoken)
+  - [GET `/before/{id}?token={token}`](#get-beforeidtokentoken)
+  - [GET `/last/{n}?token={token}`](#get-lastntokentoken)
+  - [POST `/read/{id}?token={token}`](#post-readidtokentoken)
+  - [GET `/unread?token={token}`](#get-unreadtokentoken)
+- [Client (JAVA)](#client-java)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Architecture
 
 ![Architecture](https://raw.githubusercontent.com/samfcmc/bennu-notifications/master/architecture.png)
