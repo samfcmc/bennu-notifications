@@ -24,6 +24,7 @@ This library allows applications developed using the Bennu Framework to have rea
     - [GET `/last/{n}?token={token}`](#get-lastntokentoken)
     - [POST `/read/{id}?token={token}`](#post-readidtokentoken)
     - [GET `/unread?token={token}`](#get-unreadtokentoken)
+- [Frontend](#frontend)
 - [Client (JAVA)](#client-java)
 - [Polling Javascript consumer](#polling-javascript-consumer)
 - [Example application](#example-application)
@@ -301,6 +302,15 @@ Get all user's unread notification
     ...
 ]
 ```
+
+## Frontend
+* To access the UI in development go to the `frontend` folder and run grunt.
+```shell
+cd frontend
+grunt
+```
+* Now open your web browser in [http://localhost:9000](http://localhost:9000)
+
 
 ## Client (JAVA)
 
