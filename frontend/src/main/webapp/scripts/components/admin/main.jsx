@@ -3,7 +3,6 @@
 (function(module) {
   module.exports = function(context, name) {
     var ReactBootstrap = context.libs.ReactBootstrap;
-    console.log(ReactBootstrap.Tabs);
     var Tabs = ReactBootstrap.TabbedArea;
     var Tab = ReactBootstrap.TabPane;
 
