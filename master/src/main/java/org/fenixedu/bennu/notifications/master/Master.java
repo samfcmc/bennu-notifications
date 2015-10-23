@@ -68,4 +68,8 @@ public class Master {
         return webhook;
     }
 
+    public Collection<Webhook> getWebhooks() {
+        return getBackend().getWebhooks();
+    }
+
 }

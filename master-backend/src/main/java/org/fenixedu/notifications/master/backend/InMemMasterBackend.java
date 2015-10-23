@@ -126,4 +126,9 @@ public class InMemMasterBackend implements MasterBackend {
         this.webhooks.add(webhook);
     }
 
+    @Override
+    public Collection<Webhook> getWebhooks() {
+        return webhooks;
+    }
+
 }

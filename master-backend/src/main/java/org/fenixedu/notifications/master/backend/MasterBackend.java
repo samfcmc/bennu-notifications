@@ -26,4 +26,6 @@ public interface MasterBackend {
 
     void addWebhook(Webhook webhook);
 
+    Collection<Webhook> getWebhooks();
+
 }

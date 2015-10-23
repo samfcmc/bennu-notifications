@@ -120,4 +120,10 @@ public class FFMasterBackend implements MasterBackend {
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public Collection<Webhook> getWebhooks() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

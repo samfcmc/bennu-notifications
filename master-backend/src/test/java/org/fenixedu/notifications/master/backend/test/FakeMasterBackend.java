@@ -62,4 +62,10 @@ public class FakeMasterBackend implements MasterBackend {
 
     }
 
+    @Override
+    public Collection<Webhook> getWebhooks() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
