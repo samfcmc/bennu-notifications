@@ -70,7 +70,7 @@ cd webapp
 
 * Run the webapp in an embedded tomcat container using maven
 ```shell
-mvn tomcat7
+mvn tomcat7:run
 ```
 
 -	Open a web browser in [http://localhost:8080](http://localhost:8080)
