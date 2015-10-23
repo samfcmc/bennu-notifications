@@ -5,8 +5,11 @@ import java.util.Collection;
 import org.fenixedu.notifications.master.backend.MasterBackend;
 import org.fenixedu.notifications.master.backend.MasterBackendFactory;
 import org.fenixedu.notifications.master.backend.NotificationInfo;
+import org.fenixedu.notifications.master.backend.webhook.Webhook;
+import org.fenixedu.notifications.master.backend.webhook.WebhookMethod;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class Master {
 
@@ -56,6 +59,13 @@ public class Master {
 
     public Collection<NotificationInfo> getUnread(String username) {
         return getBackend().getUnread(username);
+    }
+
+    public Webhook createWebhook(String name, WebhookMethod method, String url, JsonObject data) {
+        Webhook webhook = new Webhook(name, method, url, data);
+        getBackend().addWebhook(webhook);
+
+        return webhook;
     }
 
 }
